@@ -1,26 +1,420 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================
+   DR. MARK PIRTLE — BRAND DESIGN SYSTEM
+   Inspired by drmarkpirtle.com + tonyrobbins.com
+   ============================================ */
+
+@theme {
+
+  /* --- COLORS --- */
+
+  /* Primary: Deep Navy/Charcoal (header, dark sections) */
+  --color-brand-navy:       #1a1a1a;
+  --color-brand-navy-light: #2d2d2d;
+
+  /* Accent: Burnt Sienna / Terracotta (CTAs, highlights) */
+  --color-brand-sienna:       #c0522a;
+  --color-brand-sienna-light: #d4622f;
+  --color-brand-sienna-dark:  #a04420;
+
+  /* Neutral warm tones (body backgrounds, cards) */
+  --color-brand-cream:      #faf8f5;
+  --color-brand-off-white:  #f5f2ee;
+  --color-brand-warm-gray:  #e8e4de;
+
+  /* Text */
+  --color-brand-text:       #1a1a1a;
+  --color-brand-text-muted: #5a5a5a;
+  --color-brand-text-light: #8a8a8a;
+
+  /* Borders */
+  --color-brand-border:     #d4cfc8;
+
+  /* --- TYPOGRAPHY --- */
+
+  /* Serif for headlines (Playfair Display — add to layout.tsx) */
+  --font-serif: var(--font-playfair), 'Georgia', 'Times New Roman', serif;
+
+  /* Sans for body (Inter — add to layout.tsx) */
+  --font-sans: var(--font-inter), 'Helvetica Neue', 'Arial', sans-serif;
+
+  /* --- FONT SIZES (large, editorial scale) --- */
+  --text-display:  clamp(3rem, 6vw, 5rem);     /* Hero headlines */
+  --text-hero:     clamp(2rem, 4vw, 3.5rem);   /* Section headlines */
+  --text-title:    clamp(1.5rem, 3vw, 2.25rem); /* Sub-headlines */
+  --text-lead:     1.125rem;                    /* Lead paragraphs */
+  --text-body:     1rem;                        /* Body copy */
+  --text-small:    0.875rem;                    /* Captions, labels */
+  --text-xs:       0.75rem;                     /* Tags, badges */
+
+  /* --- SPACING --- */
+  --section-padding-y: 5rem;
+  --section-padding-x: 1.5rem;
+
+  /* --- SHADOWS --- */
+  --shadow-card:    0 4px 24px rgba(0,0,0,0.08);
+  --shadow-premium: 0 20px 60px rgba(0,0,0,0.15);
+  --shadow-cta:     0 8px 32px rgba(192, 82, 42, 0.3);
+
+  /* --- BORDER RADIUS --- */
+  --radius-btn: 9999px;   /* Pill buttons (like site) */
+  --radius-card: 0.75rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-brand-cream);
+  color: var(--color-brand-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.7;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-brand-text);
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: var(--text-display); }
+h2 { font-size: var(--text-hero); }
+h3 { font-size: var(--text-title); }
+
+p {
+  color: var(--color-brand-text-muted);
+  line-height: 1.75;
+  max-width: 68ch;
+}
+
+/* Eyebrow labels (e.g. "RETREATS & EXPERIENCES") */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-brand-sienna);
+}
+
+/* Lead paragraph */
+.lead {
+  font-size: var(--text-lead);
+  color: var(--color-brand-text-muted);
+  line-height: 1.75;
+}
+
+/* Italic brand name styling */
+em {
+  font-style: italic;
+  color: inherit;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+/* Primary — Sienna filled (like "BOOK NOW") */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2.25rem;
+  background-color: var(--color-brand-sienna);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--radius-btn);
+  border: 2px solid var(--color-brand-sienna);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-cta);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-brand-sienna-dark);
+  border-color: var(--color-brand-sienna-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 40px rgba(192, 82, 42, 0.4);
+}
+
+/* Secondary — White outlined (like "Get in Touch") */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2.25rem;
+  background-color: transparent;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--radius-btn);
+  border: 2px solid rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255,255,255,0.1);
+  border-color: #ffffff;
+}
+
+/* Ghost — dark outlined (on light backgrounds) */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2.25rem;
+  background-color: transparent;
+  color: var(--color-brand-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--radius-btn);
+  border: 2px solid var(--color-brand-text);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-brand-text);
+  color: #ffffff;
+}
+
+/* ============================================
+   LAYOUT HELPERS
+   ============================================ */
+
+.section {
+  padding: var(--section-padding-y) var(--section-padding-x);
+}
+
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Section divider line (like site's horizontal rules) */
+.section-divider {
+  width: 3rem;
+  height: 2px;
+  background-color: var(--color-brand-sienna);
+  margin-bottom: 1rem;
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+
+.card {
+  background-color: #ffffff;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-brand-warm-gray);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-premium);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   DARK SECTIONS (navy background)
+   ============================================ */
+
+.section-dark {
+  background-color: var(--color-brand-navy);
+  color: #ffffff;
+}
+
+.section-dark h1,
+.section-dark h2,
+.section-dark h3,
+.section-dark h4 {
+  color: #ffffff;
+}
+
+.section-dark p {
+  color: rgba(255,255,255,0.75);
+}
+
+/* ============================================
+   SIENNA CTA SECTIONS (like "Your time is now")
+   ============================================ */
+
+.section-sienna {
+  background-color: var(--color-brand-sienna);
+  color: #ffffff;
+}
+
+.section-sienna h1,
+.section-sienna h2,
+.section-sienna h3,
+.section-sienna p {
+  color: #ffffff;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.nav {
+  background-color: var(--color-brand-navy);
+  color: #ffffff;
+}
+
+.nav-link {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+/* ============================================
+   ACCORDION (like the Presence/Clarity items)
+   ============================================ */
+
+.accordion-item {
+  border-top: 1px solid var(--color-brand-border);
+  padding: 1.25rem 0;
+}
+
+.accordion-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-brand-text);
+}
+
+.accordion-icon {
+  color: var(--color-brand-sienna);
+  font-size: 1.5rem;
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   TESTIMONIALS
+   ============================================ */
+
+.testimonial-quote {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--color-brand-text);
+  line-height: 1.75;
+}
+
+.testimonial-author {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--color-brand-text);
+  letter-spacing: 0.02em;
+}
+
+.testimonial-title {
+  font-size: var(--text-xs);
+  color: var(--color-brand-text-light);
+}
+
+/* ============================================
+   FORMS
+   ============================================ */
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 0.375rem;
+  background-color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  color: var(--color-brand-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--color-brand-sienna);
+  box-shadow: 0 0 0 3px rgba(192, 82, 42, 0.12);
+}
+
+.form-label {
+  display: block;
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--color-brand-text);
+  margin-bottom: 0.375rem;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+  background-color: var(--color-brand-navy);
+  color: rgba(255,255,255,0.7);
+  font-size: var(--text-small);
+}
+
+.footer a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: #ffffff;
 }
