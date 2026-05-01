@@ -1,77 +1,174 @@
-// components/sections/AboutMark.tsx
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
 export function AboutMark() {
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Image */}
-          <div className="relative">
-            <div className="aspect-square rounded-2xl bg-gradient-to-br from-dark-100 to-dark-50 overflow-hidden shadow-premium">
-              {/* Placeholder for Dr. Mark's photo */}
-              <div className="w-full h-full flex items-center justify-center text-dark-400">
-                <div className="text-center">
-                  <div className="w-32 h-32 bg-gradient-premium rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-white text-4xl font-bold">MP</span>
-                  </div>
-                  <p className="text-sm">Photo placeholder</p>
-                </div>
+    <section className="section" style={{ backgroundColor: 'var(--color-brand-cream)' }}>
+      <div className="container">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+          {/* Left — photo */}
+          <div style={{ position: 'relative' }}>
+            <div
+              style={{
+                aspectRatio: '4/5',
+                borderRadius: '1.25rem',
+                overflow: 'hidden',
+                position: 'relative',
+                boxShadow: 'var(--shadow-premium)',
+              }}
+            >
+              <Image
+                src="/images/mark-about.jpg"
+                alt="Dr. Mark Pirtle"
+                fill
+                className="object-cover"
+                style={{ objectPosition: 'center top' }}
+              />
+              {/* Fallback if no image */}
+              <div
+                style={{
+                  position: 'absolute', inset: 0,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  backgroundColor: 'var(--color-brand-warm-gray)',
+                }}
+              >
+                <span style={{ fontSize: '4rem', fontWeight: 800, color: 'var(--color-brand-text-light)' }}>MP</span>
               </div>
             </div>
 
-            {/* Decorative elements */}
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-600/10 rounded-full blur-2xl" />
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-accent-500/10 rounded-full blur-2xl" />
+            {/* Floating credential badge */}
+            <div
+              style={{
+                position: 'absolute', bottom: '2rem', right: '-1.5rem',
+                backgroundColor: '#ffffff',
+                borderRadius: '1rem',
+                padding: '1rem 1.25rem',
+                boxShadow: 'var(--shadow-premium)',
+                border: '1px solid var(--color-brand-warm-gray)',
+              }}
+              className="hidden lg:block"
+            >
+              <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-light)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
+                Experience
+              </div>
+              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-brand-text)', lineHeight: 1 }}>
+                20+
+              </div>
+              <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)', marginTop: '0.2rem' }}>
+                Years Coaching
+              </div>
+            </div>
           </div>
 
-          {/* Right Column - Content */}
+          {/* Right — content */}
           <div>
-            <div className="inline-block px-4 py-2 bg-primary-100 rounded-full text-primary-700 text-sm font-medium mb-6">
-              About Dr. Mark
-            </div>
+            <div className="section-divider mb-4" />
+            <span className="eyebrow">About Dr. Mark</span>
 
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-900 mb-6">
-              Guiding Leaders to<br />
-              <span className="text-primary-600 italic">Sustainable Transformation</span>
+            <h2 className="mt-4 mb-6">
+              Guiding Leaders to{' '}
+              <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna)' }}>
+                Sustainable Transformation
+              </em>
             </h2>
 
-            <div className="space-y-4 text-lg text-dark-700 leading-relaxed mb-8">
-              <p>
-                Dr. Mark Pirtle has dedicated over 20 years to helping executives and entrepreneurs 
-                unlock their full leadership potential through the SkillfullyAware® methodology.
-              </p>
-
-              <p>
-                Drawing from neuroscience, contemplative practices, and decades of direct experience, 
-                Mark works with EO and YPO forums worldwide to create transformational retreat 
-                experiences that create lasting change.
-              </p>
-
-              <p>
-                His unique approach combines shadow work, mindfulness training, and systemic thinking 
-                to help leaders identify energy leaks, break unconscious patterns, and develop the 
-                emotional agility needed for conscious leadership.
-              </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
+              {[
+                'Dr. Mark Pirtle has dedicated over 20 years to helping executives and entrepreneurs unlock their full leadership potential through the SkillfullyAware® methodology.',
+                'Drawing from neuroscience, contemplative practices, and decades of direct experience, Mark works with EO and YPO forums worldwide to create transformational retreat experiences that create lasting change.',
+                'His unique approach combines shadow work, mindfulness training, and systemic thinking to help leaders identify energy leaks, break unconscious patterns, and develop the emotional agility needed for conscious leadership.',
+              ].map((text, i) => (
+                <p key={i} style={{ fontSize: 'var(--text-lead)', color: 'var(--color-brand-text-muted)', lineHeight: 1.75, maxWidth: '52ch' }}>
+                  {text}
+                </p>
+              ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* The Story / The System / The Science pills */}
+            <div style={{ display: 'flex', gap: '0.625rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+              {['The Story', 'The System', 'The Science'].map(label => (
+                <Link
+                  key={label}
+                  href={`/about#${label.toLowerCase().replace(' ', '-')}`}
+                  style={{
+                    padding: '0.4rem 1rem',
+                    borderRadius: '9999px',
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: 700,
+                    letterSpacing: '0.04em',
+                    textDecoration: 'none',
+                    backgroundColor: 'var(--color-brand-off-white)',
+                    border: '1px solid var(--color-brand-border)',
+                    color: 'var(--color-brand-text)',
+                    transition: 'background-color 0.15s, border-color 0.15s',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.backgroundColor = 'var(--color-brand-blue)';
+                    e.currentTarget.style.color = '#ffffff';
+                    e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.backgroundColor = 'var(--color-brand-off-white)';
+                    e.currentTarget.style.color = 'var(--color-brand-text)';
+                    e.currentTarget.style.borderColor = 'var(--color-brand-border)';
+                  }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
               <Link
                 href="/about"
-                className="inline-flex items-center justify-center space-x-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold transition-all hover:scale-105"
+                className="inline-flex items-center gap-2"
+                style={{
+                  backgroundColor: 'var(--color-brand-sienna)',
+                  color: '#ffffff',
+                  padding: '0.875rem 1.75rem',
+                  borderRadius: '9999px',
+                  fontWeight: 700,
+                  fontSize: 'var(--text-small)',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase' as const,
+                  textDecoration: 'none',
+                  transition: 'background-color 0.2s',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-sienna-dark)')}
+                onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-sienna)')}
               >
-                <span>Read Full Story</span>
-                <ArrowRight className="w-5 h-5" />
+                Read Full Story <ArrowRight className="w-4 h-4" />
               </Link>
 
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center space-x-2 px-6 py-3 bg-white border-2 border-dark-900 hover:bg-dark-900 text-dark-900 hover:text-white rounded-lg font-semibold transition-all"
+                style={{
+                  backgroundColor: 'transparent',
+                  color: 'var(--color-brand-text)',
+                  padding: '0.875rem 1.75rem',
+                  borderRadius: '9999px',
+                  fontWeight: 700,
+                  fontSize: 'var(--text-small)',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase' as const,
+                  textDecoration: 'none',
+                  border: '2px solid var(--color-brand-text)',
+                  transition: 'background-color 0.2s, color 0.2s',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.backgroundColor = 'var(--color-brand-text)';
+                  e.currentTarget.style.color = '#ffffff';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = 'var(--color-brand-text)';
+                }}
               >
-                <span>Get in Touch</span>
+                Get in Touch
               </Link>
             </div>
           </div>

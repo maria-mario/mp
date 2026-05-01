@@ -1,83 +1,79 @@
-// components/sections/StatsAchievements.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
 import { Users, Award, Calendar, TrendingUp } from 'lucide-react';
 
+const stats = [
+  { icon: Users,      value: '500+', label: 'Leaders Transformed',       iconColor: 'var(--color-brand-blue)' },
+  { icon: Award,      value: '20+',  label: 'Years of Experience',        iconColor: 'var(--color-brand-sienna)' },
+  { icon: Calendar,   value: '100+', label: 'Forum Retreats Facilitated', iconColor: 'var(--color-brand-blue)' },
+  { icon: TrendingUp, value: '95%',  label: 'Client Satisfaction Rate',   iconColor: 'var(--color-brand-sienna)' },
+];
+
 export function StatsAchievements() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
+    const el = document.getElementById('stats-section');
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setVisible(true); },
       { threshold: 0.1 }
     );
-
-    const element = document.getElementById('stats-section');
-    if (element) observer.observe(element);
-
-    return () => observer.disconnect();
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
-  const stats = [
-    {
-      icon: Users,
-      value: '500+',
-      label: 'Leaders Transformed',
-      color: 'from-blue-500 to-cyan-500',
-    },
-    {
-      icon: Award,
-      value: '20+',
-      label: 'Years of Experience',
-      color: 'from-primary-500 to-blue-500',
-    },
-    {
-      icon: Calendar,
-      value: '100+',
-      label: 'Forum Retreats Facilitated',
-      color: 'from-violet-500 to-primary-500',
-    },
-    {
-      icon: TrendingUp,
-      value: '95%',
-      label: 'Client Satisfaction Rate',
-      color: 'from-green-500 to-emerald-500',
-    },
-  ];
-
   return (
-    <section id="stats-section" className="py-24 bg-gradient-to-b from-primary-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
+    <section
+      id="stats-section"
+      className="section"
+      style={{ backgroundColor: '#ffffff', borderBottom: '1px solid var(--color-brand-warm-gray)' }}
+    >
+      <div className="container">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((stat, i) => (
             <div
-              key={index}
-              className={`text-center p-8 bg-white rounded-2xl shadow-lg border border-dark-100 transition-all duration-700 ${
-                isVisible
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              key={stat.label}
+              className="text-center rounded-2xl transition-all duration-700"
+              style={{
+                padding: '2rem 1.5rem',
+                backgroundColor: 'var(--color-brand-off-white)',
+                border: '1px solid var(--color-brand-warm-gray)',
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translateY(0)' : 'translateY(1.5rem)',
+                transitionDelay: `${i * 100}ms`,
+              }}
             >
               {/* Icon */}
-              <div className="inline-flex items-center justify-center w-16 h-16 mb-6">
-                <div className={`w-full h-full bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center shadow-lg`}>
-                  <stat.icon className="w-8 h-8 text-white" />
-                </div>
+              <div
+                className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-5"
+                style={{
+                  backgroundColor: i % 2 === 0 ? 'rgba(61,141,174,0.1)' : 'rgba(192,82,42,0.1)',
+                  border: `1px solid ${i % 2 === 0 ? 'rgba(61,141,174,0.2)' : 'rgba(192,82,42,0.2)'}`,
+                }}
+              >
+                <stat.icon className="w-7 h-7" style={{ color: stat.iconColor }} />
               </div>
 
               {/* Value */}
-              <div className="font-serif text-5xl font-bold text-dark-900 mb-2">
+              <div style={{
+                fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
+                fontWeight: 800,
+                color: 'var(--color-brand-text)',
+                lineHeight: 1,
+                letterSpacing: '-0.03em',
+                marginBottom: '0.5rem',
+              }}>
                 {stat.value}
               </div>
 
               {/* Label */}
-              <div className="text-dark-600 font-medium">
+              <div style={{
+                fontSize: 'var(--text-small)',
+                color: 'var(--color-brand-text-muted)',
+                fontWeight: 500,
+              }}>
                 {stat.label}
               </div>
             </div>

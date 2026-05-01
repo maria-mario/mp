@@ -1,198 +1,258 @@
-// components/layout/Footer.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ExternalLink, PlayCircle, Camera, Mail } from 'lucide-react';
 
-export function Footer() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+const services = [
+  { name: 'Forum Retreats', href: '/forum-retreats' },
+  { name: 'SAAQ Coaching',  href: '/consultation' },
+  { name: 'Power Tools',    href: '/members' },
+  { name: 'Start Here',     href: '/start' },
+];
 
-  async function handleNewsletterSignup(e: React.FormEvent) {
-    e.preventDefault();
+const resources = [
+  { name: 'Blog',           href: '/blog' },
+  { name: 'About Mark',     href: '/about' },
+  { name: 'Contact',        href: '/contact' },
+  { name: 'Privacy Policy', href: '/privacy' },
+];
+
+const socials = [
+  { label: 'LinkedIn',  href: 'https://linkedin.com',             icon: ExternalLink },
+  { label: 'YouTube',   href: 'https://youtube.com',              icon: PlayCircle },
+  { label: 'Instagram', href: 'https://instagram.com',            icon: Camera },
+  { label: 'Email',     href: 'mailto:mark@drmarkpirtle.com',     icon: Mail },
+];
+
+/* ── Newsletter form isolated to avoid hydration mismatch ── */
+function NewsletterForm() {
+  const [mounted, setMounted] = useState(false);
+  const [email, setEmail]     = useState('');
+  const [status, setStatus]   = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  useEffect(() => { setMounted(true); }, []);
+
+  async function handleSignup() {
+    if (!email) return;
     setStatus('loading');
-
     try {
-      const response = await fetch('/api/newsletter/subscribe', {
+      const res = await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-
-      if (response.ok) {
+      if (res.ok) {
         setStatus('success');
         setEmail('');
         setTimeout(() => setStatus('idle'), 5000);
       } else {
         setStatus('error');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
     }
   }
 
+  if (!mounted) {
+    // Server + first paint: static placeholder, no interactive elements
+    return (
+      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' as const }}>
+        <div style={{
+          flex: 1, minWidth: '0', height: '3.25rem',
+          backgroundColor: 'rgba(255,255,255,0.06)',
+          border: '1px solid rgba(255,255,255,0.12)',
+          borderRadius: '9999px',
+        }} />
+        <div style={{
+          width: '8rem', height: '3.25rem',
+          backgroundColor: 'var(--color-brand-sienna)',
+          borderRadius: '9999px',
+          opacity: 0.8,
+        }} />
+      </div>
+    );
+  }
+
+  if (status === 'success') {
+    return (
+      <div style={{
+        backgroundColor: 'rgba(34,197,94,0.1)',
+        border: '1px solid rgba(34,197,94,0.3)',
+        color: '#4ade80', padding: '1rem 1.5rem',
+        borderRadius: '0.75rem', fontSize: 'var(--text-small)',
+      }}>
+        ✓ Thank you! Check your email for confirmation.
+      </div>
+    );
+  }
+
   return (
-    <footer className="bg-dark-900 text-white">
-      {/* Newsletter Section */}
-      <div className="border-b border-dark-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="max-w-3xl mx-auto text-center">
-            <h3 className="font-serif text-3xl font-bold mb-4">
-              Stay <span className="text-primary-400 italic">SkillfullyAware®</span>
+    <div>
+      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' as const }}>
+        <input
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Your email address"
+          onKeyDown={e => e.key === 'Enter' && handleSignup()}
+          style={{
+            flex: 1, minWidth: '0',
+            padding: '0.875rem 1.25rem',
+            backgroundColor: 'rgba(255,255,255,0.06)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            borderRadius: '9999px',
+            color: '#ffffff', fontSize: 'var(--text-small)',
+            fontFamily: 'var(--font-sans)', outline: 'none',
+          }}
+          onFocus={e => (e.currentTarget.style.borderColor = 'rgba(192,82,42,0.6)')}
+          onBlur={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)')}
+        />
+        <button
+          onClick={handleSignup}
+          style={{
+            padding: '0.875rem 2rem',
+            backgroundColor: 'var(--color-brand-sienna)',
+            color: '#ffffff', border: 'none', borderRadius: '9999px',
+            fontFamily: 'var(--font-sans)', fontSize: 'var(--text-small)',
+            fontWeight: 700, letterSpacing: '0.04em',
+            textTransform: 'uppercase' as const,
+            cursor: status === 'loading' ? 'not-allowed' : 'pointer',
+            whiteSpace: 'nowrap' as const,
+            opacity: status === 'loading' ? 0.7 : 1,
+            transition: 'background-color 0.2s',
+          }}
+          onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-sienna-dark)')}
+          onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-sienna)')}
+        >
+          {status === 'loading' ? 'Subscribing…' : 'Subscribe'}
+        </button>
+      </div>
+      {status === 'error' && (
+        <p style={{ color: '#f87171', fontSize: 'var(--text-xs)', marginTop: '0.5rem' }}>
+          Something went wrong. Please try again.
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* ── Footer ── */
+export function Footer() {
+  return (
+    <footer style={{ backgroundColor: 'var(--color-brand-navy)', color: '#ffffff' }}>
+
+      {/* Newsletter */}
+      <div style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+        <div style={{ maxWidth: '96rem', margin: '0 auto', padding: '5rem 2rem' }}>
+          <div style={{ maxWidth: '36rem', margin: '0 auto', textAlign: 'center' }}>
+            <h3 style={{
+              fontFamily: 'var(--font-sans)', fontSize: 'var(--text-title)',
+              fontWeight: 800, color: '#ffffff', marginBottom: '1rem', letterSpacing: '-0.02em',
+            }}>
+              Stay{' '}
+              <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna-light)' }}>
+                SkillfullyAware®
+              </em>
             </h3>
-            <p className="text-dark-300 text-lg mb-8">
+            <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'var(--text-lead)', marginBottom: '2rem', maxWidth: 'none' }}>
               Get the latest insights, practices, and transformative wisdom delivered to your inbox.
             </p>
-
-            {status === 'success' ? (
-              <div className="bg-green-500/10 border border-green-500/50 text-green-400 px-6 py-4 rounded-lg">
-                ✓ Thank you! Please check your email for confirmation.
-              </div>
-            ) : (
-              <form onSubmit={handleNewsletterSignup} className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email address"
-                  required
-                  className="flex-1 px-6 py-4 bg-dark-800 border border-dark-700 rounded-lg text-white placeholder:text-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                />
-                <button
-                  type="submit"
-                  disabled={status === 'loading'}
-                  className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-                >
-                  {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
-                </button>
-              </form>
-            )}
-
-            {status === 'error' && (
-              <p className="text-red-400 text-sm mt-4">
-                Something went wrong. Please try again.
-              </p>
-            )}
+            <NewsletterForm />
           </div>
         </div>
       </div>
 
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Main grid */}
+      <div style={{ maxWidth: '96rem', margin: '0 auto', padding: '4rem 2rem' }}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand Column */}
+
+          {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="font-serif text-2xl font-bold mb-4">
+            <div style={{ fontFamily: 'var(--font-sans)', fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em', marginBottom: '0.75rem' }}>
               Dr. Mark Pirtle
             </div>
-            <p className="text-dark-400 mb-6 max-w-md">
-              Transforming leaders through the SkillfullyAware® methodology. 
+            <div style={{ fontSize: 'var(--text-xs)', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: 'var(--color-brand-sienna-light)', marginBottom: '1rem' }}>
+              SkillfullyAware®
+            </div>
+            <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 'var(--text-small)', lineHeight: 1.75, maxWidth: '32ch', marginBottom: '1.5rem' }}>
+              Transforming leaders through the SkillfullyAware® methodology.
               Custom retreats, executive coaching, and experiences for conscious leadership.
             </p>
-            <div className="flex items-center space-x-4">
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-dark-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors"
-                aria-label="LinkedIn"
-              >
-                <ExternalLink className="w-5 h-5" />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-dark-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors"
-                aria-label="YouTube"
-              >
-                <PlayCircle className="w-5 h-5" />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-dark-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors"
-                aria-label="Instagram"
-              >
-                <Camera className="w-5 h-5" />
-              </a>
-              <a
-                href="mailto:mark@drmarkpirtle.com"
-                className="w-10 h-10 bg-dark-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors"
-                aria-label="Email"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
+            <div style={{ display: 'flex', gap: '0.75rem' }}>
+              {socials.map(s => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
+                  style={{
+                    width: '2.25rem', height: '2.25rem', borderRadius: '9999px',
+                    backgroundColor: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: 'rgba(255,255,255,0.6)', transition: 'background-color 0.2s, color 0.2s', textDecoration: 'none',
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'var(--color-brand-sienna)';
+                    (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff';
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'rgba(255,255,255,0.07)';
+                    (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.6)';
+                  }}
+                >
+                  <s.icon className="w-4 h-4" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Services */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Services</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/forum-retreats" className="text-dark-400 hover:text-primary-400 transition-colors">
-                  Forum Retreats
-                </Link>
-              </li>
-              <li>
-                <Link href="/consultation" className="text-dark-400 hover:text-primary-400 transition-colors">
-                  Executive Coaching
-                </Link>
-              </li>
-              <li>
-                <Link href="/experiences" className="text-dark-400 hover:text-primary-400 transition-colors">
-                  Experiences
-                </Link>
-              </li>
-              <li>
-                <Link href="/members" className="text-dark-400 hover:text-primary-400 transition-colors">
-                  Membership
-                </Link>
-              </li>
+            <h4 style={{ fontWeight: 700, fontSize: 'var(--text-small)', color: '#ffffff', marginBottom: '1.25rem' }}>Services</h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {services.map(l => (
+                <li key={l.name}>
+                  <Link href={l.href}
+                    style={{ color: 'rgba(255,255,255,0.45)', fontSize: 'var(--text-small)', textDecoration: 'none', transition: 'color 0.15s' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#ffffff')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
+                  >
+                    {l.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Resources */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Resources</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/blog" className="text-dark-400 hover:text-primary-400 transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-dark-400 hover:text-primary-400 transition-colors">
-                  About Mark
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-dark-400 hover:text-primary-400 transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-dark-400 hover:text-primary-400 transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
+            <h4 style={{ fontWeight: 700, fontSize: 'var(--text-small)', color: '#ffffff', marginBottom: '1.25rem' }}>Resources</h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {resources.map(l => (
+                <li key={l.name}>
+                  <Link href={l.href}
+                    style={{ color: 'rgba(255,255,255,0.45)', fontSize: 'var(--text-small)', textDecoration: 'none', transition: 'color 0.15s' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#ffffff')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
+                  >
+                    {l.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-dark-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center text-dark-500 text-sm">
-            <p>© {new Date().getFullYear()} Dr. Mark Pirtle. All rights reserved.</p>
-            <p className="mt-2 md:mt-0">
-              SkillfullyAware® is a registered trademark.
-            </p>
-          </div>
+      {/* Bottom bar */}
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+        <div style={{
+          maxWidth: '96rem', margin: '0 auto', padding: '1.5rem 2rem',
+          display: 'flex', flexWrap: 'wrap' as const, justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem',
+        }}>
+          <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 'var(--text-xs)' }}>
+            © {new Date().getFullYear()} Dr. Mark Pirtle. All rights reserved.
+          </p>
+          <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 'var(--text-xs)' }}>
+            SkillfullyAware® is a registered trademark.
+          </p>
         </div>
       </div>
     </footer>

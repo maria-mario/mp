@@ -1,214 +1,342 @@
-// components/layout/Header.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Search, LogIn } from 'lucide-react';
+
+const navigation = [
+  {
+    name: 'About',
+    href: '/about',
+    dropdown: [
+      { name: 'The Story',   href: '/about#story',   description: "Mark's journey and mission" },
+      { name: 'The System',  href: '/about#system',  description: 'SkillfullyAware® methodology' },
+      { name: 'The Science', href: '/about#science', description: 'Neuroscience behind the work' },
+    ],
+  },
+  {
+    name: 'Forum Retreats',
+    href: '/forum-retreats',
+    dropdown: [
+      { name: 'Mind Your Business',  href: '/forum-retreats/founders',       description: 'For Founders & CEOs' },
+      { name: 'Unfinished Business', href: '/forum-retreats/senior-leaders', description: 'For Senior Leaders' },
+      { name: 'All Experiences',     href: '/experiences',                   description: 'Browse retreat experiences' },
+    ],
+  },
+  {
+    name: 'SAAQ Coaching',
+    href: '/consultation',
+    dropdown: [
+      { name: 'Mind Your Business',  href: '/consultation/founders', description: 'Coaching for Founders & CEOs' },
+      { name: 'Unfinished Business', href: '/consultation/leaders',  description: 'Coaching for Senior Leaders' },
+    ],
+  },
+  {
+    name: 'Power Tools',
+    href: '/members',
+    megaMenu: true,
+    columns: [
+      {
+        heading: 'Online Classes',
+        items: [
+          { name: 'Project SkillfullyAware',       href: '/power-tools/project-sa', description: 'Online class' },
+          { name: 'Overcoming Addictive Behaviors', href: '/power-tools/addictive',  description: 'Online class' },
+        ],
+      },
+      {
+        heading: 'Workbooks',
+        items: [
+          { name: 'Becoming SkillfullyAware', href: '/power-tools/workbook-sa',  description: 'PDF workbook' },
+          { name: 'Raising Awareness',        href: '/power-tools/workbook-ra',  description: 'PDF workbook' },
+          { name: 'Chasing Shadow Work',      href: '/power-tools/workbook-csw', description: 'PDF workbook' },
+        ],
+      },
+      {
+        heading: 'Meditation Programs',
+        items: [
+          { name: 'Feel Better Series',    href: '/power-tools/feel-better',   description: 'Audio + PDFs — Series 1' },
+          { name: 'Learn To Meditate',     href: '/power-tools/meditate',      description: 'Series 2' },
+          { name: 'Comprehensive Program', href: '/power-tools/comprehensive', description: '1+2+ Extras bundle' },
+        ],
+      },
+      {
+        heading: 'Media',
+        items: [
+          { name: 'The Book',  href: 'https://www.wholehearted.org/', description: 'Available at wholehearted.org' },
+          { name: 'Doc Film',  href: 'https://www.wholehearted.org/', description: 'Watch at wholehearted.org' },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Blog',
+    href: '/blog',
+    dropdown: [
+      { name: 'All Articles',        href: '/blog',                        description: 'Thought leadership & insights' },
+      { name: 'Announcements',       href: '/blog/category/announcements', description: 'News & updates' },
+      { name: 'Breaking Bad Habits', href: '/blog/category/habits',        description: 'Habit change series' },
+      { name: 'Shadow Work',         href: '/blog/category/shadow-work',   description: 'Inner leadership work' },
+      { name: 'Mindfulness',         href: '/blog/category/mindfulness',   description: 'Presence & awareness' },
+    ],
+  },
+];
 
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [pastHero, setPastHero]         = useState(false);
+  const [mobileOpen, setMobileOpen]     = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen]     = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const sentinel = document.getElementById('hero-sentinel');
+    if (!sentinel) {
+      const onScroll = () => setPastHero(window.scrollY > window.innerHeight - 80);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      return () => window.removeEventListener('scroll', onScroll);
+    }
+    const obs = new IntersectionObserver(
+      ([e]) => setPastHero(!e.isIntersecting),
+      { threshold: 0, rootMargin: '-80px 0px 0px 0px' }
+    );
+    obs.observe(sentinel);
+    return () => obs.disconnect();
   }, []);
 
-  const navigation = {
-    main: [
-      { name: 'Home', href: '/' },
-      { 
-        name: 'Services', 
-        href: '#',
-        dropdown: [
-          { name: 'Forum Retreats', href: '/forum-retreats', description: 'Custom experiences for EO/YPO groups' },
-          { name: 'Executive Coaching', href: '/consultation', description: 'One-on-one leadership development' },
-          { name: 'Experiences', href: '/experiences', description: 'Transformational retreat offerings' },
-        ]
-      },
-      { 
-        name: 'Resources', 
-        href: '#',
-        dropdown: [
-          { name: 'Blog', href: '/blog', description: 'Leadership insights and articles' },
-          { name: 'Membership', href: '/members', description: 'Exclusive content & powertools' },
-        ]
-      },
-      { name: 'About', href: '/about' },
-      { name: 'Contact', href: '/contact' },
-    ],
-  };
+  const dark = !pastHero;
+  const linkColor = dark ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.72)';
+  const linkHover = dark ? '#ffffff' : '#000000';
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-lg py-3'
-            : 'bg-transparent py-6'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="relative w-12 h-12">
-                {/* Placeholder logo - replace with actual logo */}
-                <div className="w-12 h-12 bg-gradient-premium rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">MP</span>
-                </div>
+      <header style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+        height: '4.5rem',
+        backgroundColor: pastHero ? '#ffffff' : '#000000',
+        borderBottom: pastHero ? '1px solid rgba(0,0,0,0.07)' : 'none',
+        transition: 'background-color 0.35s ease',
+      }}>
+        <div style={{
+          maxWidth: '96rem', margin: '0 auto', padding: '0 2rem',
+          height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        }}>
+
+          {/* Logo */}
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0, gap: '0.625rem', height: '100%' }}>
+            <div style={{ position: 'relative', height: '2.25rem', width: '2.25rem', flexShrink: 0, alignSelf: 'center' }}>
+              <Image
+                src="/logos/logo.webp"
+                alt="Dr. Mark Pirtle"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', lineHeight: 1.2 }}>
+              <span style={{
+                color: dark ? '#ffffff' : '#000000',
+                fontWeight: 800, fontSize: '0.95rem',
+                letterSpacing: '-0.02em', transition: 'color 0.3s',
+              }}>
+                Dr. Mark Pirtle
+              </span>
+              <span style={{
+                color: dark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)',
+                fontSize: '0.65rem', letterSpacing: '0.06em', transition: 'color 0.3s',
+              }}>
+                SkillfullyAware®
+              </span>
+            </div>
+          </Link>
+
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center" style={{ gap: '1.75rem' }}>
+            {navigation.map(item => (
+              <div key={item.name} style={{ position: 'relative' }}
+                onMouseEnter={() => setOpenDropdown(item.name)}
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                <button style={{
+                  display: 'flex', alignItems: 'center', gap: '0.2rem',
+                  background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+                  color: linkColor, fontSize: 'var(--text-small)', fontWeight: 700,
+                  fontFamily: 'var(--font-sans)', transition: 'color 0.15s',
+                }}
+                  onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
+                  onMouseLeave={e => (e.currentTarget.style.color = linkColor)}
+                >
+                  {item.name}
+                  {(item.dropdown || item.megaMenu) && <ChevronDown className="w-3.5 h-3.5" />}
+                </button>
+
+                {/* Standard dropdown */}
+                {item.dropdown && openDropdown === item.name && (
+                  <div style={{
+                    position: 'absolute', top: 'calc(100% + 1rem)',
+                    left: '50%', transform: 'translateX(-50%)',
+                    minWidth: '16rem', backgroundColor: '#ffffff',
+                    border: '1px solid rgba(0,0,0,0.07)', borderRadius: '0.875rem',
+                    overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.12)', zIndex: 60,
+                  }}>
+                    {item.dropdown.map((d, i) => (
+                      <Link key={d.name} href={d.href} style={{
+                        display: 'block', padding: '0.8rem 1.25rem', textDecoration: 'none',
+                        borderTop: i > 0 ? '1px solid rgba(0,0,0,0.05)' : 'none',
+                        transition: 'background 0.15s',
+                      }}
+                        onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#f9f7f4')}
+                        onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+                      >
+                        <div style={{ color: '#000', fontWeight: 600, fontSize: 'var(--text-small)' }}>{d.name}</div>
+                        <div style={{ color: 'var(--color-brand-text-muted)', fontSize: 'var(--text-xs)', marginTop: '0.1rem' }}>{d.description}</div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {/* Mega menu — Power Tools */}
+                {item.megaMenu && openDropdown === item.name && (
+                  <div style={{
+                    position: 'absolute', top: 'calc(100% + 1rem)',
+                    left: '50%', transform: 'translateX(-50%)',
+                    width: '52rem', backgroundColor: '#ffffff',
+                    border: '1px solid rgba(0,0,0,0.07)', borderRadius: '0.875rem',
+                    overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.12)',
+                    zIndex: 60, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr',
+                  }}>
+                    {item.columns!.map((col, ci) => (
+                      <div key={col.heading} style={{
+                        padding: '1.25rem',
+                        borderLeft: ci > 0 ? '1px solid rgba(0,0,0,0.06)' : 'none',
+                      }}>
+                        <div style={{
+                          fontSize: 'var(--text-xs)', fontWeight: 700,
+                          letterSpacing: '0.1em', textTransform: 'uppercase',
+                          color: 'var(--color-brand-sienna)', marginBottom: '0.75rem',
+                        }}>
+                          {col.heading}
+                        </div>
+                        {col.items.map(d => (
+                          <Link key={d.name} href={d.href} style={{
+                            display: 'block', padding: '0.6rem 0.5rem',
+                            borderRadius: '0.375rem', textDecoration: 'none', transition: 'background 0.15s',
+                          }}
+                            onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#f9f7f4')}
+                            onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+                          >
+                            <div style={{ color: '#000', fontWeight: 600, fontSize: 'var(--text-small)' }}>{d.name}</div>
+                            <div style={{ color: 'var(--color-brand-text-muted)', fontSize: 'var(--text-xs)', marginTop: '0.1rem' }}>{d.description}</div>
+                          </Link>
+                        ))}
+                      </div>
+                    ))}
+                    <div style={{
+                      gridColumn: '1 / -1', padding: '0.875rem 1.25rem',
+                      backgroundColor: 'var(--color-brand-off-white)',
+                      borderTop: '1px solid rgba(0,0,0,0.06)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    }}>
+                      <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)', fontWeight: 500 }}>
+                        Members get unlimited access to all tools
+                      </span>
+                      <Link href="/members" style={{
+                        fontSize: 'var(--text-xs)', fontWeight: 700,
+                        color: 'var(--color-brand-sienna)', textDecoration: 'none',
+                        letterSpacing: '0.04em', textTransform: 'uppercase',
+                      }}>Join →</Link>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="hidden sm:block">
-                <div className={`font-serif font-bold text-xl transition-colors ${
-                  isScrolled ? 'text-dark-900' : 'text-white'
-                }`}>
-                  Dr. Mark Pirtle
-                </div>
-                <div className={`text-xs transition-colors ${
-                  isScrolled ? 'text-dark-600' : 'text-white/80'
-                }`}>
-                  SkillfullyAware®
-                </div>
-              </div>
+            ))}
+          </nav>
+
+          {/* Right: Search + Log In + Start Here */}
+          <div className="hidden lg:flex items-center" style={{ gap: '1rem' }}>
+            <button onClick={() => setSearchOpen(o => !o)} aria-label="Search"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.4rem', color: linkColor, transition: 'color 0.15s' }}
+              onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
+              onMouseLeave={e => (e.currentTarget.style.color = linkColor)}
+            >
+              <Search className="w-5 h-5" />
+            </button>
+
+            <Link href="/members/login" style={{
+              display: 'flex', alignItems: 'center', gap: '0.35rem',
+              color: linkColor, fontSize: 'var(--text-small)', fontWeight: 500,
+              textDecoration: 'none', transition: 'color 0.15s',
+            }}
+              onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
+              onMouseLeave={e => (e.currentTarget.style.color = linkColor)}
+            >
+              <LogIn className="w-4 h-4" /> Log In
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              {navigation.main.map((item) => (
-                <div
-                  key={item.name}
-                  className="relative"
-                  onMouseEnter={() => item.dropdown && setOpenDropdown(item.name)}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                >
-                  {item.dropdown ? (
-                    <>
-                      <button
-                        className={`flex items-center space-x-1 font-medium transition-colors ${
-                          isScrolled
-                            ? 'text-dark-700 hover:text-primary-600'
-                            : 'text-white hover:text-primary-300'
-                        }`}
-                      >
-                        <span>{item.name}</span>
-                        <ChevronDown className="w-4 h-4" />
-                      </button>
-
-                      {/* Dropdown Menu */}
-                      {openDropdown === item.name && (
-                        <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-lg shadow-premium overflow-hidden">
-                          {item.dropdown.map((dropdownItem) => (
-                            <Link
-                              key={dropdownItem.name}
-                              href={dropdownItem.href}
-                              className="block px-6 py-4 hover:bg-primary-50 transition-colors group"
-                            >
-                              <div className="font-semibold text-dark-900 group-hover:text-primary-600 transition-colors">
-                                {dropdownItem.name}
-                              </div>
-                              <div className="text-sm text-dark-600 mt-1">
-                                {dropdownItem.description}
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className={`font-medium transition-colors ${
-                        isScrolled
-                          ? 'text-dark-700 hover:text-primary-600'
-                          : 'text-white hover:text-primary-300'
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
-                  )}
-                </div>
-              ))}
-
-              {/* CTA Button */}
-              <Link
-                href="/contact"
-                className="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold transition-all hover:scale-105 shadow-lg"
-              >
-                Get in Touch
-              </Link>
-            </nav>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`lg:hidden p-2 rounded-lg transition-colors ${
-                isScrolled
-                  ? 'text-dark-900 hover:bg-dark-100'
-                  : 'text-white hover:bg-white/10'
-              }`}
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
+            <Link href="/start" style={{
+              backgroundColor: dark ? '#ffffff' : '#000000',
+              color: dark ? '#000000' : '#ffffff',
+              padding: '0.6rem 1.4rem', borderRadius: '9999px',
+              fontWeight: 700, fontSize: 'var(--text-small)',
+              textDecoration: 'none', letterSpacing: '0.01em',
+              transition: 'background-color 0.3s, color 0.3s', whiteSpace: 'nowrap',
+            }}>
+              Start Here
+            </Link>
           </div>
+
+          {/* Mobile burger */}
+          <button onClick={() => setMobileOpen(o => !o)} className="lg:hidden"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: dark ? '#fff' : '#000', padding: '0.5rem', transition: 'color 0.3s' }}>
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+
+        {/* Search bar */}
+        {searchOpen && (
+          <div style={{ backgroundColor: '#ffffff', borderTop: '1px solid rgba(0,0,0,0.07)', padding: '0.875rem 2rem' }}>
+            <div style={{ maxWidth: '96rem', margin: '0 auto' }}>
+              <input autoFocus type="search" placeholder="Search articles, tools, retreats..."
+                className="form-input" style={{ maxWidth: '32rem' }}
+                onKeyDown={e => e.key === 'Escape' && setSearchOpen(false)} />
+            </div>
+          </div>
+        )}
       </header>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden">
-          <div className="fixed inset-0 bg-dark-900/95 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)} />
-          
-          <div className="fixed top-[88px] inset-x-0 bottom-0 bg-white overflow-y-auto">
-            <nav className="px-4 py-6 space-y-1">
-              {navigation.main.map((item) => (
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 40 }} className="lg:hidden">
+          <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.4)' }} onClick={() => setMobileOpen(false)} />
+          <div style={{
+            position: 'fixed', top: '4.5rem', left: 0, right: 0, bottom: 0,
+            backgroundColor: '#ffffff', overflowY: 'auto', borderTop: '1px solid rgba(0,0,0,0.07)',
+          }}>
+            <nav style={{ padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.125rem' }}>
+              {navigation.map(item => (
                 <div key={item.name}>
-                  {item.dropdown ? (
-                    <>
-                      <div className="font-semibold text-dark-900 px-4 py-3 text-sm uppercase tracking-wider">
-                        {item.name}
-                      </div>
-                      {item.dropdown.map((dropdownItem) => (
-                        <Link
-                          key={dropdownItem.name}
-                          href={dropdownItem.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="block px-8 py-3 text-dark-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors"
-                        >
-                          <div className="font-medium">{dropdownItem.name}</div>
-                          <div className="text-sm text-dark-500 mt-1">
-                            {dropdownItem.description}
-                          </div>
-                        </Link>
-                      ))}
-                    </>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block px-4 py-3 text-dark-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg font-medium transition-colors"
+                  <div style={{ color: 'var(--color-brand-text-light)', fontSize: 'var(--text-xs)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '1rem 0.75rem 0.4rem' }}>
+                    {item.name}
+                  </div>
+                  {(item.dropdown ?? item.columns?.flatMap(c => c.items))?.map(d => (
+                    <Link key={d.name} href={d.href} onClick={() => setMobileOpen(false)}
+                      style={{ display: 'block', padding: '0.65rem 0.75rem', borderRadius: '0.5rem', textDecoration: 'none', transition: 'background 0.15s' }}
+                      onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#f9f7f4')}
+                      onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
                     >
-                      {item.name}
+                      <div style={{ color: '#000', fontWeight: 600, fontSize: 'var(--text-small)' }}>{d.name}</div>
+                      <div style={{ color: 'var(--color-brand-text-muted)', fontSize: 'var(--text-xs)', marginTop: '0.1rem' }}>{d.description}</div>
                     </Link>
-                  )}
+                  ))}
                 </div>
               ))}
-
-              <div className="pt-6">
-                <Link
-                  href="/contact"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block w-full px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white text-center rounded-lg font-semibold transition-colors"
-                >
-                  Get in Touch
+              <div style={{ paddingTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <Link href="/members/login" onClick={() => setMobileOpen(false)}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.875rem', borderRadius: '9999px', border: '1.5px solid rgba(0,0,0,0.15)', color: '#000', fontWeight: 600, fontSize: 'var(--text-small)', textDecoration: 'none' }}>
+                  <LogIn className="w-4 h-4" /> Log In
+                </Link>
+                <Link href="/start" onClick={() => setMobileOpen(false)}
+                  style={{ display: 'block', textAlign: 'center', backgroundColor: '#000', color: '#fff', padding: '0.875rem', borderRadius: '9999px', fontWeight: 700, fontSize: 'var(--text-small)', textDecoration: 'none' }}>
+                  Start Here
                 </Link>
               </div>
             </nav>

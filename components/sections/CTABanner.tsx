@@ -1,4 +1,3 @@
-// components/sections/CTABanner.tsx
 'use client';
 
 import Link from 'next/link';
@@ -6,45 +5,102 @@ import { ArrowRight, Calendar } from 'lucide-react';
 
 export function CTABanner() {
   return (
-    <section className="py-24 bg-gradient-to-br from-dark-900 via-primary-950 to-dark-900 text-white relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-      </div>
+    <section
+      className="section relative overflow-hidden"
+      style={{ backgroundColor: 'var(--color-brand-sienna)' }}
+    >
+      {/* Warm radial glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 70% 80% at 80% 50%, rgba(255,255,255,0.06) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 50% 60% at 10% 80%, rgba(0,0,0,0.15) 0%, transparent 70%)',
+        }}
+      />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="font-serif text-4xl md:text-6xl font-bold mb-6">
-          Your Time is <span className="text-primary-400 italic">Now</span>
+      <div className="container relative z-10 text-center">
+
+        <h2
+          className="mb-6"
+          style={{ color: '#ffffff', fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
+        >
+          Your Time is{' '}
+          <em style={{ fontStyle: 'italic' }}>Now</em>
         </h2>
 
-        <p className="text-xl md:text-2xl text-dark-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-          Whether you're ready to transform your forum, elevate your leadership, 
+        <p
+          className="mx-auto mb-12"
+          style={{
+            fontSize: 'var(--text-lead)',
+            color: 'rgba(255,255,255,0.8)',
+            maxWidth: '52ch',
+            lineHeight: 1.75,
+          }}
+        >
+          Whether you're ready to transform your forum, elevate your leadership,
           or explore what's possible—the journey begins with a conversation.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '3rem' }}>
           <Link
             href="/contact"
-            className="group px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold text-lg transition-all hover:scale-105 shadow-premium flex items-center space-x-2"
+            className="inline-flex items-center gap-2"
+            style={{
+              backgroundColor: '#ffffff',
+              color: 'var(--color-brand-sienna)',
+              padding: '1rem 2rem',
+              borderRadius: '9999px',
+              fontWeight: 700,
+              fontSize: 'var(--text-small)',
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase' as const,
+              textDecoration: 'none',
+              transition: 'background-color 0.2s',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-cream)')}
+            onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#ffffff')}
           >
-            <Calendar className="w-5 h-5" />
-            <span>Book a Discovery Call</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <Calendar className="w-4 h-4" />
+            Book a Discovery Call
+            <ArrowRight className="w-4 h-4" />
           </Link>
 
           <Link
             href="/forum-retreats"
-            className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold text-lg transition-all hover:scale-105"
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.15)',
+              backdropFilter: 'blur(8px)',
+              color: '#ffffff',
+              padding: '1rem 2rem',
+              borderRadius: '9999px',
+              fontWeight: 700,
+              fontSize: 'var(--text-small)',
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase' as const,
+              textDecoration: 'none',
+              border: '1px solid rgba(255,255,255,0.3)',
+              transition: 'background-color 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.25)')}
+            onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.15)')}
           >
             Plan Your Retreat
           </Link>
         </div>
 
         {/* Trust line */}
-        <p className="mt-12 text-dark-400 text-sm">
-          Trusted by EO and YPO forums worldwide • 20+ years of transformation • 500+ leaders empowered
+        <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'var(--text-xs)', letterSpacing: '0.04em' }}>
+          Trusted by EO and YPO forums worldwide&nbsp;&nbsp;•&nbsp;&nbsp;
+          20+ years of transformation&nbsp;&nbsp;•&nbsp;&nbsp;
+          500+ leaders empowered
         </p>
+
       </div>
     </section>
   );

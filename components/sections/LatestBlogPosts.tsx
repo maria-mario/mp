@@ -1,10 +1,8 @@
-// components/sections/LatestBlogPosts.tsx
 'use client';
 
 import Link from 'next/link';
 import { Calendar, ArrowRight, Clock } from 'lucide-react';
 
-// Mock blog posts
 const blogPosts = [
   {
     id: 1,
@@ -37,85 +35,153 @@ const blogPosts = [
 
 export function LatestBlogPosts() {
   return (
-    <section className="py-24 bg-dark-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section" style={{ backgroundColor: 'var(--color-brand-cream)' }}>
+      <div className="container">
+
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12" style={{ gap: '1.5rem' }}>
           <div>
-            <div className="inline-block px-4 py-2 bg-primary-100 rounded-full text-primary-700 text-sm font-medium mb-4">
-              The Blog
-            </div>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-900 mb-4">
-              Breaking Bad <span className="italic">(habits)</span>
+            <div className="section-divider mb-4" />
+            <span className="eyebrow">The Blog</span>
+            <h2 className="mt-4 mb-3">
+              Breaking Bad{' '}
+              <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna)' }}>(habits)</em>
             </h2>
-            <p className="text-xl text-dark-600 max-w-2xl">
-              Insights on the hidden "shadow" patterns shaping our lives and clear solutions 
+            <p style={{ color: 'var(--color-brand-text-muted)', fontSize: 'var(--text-lead)', maxWidth: '48ch' }}>
+              Insights on the hidden "shadow" patterns shaping our lives and clear solutions
               to address the root causes.
             </p>
           </div>
 
           <Link
             href="/blog"
-            className="mt-6 md:mt-0 inline-flex items-center space-x-2 px-6 py-3 bg-dark-900 hover:bg-dark-800 text-white rounded-lg font-semibold transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 flex-shrink-0"
+            style={{
+              backgroundColor: 'var(--color-brand-navy)',
+              color: '#ffffff',
+              padding: '0.75rem 1.5rem',
+              borderRadius: '9999px',
+              fontWeight: 700,
+              fontSize: 'var(--text-small)',
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase' as const,
+              textDecoration: 'none',
+              transition: 'background-color 0.2s',
+              whiteSpace: 'nowrap' as const,
+            }}
+            onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-navy-light)')}
+            onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-navy)')}
           >
-            <span>View All Posts</span>
-            <ArrowRight className="w-5 h-5" />
+            View All Posts <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        {/* Blog Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post) => (
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {blogPosts.map(post => (
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
-              className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-premium transition-all duration-300 hover:-translate-y-1"
+              style={{
+                display: 'block',
+                backgroundColor: '#ffffff',
+                borderRadius: '1rem',
+                overflow: 'hidden',
+                border: '1px solid var(--color-brand-warm-gray)',
+                boxShadow: 'var(--shadow-card)',
+                textDecoration: 'none',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-premium)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-card)';
+              }}
             >
-              {/* Image Placeholder */}
-              <div className="h-48 bg-gradient-to-br from-primary-100 to-primary-50 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-premium opacity-0 group-hover:opacity-10 transition-opacity" />
-                
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-primary-700 text-xs font-semibold">
-                    {post.category}
-                  </span>
-                </div>
+              {/* Image placeholder */}
+              <div
+                style={{
+                  height: '11rem',
+                  backgroundColor: 'var(--color-brand-off-white)',
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  padding: '1rem',
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: 700,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase' as const,
+                    color: 'var(--color-brand-sienna)',
+                    backgroundColor: 'rgba(192,82,42,0.1)',
+                    border: '1px solid rgba(192,82,42,0.2)',
+                    padding: '0.25rem 0.625rem',
+                    borderRadius: '9999px',
+                  }}
+                >
+                  {post.category}
+                </span>
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                {/* Meta */}
-                <div className="flex items-center space-x-4 text-sm text-dark-500 mb-3">
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{post.readTime}</span>
-                  </div>
+              <div style={{ padding: '1.5rem' }}>
+                <div
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '1rem',
+                    marginBottom: '0.75rem',
+                    fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-light)',
+                  }}
+                >
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <Calendar className="w-3.5 h-3.5" />
+                    {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <Clock className="w-3.5 h-3.5" />
+                    {post.readTime}
+                  </span>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-bold text-dark-900 mb-3 group-hover:text-primary-600 transition-colors">
+                <h3 style={{
+                  fontSize: '1.1rem', fontWeight: 700,
+                  color: 'var(--color-brand-text)',
+                  marginBottom: '0.625rem', lineHeight: 1.35,
+                }}>
                   {post.title}
                 </h3>
 
-                {/* Excerpt */}
-                <p className="text-dark-600 leading-relaxed mb-4 line-clamp-2">
+                <p style={{
+                  fontSize: 'var(--text-small)',
+                  color: 'var(--color-brand-text-muted)',
+                  lineHeight: 1.7,
+                  marginBottom: '1.25rem',
+                  maxWidth: 'none',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical' as const,
+                  overflow: 'hidden',
+                }}>
                   {post.excerpt}
                 </p>
 
-                {/* Read More */}
-                <div className="flex items-center text-primary-600 font-semibold group-hover:text-primary-700">
-                  <span>Read More</span>
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: '0.375rem',
+                  fontSize: 'var(--text-small)', fontWeight: 600,
+                  color: 'var(--color-brand-sienna)',
+                }}>
+                  Read More <ArrowRight className="w-3.5 h-3.5" />
                 </div>
               </div>
             </Link>
           ))}
         </div>
+
       </div>
     </section>
   );

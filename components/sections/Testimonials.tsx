@@ -1,176 +1,369 @@
-// components/sections/Testimonials.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Quote, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { useState } from 'react';
+import { Play, Volume2, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Mock testimonials data
-const testimonials = [
+type TestimonialType = 'text' | 'video' | 'audio';
+
+interface Testimonial {
+  id: number;
+  type: TestimonialType;
+  name: string;
+  title: string;
+  company?: string;
+  location: string;
+  quote: string;
+  mediaUrl?: string;
+  thumbnail?: string; // for video cards
+}
+
+const testimonials: Testimonial[] = [
   {
     id: 1,
+    type: 'video',
     name: 'Bob Lambert',
     title: 'General Manager',
     company: 'Carte Hotel',
     location: 'San Diego, California',
-    quote: 'We had the pleasure of hosting Mark Pirtle to train our leaders, and I can\'t recommend him enough. His approach to shadow work and emotional intelligence transformed our team dynamics. If your team needs alignment, bring Mark in—you won\'t regret it.',
-    image: null, // We'll use initials
-    videoUrl: 'https://vimeo.com/179221240',
+    quote: 'His approach to shadow work and emotional intelligence transformed our team dynamics. If your team needs alignment, bring Mark in—you won\'t regret it.',
+    mediaUrl: 'https://vimeo.com/179221240',
+    thumbnail: undefined,
   },
   {
     id: 2,
+    type: 'text',
     name: 'John Lund',
-    title: 'CEO, Business Strategy Coach',
+    title: 'CEO & Business Strategy Coach',
     company: 'Serial Entrepreneur',
     location: 'Nebraska / Arizona',
     quote: 'Dr. Pirtle\'s shadow work coaching has been transformative for both my personal and professional life. Through his guidance, I\'ve developed a heightened ability to attune to myself, others, and situations. His insights are practical and profound, transferring seamlessly to any domain. I\'m a better version of myself because of his coaching.',
-    image: null,
   },
   {
     id: 3,
+    type: 'video',
     name: 'Cristina Burgess',
     title: 'Founder',
     company: 'Augustina Luxury Boutique',
     location: 'Toronto, Canada',
-    quote: 'Entrepreneurship demands constant shifts from macro to micro thinking, requiring presence in the past, present, and future all at once. Working with Dr. Pirtle has transformed my understanding of my mind, myself, and what it is to live with skillful awareness.',
-    image: null,
+    quote: 'Working with Dr. Pirtle has transformed my understanding of my mind, myself, and what it is to live with skillful awareness.',
+    mediaUrl: 'https://vimeo.com/179221240',
+    thumbnail: undefined,
   },
   {
     id: 4,
+    type: 'text',
     name: 'Alex Hsu',
     title: 'Investor, Father, Seeker',
-    company: '',
     location: 'California',
-    quote: 'I attended Mark Pirtle\'s men\'s retreat, and it was truly transformative. The shadow work and group sessions helped me confront parts of myself I had been avoiding for years. I gained valuable insights into my own struggles and left with new friendships I know will last. The retreat setting was serene, and the hospitality was outstanding.',
-    image: null,
+    quote: 'I attended Mark Pirtle\'s men\'s retreat, and it was truly transformative. The shadow work and group sessions helped me confront parts of myself I had been avoiding for years. I left with new friendships I know will last.',
+  },
+  {
+    id: 5,
+    type: 'audio',
+    name: 'Forum Leader',
+    title: 'EO Chapter President',
+    location: 'Texas',
+    quote: 'The retreat experience exceeded every expectation. Mark has a rare gift for creating psychological safety in a group, allowing real transformation to happen.',
+    mediaUrl: '/audio/testimonial-sample.mp3',
   },
 ];
 
-export function Testimonials() {
-  const [current, setCurrent] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+function Initials({ name }: { name: string }) {
+  return (
+    <div
+      className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+      style={{ backgroundColor: 'var(--color-brand-sienna)' }}
+    >
+      {name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+    </div>
+  );
+}
 
-  useEffect(() => {
-    if (!isAutoPlaying) return;
+function TypeBadge({ type }: { type: TestimonialType }) {
+  const config = {
+    video: { label: 'Video', icon: Play, color: 'rgba(192,82,42,0.12)', border: 'rgba(192,82,42,0.3)', text: 'var(--color-brand-sienna)' },
+    audio: { label: 'Audio', icon: Volume2, color: 'rgba(26,26,26,0.08)', border: 'rgba(26,26,26,0.2)', text: 'var(--color-brand-text)' },
+    text: { label: 'Written', icon: null, color: 'rgba(26,26,26,0.06)', border: 'rgba(26,26,26,0.15)', text: 'var(--color-brand-text-muted)' },
+  }[type];
 
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
-
-  const next = () => {
-    setCurrent((prev) => (prev + 1) % testimonials.length);
-    setIsAutoPlaying(false);
-  };
-
-  const previous = () => {
-    setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    setIsAutoPlaying(false);
-  };
-
-  const currentTestimonial = testimonials[current];
+  const Icon = config.icon;
 
   return (
-    <section className="py-24 bg-gradient-to-b from-dark-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <span
+      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider"
+      style={{ backgroundColor: config.color, border: `1px solid ${config.border}`, color: config.text }}
+    >
+      {Icon && <Icon className="w-3 h-3" />}
+      {config.label}
+    </span>
+  );
+}
+
+function VideoCard({ t, onClick }: { t: Testimonial; onClick: () => void }) {
+  return (
+    <div className="card flex flex-col h-full">
+      {/* Thumbnail */}
+      <div
+        className="relative w-full aspect-video flex items-center justify-center cursor-pointer group"
+        style={{ backgroundColor: 'var(--color-brand-navy)' }}
+        onClick={onClick}
+      >
+        {t.thumbnail ? (
+          <img src={t.thumbnail} alt={t.name} className="w-full h-full object-cover" />
+        ) : (
+          <div
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(135deg, #1a1a1a 0%, #2d1a0e 100%)',
+            }}
+          />
+        )}
+        {/* Play button */}
+        <div
+          className="relative z-10 w-14 h-14 rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
+          style={{ backgroundColor: 'var(--color-brand-sienna)' }}
+        >
+          <Play className="w-6 h-6 text-white ml-0.5" />
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6 flex flex-col flex-1">
+        <div className="mb-3">
+          <TypeBadge type="video" />
+        </div>
+        <blockquote
+          className="flex-1 mb-6 italic"
+          style={{ fontSize: '1rem', color: 'var(--color-brand-text)', lineHeight: 1.75 }}
+        >
+          "{t.quote}"
+        </blockquote>
+        <div className="flex items-center gap-3">
+          <Initials name={t.name} />
+          <div>
+            <div style={{ fontWeight: 600, fontSize: 'var(--text-small)', color: 'var(--color-brand-text)' }}>
+              {t.name}
+            </div>
+            <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)' }}>
+              {t.title}{t.company ? `, ${t.company}` : ''}
+            </div>
+            <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-light)' }}>
+              {t.location}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TextCard({ t }: { t: Testimonial }) {
+  return (
+    <div className="card p-6 flex flex-col h-full">
+      <div className="mb-3">
+        <TypeBadge type="text" />
+      </div>
+      {/* Large quote mark */}
+      <div
+        className="text-5xl leading-none mb-2"
+        style={{ color: 'var(--color-brand-sienna)', opacity: 0.4 }}
+      >
+        "
+      </div>
+      <blockquote
+        className="flex-1 mb-6 italic"
+        style={{ fontSize: '1rem', color: 'var(--color-brand-text)', lineHeight: 1.8 }}
+      >
+        {t.quote}
+      </blockquote>
+      <div className="flex items-center gap-3 pt-4" style={{ borderTop: '1px solid var(--color-brand-border)' }}>
+        <Initials name={t.name} />
+        <div>
+          <div style={{ fontWeight: 600, fontSize: 'var(--text-small)', color: 'var(--color-brand-text)' }}>
+            {t.name}
+          </div>
+          <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)' }}>
+            {t.title}{t.company ? `, ${t.company}` : ''}
+          </div>
+          <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-light)', fontStyle: 'italic' }}>
+            {t.location}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AudioCard({ t }: { t: Testimonial }) {
+  const [playing, setPlaying] = useState(false);
+
+  return (
+    <div className="card p-6 flex flex-col h-full">
+      <div className="mb-3">
+        <TypeBadge type="audio" />
+      </div>
+
+      {/* Audio player bar */}
+      <div
+        className="flex items-center gap-3 p-3 rounded-xl mb-5"
+        style={{ backgroundColor: 'var(--color-brand-off-white)', border: '1px solid var(--color-brand-warm-gray)' }}
+      >
+        <button
+          onClick={() => setPlaying(p => !p)}
+          className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-200"
+          style={{ backgroundColor: playing ? 'var(--color-brand-sienna-dark)' : 'var(--color-brand-sienna)' }}
+        >
+          <Volume2 className="w-4 h-4 text-white" />
+        </button>
+        {/* Fake waveform */}
+        <div className="flex items-center gap-0.5 flex-1">
+          {Array.from({ length: 28 }).map((_, i) => (
+            <div
+              key={i}
+              className="rounded-full flex-1"
+              style={{
+                height: `${8 + Math.sin(i * 0.8) * 6 + Math.random() * 4}px`,
+                backgroundColor: playing && i < 10
+                  ? 'var(--color-brand-sienna)'
+                  : 'var(--color-brand-warm-gray)',
+                transition: 'background-color 0.2s',
+              }}
+            />
+          ))}
+        </div>
+        <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)', flexShrink: 0 }}>
+          2:34
+        </span>
+      </div>
+
+      <blockquote
+        className="flex-1 mb-6 italic"
+        style={{ fontSize: '1rem', color: 'var(--color-brand-text)', lineHeight: 1.8 }}
+      >
+        "{t.quote}"
+      </blockquote>
+
+      <div className="flex items-center gap-3 pt-4" style={{ borderTop: '1px solid var(--color-brand-border)' }}>
+        <Initials name={t.name} />
+        <div>
+          <div style={{ fontWeight: 600, fontSize: 'var(--text-small)', color: 'var(--color-brand-text)' }}>
+            {t.name}
+          </div>
+          <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)' }}>
+            {t.title}{t.company ? `, ${t.company}` : ''}
+          </div>
+          <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-light)', fontStyle: 'italic' }}>
+            {t.location}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Testimonials() {
+  const [videoModal, setVideoModal] = useState<string | null>(null);
+  const [page, setPage] = useState(0);
+  const perPage = 3;
+  const totalPages = Math.ceil(testimonials.length / perPage);
+  const visible = testimonials.slice(page * perPage, page * perPage + perPage);
+
+  return (
+    <section className="section" style={{ backgroundColor: 'var(--color-brand-off-white)' }}>
+      <div className="container">
+
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-900 mb-6">
-            What People Are Saying
+        <div className="text-center mb-14">
+          <div className="section-divider mx-auto mb-4" />
+          <span className="eyebrow">Testimonials</span>
+          <h2 className="mt-4 mb-4">
+            What Leaders Are Saying
           </h2>
-          <p className="text-xl text-dark-600 max-w-2xl mx-auto">
-            Hear from leaders who have experienced transformation through the SkillfullyAware® methodology
+          <p className="mx-auto" style={{ maxWidth: '52ch', color: 'var(--color-brand-text-muted)' }}>
+            Hear from executives and forum leaders who have experienced the SkillfullyAware® transformation.
           </p>
         </div>
 
-        {/* Testimonial Card */}
-        <div className="relative max-w-5xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-premium p-8 md:p-12 relative">
-            {/* Quote Icon */}
-            <Quote className="absolute top-8 right-8 w-16 h-16 text-primary-100" />
+        {/* Cards grid */}
+        <div className="grid md:grid-cols-3 gap-6 mb-10">
+          {visible.map(t => {
+            if (t.type === 'video') return <VideoCard key={t.id} t={t} onClick={() => t.mediaUrl && setVideoModal(t.mediaUrl)} />;
+            if (t.type === 'audio') return <AudioCard key={t.id} t={t} />;
+            return <TextCard key={t.id} t={t} />;
+          })}
+        </div>
 
-            {/* Content */}
-            <div className="relative">
-              {/* Quote */}
-              <blockquote className="text-xl md:text-2xl text-dark-700 leading-relaxed mb-8 italic">
-                "{currentTestimonial.quote}"
-              </blockquote>
-
-              {/* Author Info */}
-              <div className="flex items-center space-x-4">
-                {/* Avatar */}
-                <div className="w-16 h-16 bg-gradient-premium rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
-                  {currentTestimonial.name.split(' ').map(n => n[0]).join('')}
-                </div>
-
-                {/* Details */}
-                <div className="flex-1">
-                  <div className="font-bold text-lg text-dark-900">
-                    {currentTestimonial.name}
-                  </div>
-                  <div className="text-dark-600">
-                    {currentTestimonial.title}
-                    {currentTestimonial.company && `, ${currentTestimonial.company}`}
-                  </div>
-                  <div className="text-sm text-dark-500">
-                    {currentTestimonial.location}
-                  </div>
-                </div>
-
-                {/* Video Button */}
-                {currentTestimonial.videoUrl && (
-                  <a
-                    href={currentTestimonial.videoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-shrink-0 w-12 h-12 bg-primary-600 hover:bg-primary-700 rounded-full flex items-center justify-center text-white transition-colors shadow-lg"
-                  >
-                    <Play className="w-5 h-5 ml-0.5" />
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <div className="flex items-center justify-center mt-8 space-x-4">
-            {/* Previous */}
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-4">
             <button
-              onClick={previous}
-              className="w-12 h-12 bg-white hover:bg-dark-50 border border-dark-200 rounded-full flex items-center justify-center transition-colors shadow-md"
+              onClick={() => setPage(p => Math.max(0, p - 1))}
+              disabled={page === 0}
+              className="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200"
+              style={{
+                backgroundColor: '#ffffff',
+                border: '1px solid var(--color-brand-border)',
+                color: page === 0 ? 'var(--color-brand-text-light)' : 'var(--color-brand-text)',
+                cursor: page === 0 ? 'not-allowed' : 'pointer',
+              }}
             >
-              <ChevronLeft className="w-5 h-5 text-dark-700" />
+              <ChevronLeft className="w-4 h-4" />
             </button>
 
-            {/* Dots */}
-            <div className="flex space-x-2">
-              {testimonials.map((_, index) => (
+            <div className="flex gap-2">
+              {Array.from({ length: totalPages }).map((_, i) => (
                 <button
-                  key={index}
-                  onClick={() => {
-                    setCurrent(index);
-                    setIsAutoPlaying(false);
+                  key={i}
+                  onClick={() => setPage(i)}
+                  className="rounded-full transition-all duration-200"
+                  style={{
+                    width: i === page ? '2rem' : '0.625rem',
+                    height: '0.625rem',
+                    backgroundColor: i === page ? 'var(--color-brand-sienna)' : 'var(--color-brand-warm-gray)',
                   }}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    index === current
-                      ? 'bg-primary-600 w-8'
-                      : 'bg-dark-300 hover:bg-dark-400'
-                  }`}
                 />
               ))}
             </div>
 
-            {/* Next */}
             <button
-              onClick={next}
-              className="w-12 h-12 bg-white hover:bg-dark-50 border border-dark-200 rounded-full flex items-center justify-center transition-colors shadow-md"
+              onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
+              disabled={page === totalPages - 1}
+              className="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200"
+              style={{
+                backgroundColor: '#ffffff',
+                border: '1px solid var(--color-brand-border)',
+                color: page === totalPages - 1 ? 'var(--color-brand-text-light)' : 'var(--color-brand-text)',
+                cursor: page === totalPages - 1 ? 'not-allowed' : 'pointer',
+              }}
             >
-              <ChevronRight className="w-5 h-5 text-dark-700" />
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
-        </div>
+        )}
       </div>
+
+      {/* Video Modal */}
+      {videoModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: 'rgba(0,0,0,0.85)' }}
+          onClick={() => setVideoModal(null)}
+        >
+          <div
+            className="w-full max-w-3xl rounded-2xl overflow-hidden"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="aspect-video">
+              <iframe
+                src={videoModal.replace('vimeo.com/', 'player.vimeo.com/video/') + '?autoplay=1'}
+                className="w-full h-full"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

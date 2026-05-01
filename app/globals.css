@@ -10,6 +10,9 @@
   --color-brand-sienna:         #c0522a;
   --color-brand-sienna-light:   #d4622f;
   --color-brand-sienna-dark:    #a04420;
+  --color-brand-blue:           #3D8DAE;
+  --color-brand-blue-light:     #5aa3c2;
+  --color-brand-blue-dark:      #2e6d88;
   --color-brand-cream:          #faf8f5;
   --color-brand-off-white:      #f5f2ee;
   --color-brand-warm-gray:      #e8e4de;
@@ -18,13 +21,16 @@
   --color-brand-text-light:     #8a8a8a;
   --color-brand-border:         #d4cfc8;
 
+  /* Plus Jakarta Sans as primary — bold, modern, Tony Robbins feel */
+  --font-sans:  var(--font-jakarta), 'Helvetica Neue', Arial, sans-serif;
+  /* Serif kept for occasional accent use only */
   --font-serif: var(--font-playfair), 'Georgia', serif;
-  --font-sans:  var(--font-inter), 'Helvetica Neue', Arial, sans-serif;
 
-  --text-display: clamp(3rem, 6vw, 5rem);
-  --text-hero:    clamp(2rem, 4vw, 3.5rem);
-  --text-title:   clamp(1.5rem, 3vw, 2.25rem);
-  --text-lead:    1.125rem;
+  /* Bold editorial scale — large, punchy, sans-first */
+  --text-display: clamp(3.5rem, 8vw, 6.5rem);   /* Hero — massive */
+  --text-hero:    clamp(2.25rem, 5vw, 4rem);     /* Section headlines */
+  --text-title:   clamp(1.5rem, 3vw, 2.25rem);  /* Sub-headlines */
+  --text-lead:    1.2rem;
   --text-body:    1rem;
   --text-small:   0.875rem;
   --text-xs:      0.75rem;
@@ -61,11 +67,11 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  font-weight: 700;
-  line-height: 1.15;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  line-height: 1.08;
   color: var(--color-brand-text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 h1 { font-size: var(--text-display); }
