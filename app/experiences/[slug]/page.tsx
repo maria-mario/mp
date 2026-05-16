@@ -1,6 +1,4 @@
 // app/experiences/[slug]/page.tsx
-// REPLACES the existing file that was fetching from Directus.
-// Uses static data from lib/data/experiences.ts until Directus is ready.
 
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -19,12 +17,13 @@ export function generateStaticParams() {
   return getAllExperiences().map((e) => ({ slug: e.slug }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
-}): Metadata {
-  const exp = getExperienceBySlug(params.slug);
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const exp = getExperienceBySlug(slug);
   if (!exp) return {};
   return {
     title: exp.seo_title,
@@ -37,12 +36,13 @@ export function generateMetadata({
   };
 }
 
-export default function ExperiencePage({
+export default async function ExperiencePage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const exp = getExperienceBySlug(params.slug);
+  const { slug } = await params;
+  const exp = getExperienceBySlug(slug);
   if (!exp) notFound();
 
   const related = getRelatedExperiences(exp.footer_experience_links ?? []);
@@ -203,9 +203,7 @@ export default function ExperiencePage({
             <h2 style={{ marginBottom: '1.25rem' }}>
               This Experience Doesn&apos;t Exist in a Vacuum
             </h2>
-            <div
-              dangerouslySetInnerHTML={{ __html: exp.forum_block_body }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: exp.forum_block_body }} />
             <Link
               href="/forum-retreats"
               style={{

@@ -40,8 +40,8 @@ const navigation = [
       {
         heading: 'Online Classes',
         items: [
-          { name: 'Project SkillfullyAware',       href: '/power-tools/project-sa', description: 'Online class' },
-          { name: 'Overcoming Addictive Behaviors', href: '/power-tools/addictive',  description: 'Online class' },
+          { name: 'Project SkillfullyAware',        href: '/power-tools/project-sa', description: 'Online class' },
+          { name: 'Overcoming Addictive Behaviors',  href: '/power-tools/addictive',  description: 'Online class' },
         ],
       },
       {
@@ -63,8 +63,8 @@ const navigation = [
       {
         heading: 'Media',
         items: [
-          { name: 'The Book',  href: 'https://www.wholehearted.org/', description: 'Available at wholehearted.org' },
-          { name: 'Doc Film',  href: 'https://www.wholehearted.org/', description: 'Watch at wholehearted.org' },
+          { name: 'The Book', href: 'https://www.wholehearted.org/', description: 'Available at wholehearted.org' },
+          { name: 'Doc Film', href: 'https://www.wholehearted.org/', description: 'Watch at wholehearted.org' },
         ],
       },
     ],
@@ -124,26 +124,13 @@ export function Header() {
           {/* Logo */}
           <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0, gap: '0.625rem', height: '100%' }}>
             <div style={{ position: 'relative', height: '2.25rem', width: '2.25rem', flexShrink: 0, alignSelf: 'center' }}>
-              <Image
-                src="/logos/logo.webp"
-                alt="Dr. Mark Pirtle"
-                fill
-                className="object-contain"
-                priority
-              />
+              <Image src="/logos/logo.webp" alt="Dr. Mark Pirtle" fill className="object-contain" priority />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', lineHeight: 1.2 }}>
-              <span style={{
-                color: dark ? '#ffffff' : '#000000',
-                fontWeight: 800, fontSize: '0.95rem',
-                letterSpacing: '-0.02em', transition: 'color 0.3s',
-              }}>
+              <span style={{ color: dark ? '#ffffff' : '#000000', fontWeight: 800, fontSize: '0.95rem', letterSpacing: '-0.02em', transition: 'color 0.3s' }}>
                 Dr. Mark Pirtle
               </span>
-              <span style={{
-                color: dark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)',
-                fontSize: '0.65rem', letterSpacing: '0.06em', transition: 'color 0.3s',
-              }}>
+              <span style={{ color: dark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)', fontSize: '0.65rem', letterSpacing: '0.06em', transition: 'color 0.3s' }}>
                 SkillfullyAware®
               </span>
             </div>
@@ -152,13 +139,15 @@ export function Header() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center" style={{ gap: '1.75rem' }}>
             {navigation.map(item => (
-              <div key={item.name} style={{ position: 'relative' }}
+              <div
+                key={item.name}
+                style={{ position: 'relative' }}
                 onMouseEnter={() => setOpenDropdown(item.name)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
                 <button style={{
                   display: 'flex', alignItems: 'center', gap: '0.2rem',
-                  background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+                  background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem 0',
                   color: linkColor, fontSize: 'var(--text-small)', fontWeight: 700,
                   fontFamily: 'var(--font-sans)', transition: 'color 0.15s',
                 }}
@@ -171,79 +160,91 @@ export function Header() {
 
                 {/* Standard dropdown */}
                 {item.dropdown && openDropdown === item.name && (
+                  // paddingTop creates an invisible bridge — mouse never leaves the hover zone
                   <div style={{
-                    position: 'absolute', top: 'calc(100% + 1rem)',
+                    position: 'absolute', top: '100%',
                     left: '50%', transform: 'translateX(-50%)',
-                    minWidth: '16rem', backgroundColor: '#ffffff',
-                    border: '1px solid rgba(0,0,0,0.07)', borderRadius: '0.875rem',
-                    overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.12)', zIndex: 60,
+                    paddingTop: '0.75rem',         // ← bridge replaces the gap
+                    zIndex: 60, minWidth: '16rem',
                   }}>
-                    {item.dropdown.map((d, i) => (
-                      <Link key={d.name} href={d.href} style={{
-                        display: 'block', padding: '0.8rem 1.25rem', textDecoration: 'none',
-                        borderTop: i > 0 ? '1px solid rgba(0,0,0,0.05)' : 'none',
-                        transition: 'background 0.15s',
-                      }}
-                        onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#f9f7f4')}
-                        onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
-                      >
-                        <div style={{ color: '#000', fontWeight: 600, fontSize: 'var(--text-small)' }}>{d.name}</div>
-                        <div style={{ color: 'var(--color-brand-text-muted)', fontSize: 'var(--text-xs)', marginTop: '0.1rem' }}>{d.description}</div>
-                      </Link>
-                    ))}
+                    <div style={{
+                      backgroundColor: '#ffffff',
+                      border: '1px solid rgba(0,0,0,0.07)', borderRadius: '0.875rem',
+                      overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.12)',
+                    }}>
+                      {item.dropdown.map((d, i) => (
+                        <Link key={d.name} href={d.href} style={{
+                          display: 'block', padding: '0.8rem 1.25rem', textDecoration: 'none',
+                          borderTop: i > 0 ? '1px solid rgba(0,0,0,0.05)' : 'none',
+                          transition: 'background 0.15s',
+                        }}
+                          onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#f9f7f4')}
+                          onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+                        >
+                          <div style={{ color: '#000', fontWeight: 600, fontSize: 'var(--text-small)' }}>{d.name}</div>
+                          <div style={{ color: 'var(--color-brand-text-muted)', fontSize: 'var(--text-xs)', marginTop: '0.1rem' }}>{d.description}</div>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {/* Mega menu — Power Tools */}
                 {item.megaMenu && openDropdown === item.name && (
+                  // same bridge pattern
                   <div style={{
-                    position: 'absolute', top: 'calc(100% + 1rem)',
+                    position: 'absolute', top: '100%',
                     left: '50%', transform: 'translateX(-50%)',
-                    width: '52rem', backgroundColor: '#ffffff',
-                    border: '1px solid rgba(0,0,0,0.07)', borderRadius: '0.875rem',
-                    overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.12)',
-                    zIndex: 60, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr',
+                    paddingTop: '0.75rem',         // ← bridge
+                    zIndex: 60, width: '52rem',
                   }}>
-                    {item.columns!.map((col, ci) => (
-                      <div key={col.heading} style={{
-                        padding: '1.25rem',
-                        borderLeft: ci > 0 ? '1px solid rgba(0,0,0,0.06)' : 'none',
-                      }}>
-                        <div style={{
-                          fontSize: 'var(--text-xs)', fontWeight: 700,
-                          letterSpacing: '0.1em', textTransform: 'uppercase',
-                          color: 'var(--color-brand-sienna)', marginBottom: '0.75rem',
-                        }}>
-                          {col.heading}
-                        </div>
-                        {col.items.map(d => (
-                          <Link key={d.name} href={d.href} style={{
-                            display: 'block', padding: '0.6rem 0.5rem',
-                            borderRadius: '0.375rem', textDecoration: 'none', transition: 'background 0.15s',
-                          }}
-                            onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#f9f7f4')}
-                            onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
-                          >
-                            <div style={{ color: '#000', fontWeight: 600, fontSize: 'var(--text-small)' }}>{d.name}</div>
-                            <div style={{ color: 'var(--color-brand-text-muted)', fontSize: 'var(--text-xs)', marginTop: '0.1rem' }}>{d.description}</div>
-                          </Link>
-                        ))}
-                      </div>
-                    ))}
                     <div style={{
-                      gridColumn: '1 / -1', padding: '0.875rem 1.25rem',
-                      backgroundColor: 'var(--color-brand-off-white)',
-                      borderTop: '1px solid rgba(0,0,0,0.06)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      backgroundColor: '#ffffff',
+                      border: '1px solid rgba(0,0,0,0.07)', borderRadius: '0.875rem',
+                      overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,0.12)',
+                      display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr',
                     }}>
-                      <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)', fontWeight: 500 }}>
-                        Members get unlimited access to all tools
-                      </span>
-                      <Link href="/members" style={{
-                        fontSize: 'var(--text-xs)', fontWeight: 700,
-                        color: 'var(--color-brand-sienna)', textDecoration: 'none',
-                        letterSpacing: '0.04em', textTransform: 'uppercase',
-                      }}>Join →</Link>
+                      {item.columns!.map((col, ci) => (
+                        <div key={col.heading} style={{
+                          padding: '1.25rem',
+                          borderLeft: ci > 0 ? '1px solid rgba(0,0,0,0.06)' : 'none',
+                        }}>
+                          <div style={{
+                            fontSize: 'var(--text-xs)', fontWeight: 700,
+                            letterSpacing: '0.1em', textTransform: 'uppercase',
+                            color: 'var(--color-brand-sienna)', marginBottom: '0.75rem',
+                          }}>
+                            {col.heading}
+                          </div>
+                          {col.items.map(d => (
+                            <Link key={d.name} href={d.href} style={{
+                              display: 'block', padding: '0.6rem 0.5rem',
+                              borderRadius: '0.375rem', textDecoration: 'none', transition: 'background 0.15s',
+                            }}
+                              onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#f9f7f4')}
+                              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+                            >
+                              <div style={{ color: '#000', fontWeight: 600, fontSize: 'var(--text-small)' }}>{d.name}</div>
+                              <div style={{ color: 'var(--color-brand-text-muted)', fontSize: 'var(--text-xs)', marginTop: '0.1rem' }}>{d.description}</div>
+                            </Link>
+                          ))}
+                        </div>
+                      ))}
+                      <div style={{
+                        gridColumn: '1 / -1', padding: '0.875rem 1.25rem',
+                        backgroundColor: 'var(--color-brand-off-white)',
+                        borderTop: '1px solid rgba(0,0,0,0.06)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      }}>
+                        <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)', fontWeight: 500 }}>
+                          Members get unlimited access to all tools
+                        </span>
+                        <Link href="/members" style={{
+                          fontSize: 'var(--text-xs)', fontWeight: 700,
+                          color: 'var(--color-brand-sienna)', textDecoration: 'none',
+                          letterSpacing: '0.04em', textTransform: 'uppercase',
+                        }}>Join →</Link>
+                      </div>
                     </div>
                   </div>
                 )}
