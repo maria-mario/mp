@@ -1,4 +1,3 @@
-
 import { ExperienceType } from '@/lib/data/experiences';
 
 const CONFIG = {
@@ -19,11 +18,7 @@ const CONFIG = {
   },
 };
 
-export function InclusionFlag({
-  type,
-  heading,
-  body,
-}: {
+export function InclusionFlag({ type, heading, body }: {
   type: ExperienceType;
   heading: string;
   body: string;
@@ -32,20 +27,10 @@ export function InclusionFlag({
   return (
     <div className={c.wrapperClass}>
       <span className={c.badgeClass}>{c.badgeText}</span>
-      <h3 style={{
-        fontFamily: 'var(--font-sans)',
-        fontWeight: 700,
-        fontSize: 'var(--text-title)',
-        color: 'var(--color-brand-text)',
-        marginBottom: '0.75rem',
-      }}>
+      <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 'var(--text-title)', color: 'var(--color-brand-text)', marginBottom: '0.75rem' }}>
         {heading}
       </h3>
-      <p style={{
-        color: 'var(--color-brand-text-muted)',
-        lineHeight: 1.8,
-        maxWidth: '68ch',
-      }}>
+      <p style={{ color: 'var(--color-brand-text-muted)', lineHeight: 1.8, maxWidth: '68ch' }}>
         {body}
       </p>
     </div>
