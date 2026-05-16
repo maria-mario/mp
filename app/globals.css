@@ -363,4 +363,197 @@ em { font-style: italic; }
   .footer a:hover {
     color: #ffffff;
   }
+  /* ── Inclusion flag variants ── */
+  .flag-core {
+    background-color: color-mix(in srgb, var(--color-brand-blue) 8%, white);
+    border: 1px solid color-mix(in srgb, var(--color-brand-blue) 25%, white);
+    border-radius: var(--radius-card);
+    padding: 2rem;
+  }
+
+  .flag-premium {
+    background-color: color-mix(in srgb, var(--color-brand-sienna) 8%, white);
+    border: 1px solid color-mix(in srgb, var(--color-brand-sienna) 25%, white);
+    border-radius: var(--radius-card);
+    padding: 2rem;
+  }
+
+  .flag-premium-request {
+    background-color: color-mix(in srgb, var(--color-brand-navy) 6%, white);
+    border: 1px solid var(--color-brand-border);
+    border-radius: var(--radius-card);
+    padding: 2rem;
+  }
+
+  /* ── Badge labels ── */
+  .badge-core {
+    display: inline-block;
+    background-color: var(--color-brand-blue);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .badge-premium {
+    display: inline-block;
+    background-color: var(--color-brand-sienna);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .badge-premium-request {
+    display: inline-block;
+    background-color: var(--color-brand-navy);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  /* ── Experience rich text (replaces prose) ── */
+  .experience-body p {
+    color: var(--color-brand-text-muted);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    max-width: 68ch;
+  }
+
+  .experience-body em {
+    font-style: italic;
+    color: var(--color-brand-text);
+  }
+
+  .experience-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Benefit card ── */
+  .benefit-card {
+    border: 1px solid var(--color-brand-warm-gray);
+    border-radius: var(--radius-card);
+    padding: 1.5rem;
+    background-color: rgba(255,255,255,0.05);
+  }
+
+  .benefit-card .benefit-label {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: var(--text-small);
+    color: var(--color-brand-sienna-light);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .benefit-card .benefit-desc {
+    color: rgba(255,255,255,0.7);
+    font-size: var(--text-small);
+    line-height: 1.7;
+  }
+
+  /* ── Forum block (left border accent) ── */
+  .forum-block {
+    border-left: 4px solid var(--color-brand-sienna);
+    padding-left: 2rem;
+  }
+
+  .forum-block p {
+    color: var(--color-brand-text-muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    max-width: 68ch;
+  }
+
+  .forum-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Interest list form ── */
+  .interest-form-input {
+    width: 100%;
+    border: 1px solid var(--color-brand-border);
+    border-radius: 0.375rem;
+    padding: 0.625rem 1rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    color: var(--color-brand-text);
+    background-color: #ffffff;
+    transition: border-color 0.15s ease;
+    outline: none;
+  }
+
+  .interest-form-input:focus {
+    border-color: var(--color-brand-sienna);
+  }
+
+  /* ── Experience index card ── */
+  .experience-card {
+    background-color: #ffffff;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-brand-warm-gray);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: block;
+  }
+
+  .experience-card:hover {
+    box-shadow: var(--shadow-premium);
+    transform: translateY(-2px);
+  }
+
+  /* ── Related experience pill links ── */
+  .experience-pill {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--color-brand-text);
+    border: 1px solid var(--color-brand-border);
+    border-radius: 9999px;
+    padding: 0.375rem 1rem;
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .experience-pill:hover {
+    border-color: var(--color-brand-sienna);
+    color: var(--color-brand-sienna);
+  }
+
+  /* ── Location block ── */
+  .location-block {
+    background-color: var(--color-brand-navy-light);
+    color: #ffffff;
+    padding: 3rem 0;
+  }
+
+  .location-block p {
+    color: rgba(255,255,255,0.75);
+    line-height: 1.8;
+    max-width: 68ch;
+    margin-bottom: 1rem;
+  }
+
+  .location-block p:last-child {
+    margin-bottom: 0;
+  }
 }
