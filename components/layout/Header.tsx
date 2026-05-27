@@ -33,19 +33,10 @@ const navigation = [
   {
     name: 'Forum Retreats',
     href: '/forum-retreats',
-    dropdown: [
-      { name: 'Mind Your Business',  href: '/forum-retreats/founders',       description: 'For Founders & CEOs' },
-      { name: 'Unfinished Business', href: '/forum-retreats/senior-leaders', description: 'For Senior Leaders' },
-      { name: 'All Experiences',     href: '/experiences',                   description: 'Browse retreat experiences' },
-    ],
   },
   {
     name: 'SAAQ Coaching',
     href: '/consultation',
-    dropdown: [
-      { name: 'Mind Your Business',  href: '/consultation/founders', description: 'Coaching for Founders & CEOs' },
-      { name: 'Unfinished Business', href: '/consultation/leaders',  description: 'Coaching for Senior Leaders' },
-    ],
   },
   {
     name: 'Power Tools',
