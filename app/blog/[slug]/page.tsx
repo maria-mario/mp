@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
 
-// Next 15+ — params is now a Promise
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
@@ -20,19 +19,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.title} — Dr Mark Pirtle`,
     description: post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      images: [{ url: post.featured_image }],
-      type: 'article',
-      publishedTime: post.published_date,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.excerpt,
-      images: [post.featured_image],
-    },
+    openGraph: { title: post.title, description: post.excerpt, images: [{ url: post.featured_image }], type: 'article', publishedTime: post.published_date },
+    twitter: { card: 'summary_large_image', title: post.title, description: post.excerpt, images: [post.featured_image] },
   };
 }
 
@@ -46,98 +34,234 @@ export default async function BlogPostPage({ params }: Props) {
   const prev = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
   const next = idx > 0 ? allPosts[idx - 1] : null;
 
-  return (
-    <main className="max-w-3xl mx-auto px-4 py-16">
-      {/* Breadcrumb */}
-      <nav className="text-sm text-gray-400 mb-8">
-        <Link href="/blog" className="hover:text-black">Blog</Link>
-        <span className="mx-2">/</span>
-        <span className="text-gray-700">{post.title}</span>
-      </nav>
+  // Related posts: same category, excluding current, max 3
+  const related = allPosts
+    .filter((p) => p.slug !== post.slug && p.categories.some((c) => post.categories.includes(c)))
+    .slice(0, 3);
 
-      {/* Categories */}
-      {post.categories.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {post.categories.map((cat) => (
-            <Link
-              key={cat}
-              href={`/blog?category=${encodeURIComponent(cat)}`}
-              className="text-xs uppercase tracking-widest text-gray-500 hover:text-black"
-            >
-              {cat}
+  return (
+    <div style={{ backgroundColor: '#ffffff', minHeight: '100vh', paddingTop: '4.5rem' }}>
+
+      {/* Hero image — full width */}
+      <div style={{ position: 'relative', width: '100%', aspectRatio: '21/7', backgroundColor: '#f0ede8', maxHeight: '36rem', overflow: 'hidden' }}>
+        <Image src={post.featured_image} alt={post.title} fill priority sizes="100vw" style={{ objectFit: 'cover' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.55))' }} />
+      </div>
+
+      {/* Main layout: content + sidebar */}
+      <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem 5rem', display: 'grid', gridTemplateColumns: '1fr', gap: '3rem' }}
+        className="lg:grid-cols-[1fr_20rem]">
+
+        {/* ── LEFT: Article ── */}
+        <article style={{ minWidth: 0 }}>
+
+          {/* Breadcrumb */}
+          <nav style={{ display: 'flex', gap: '0.375rem', alignItems: 'center', fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)', padding: '1.5rem 0 0' }}>
+            <Link href="/blog" style={{ color: 'var(--color-brand-text-muted)', textDecoration: 'none' }}>Blog</Link>
+            <span>/</span>
+            {post.categories[0] && (
+              <>
+                <Link href={`/blog?category=${encodeURIComponent(post.categories[0])}`} style={{ color: 'var(--color-brand-text-muted)', textDecoration: 'none' }}>
+                  {post.categories[0]}
+                </Link>
+                <span>/</span>
+              </>
+            )}
+            <span style={{ color: 'var(--color-brand-text)', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '20rem' }}>
+              {post.title}
+            </span>
+          </nav>
+
+          {/* Category pills */}
+          {post.categories.length > 0 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1.25rem' }}>
+              {post.categories.map((cat) => (
+                <Link
+                  key={cat}
+                  href={`/blog?category=${encodeURIComponent(cat)}`}
+                  aria-label={`Filter by ${cat}`}
+                  style={{
+                    fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
+                    color: 'var(--color-brand-sienna)', textDecoration: 'none', padding: '0.3rem 0.75rem',
+                    border: '1.5px solid var(--color-brand-sienna)', borderRadius: '9999px',
+                    transition: 'background 0.15s, color 0.15s',
+                  }}
+                >
+                  {cat}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Title */}
+          <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', fontWeight: 700, color: 'var(--color-brand-text)', lineHeight: 1.2, marginTop: '1rem', marginBottom: '1rem' }}>
+            {post.title}
+          </h1>
+
+          {/* Meta */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2.5rem', paddingBottom: '2rem', borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
+            <div style={{ width: '2.25rem', height: '2.25rem', borderRadius: '9999px', backgroundColor: 'var(--color-brand-warm-gray)', flexShrink: 0, overflow: 'hidden', position: 'relative' }}>
+              <Image src="/logos/logo.webp" alt="Mark Pirtle" fill style={{ objectFit: 'cover' }} />
+            </div>
+            <div>
+              <div style={{ fontSize: 'var(--text-small)', fontWeight: 600, color: 'var(--color-brand-text)' }}>{post.author}</div>
+              <time dateTime={post.published_date} style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)' }}>
+                {new Date(post.published_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              </time>
+            </div>
+          </div>
+
+          {/* Post body */}
+          <div
+            className="blog-content"
+            style={{
+              fontSize: 'var(--text-body)',
+              color: 'var(--color-brand-text)',
+              lineHeight: 1.8,
+            }}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
+
+          {/* Prev / Next */}
+          <nav aria-label="Post navigation" style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)', display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
+            {prev ? (
+              <Link href={`/blog/${prev.slug}`} aria-label={`Previous post: ${prev.title}`} style={{ flex: 1, textDecoration: 'none' }}>
+                <span style={{ display: 'block', fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)', marginBottom: '0.25rem' }}>← Previous</span>
+                <span style={{ fontSize: 'var(--text-small)', fontWeight: 600, color: 'var(--color-brand-text)' }}>{prev.title}</span>
+              </Link>
+            ) : <div />}
+            {next ? (
+              <Link href={`/blog/${next.slug}`} aria-label={`Next post: ${next.title}`} style={{ flex: 1, textAlign: 'right', textDecoration: 'none' }}>
+                <span style={{ display: 'block', fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-muted)', marginBottom: '0.25rem' }}>Next →</span>
+                <span style={{ fontSize: 'var(--text-small)', fontWeight: 600, color: 'var(--color-brand-text)' }}>{next.title}</span>
+              </Link>
+            ) : <div />}
+          </nav>
+        </article>
+
+        {/* ── RIGHT: Sidebar ── */}
+        <aside style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingTop: '3.5rem' }}>
+
+          {/* Newsletter signup */}
+          <div style={{ backgroundColor: '#fafaf9', border: '1px solid rgba(0,0,0,0.07)', borderRadius: '1rem', padding: '1.5rem' }}>
+            <div style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>✉️</div>
+            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-brand-text)', marginBottom: '0.5rem' }}>
+              Stay SkillfullyAware®
+            </h3>
+            <p style={{ fontSize: 'var(--text-small)', color: 'var(--color-brand-text-light)', lineHeight: 1.6, marginBottom: '1rem' }}>
+              Get the latest insights, practices, and transformative wisdom delivered straight to your inbox.
+            </p>
+            <form action="/api/newsletter" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+              <input type="email" name="email" required placeholder="your@email.com" className="form-input" style={{ fontSize: 'var(--text-small)' }} />
+              <button type="submit" style={{
+                backgroundColor: 'var(--color-brand-sienna)', color: '#ffffff', fontWeight: 700,
+                fontSize: 'var(--text-small)', border: 'none', borderRadius: '0.5rem',
+                padding: '0.65rem 1rem', cursor: 'pointer', transition: 'opacity 0.15s',
+              }}>
+                Subscribe →
+              </button>
+            </form>
+            <p style={{ fontSize: '0.65rem', color: 'var(--color-brand-text-muted)', marginTop: '0.625rem' }}>No spam. Unsubscribe anytime.</p>
+          </div>
+
+          {/* Book CTA */}
+          <div style={{ backgroundColor: 'var(--color-brand-text)', borderRadius: '1rem', padding: '1.5rem', color: '#ffffff' }}>
+            <div style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>📖</div>
+            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.375rem', color: '#ffffff' }}>
+              The Healing Mindset
+            </h3>
+            <p style={{ fontSize: 'var(--text-small)', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6, marginBottom: '1rem' }}>
+              Mastering the Art of Skillful Awareness — Mark&apos;s upcoming book. Join the launch team for early access, a signed copy, and a live class.
+            </p>
+            <Link href="/contact" style={{
+              display: 'block', textAlign: 'center',
+              backgroundColor: 'var(--color-brand-sienna)', color: '#ffffff',
+              fontWeight: 700, fontSize: 'var(--text-small)', textDecoration: 'none',
+              borderRadius: '0.5rem', padding: '0.65rem 1rem', transition: 'opacity 0.15s',
+            }}>
+              Join the Book Launch Team →
             </Link>
-          ))}
-        </div>
+          </div>
+
+          {/* Membership CTA */}
+          <div style={{ backgroundColor: '#f0ede8', border: '1px solid rgba(0,0,0,0.07)', borderRadius: '1rem', padding: '1.5rem' }}>
+            <div style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>🔑</div>
+            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-brand-text)', marginBottom: '0.375rem' }}>
+              Power Tools Access
+            </h3>
+            <p style={{ fontSize: 'var(--text-small)', color: 'var(--color-brand-text-light)', lineHeight: 1.6, marginBottom: '1rem' }}>
+              Get unlimited access to online courses, workbooks, meditation programs, and the full SkillfullyAware® toolkit.
+            </p>
+            <Link href="/members" style={{
+              display: 'block', textAlign: 'center',
+              backgroundColor: 'var(--color-brand-text)', color: '#ffffff',
+              fontWeight: 700, fontSize: 'var(--text-small)', textDecoration: 'none',
+              borderRadius: '0.5rem', padding: '0.65rem 1rem', transition: 'opacity 0.15s',
+            }}>
+              Explore Membership →
+            </Link>
+          </div>
+
+          {/* Retreats CTA */}
+          <div style={{ border: '1.5px solid rgba(0,0,0,0.1)', borderRadius: '1rem', padding: '1.5rem' }}>
+            <div style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>🌿</div>
+            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-brand-text)', marginBottom: '0.375rem' }}>
+              Work With Mark
+            </h3>
+            <p style={{ fontSize: 'var(--text-small)', color: 'var(--color-brand-text-light)', lineHeight: 1.6, marginBottom: '1rem' }}>
+              Forum retreats, SAAQ coaching, and plant medicine experiences at Tubac Ranch, Arizona.
+            </p>
+            <Link href="/forum-retreats" style={{
+              display: 'block', textAlign: 'center',
+              border: '1.5px solid var(--color-brand-text)', color: 'var(--color-brand-text)',
+              fontWeight: 700, fontSize: 'var(--text-small)', textDecoration: 'none',
+              borderRadius: '0.5rem', padding: '0.625rem 1rem', transition: 'background 0.15s, color 0.15s',
+            }}>
+              Explore Retreats →
+            </Link>
+          </div>
+        </aside>
+      </div>
+
+      {/* ── You May Also Like ── */}
+      {related.length > 0 && (
+        <section style={{ borderTop: '1px solid rgba(0,0,0,0.07)', backgroundColor: '#fafaf9', padding: '4rem 2rem' }}>
+          <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
+            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, color: 'var(--color-brand-text)', marginBottom: '2rem' }}>
+              You May Also Like
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 20rem), 1fr))', gap: '1.5rem' }}>
+              {related.map((rel) => (
+                <article key={rel.id} style={{ backgroundColor: '#ffffff', border: '1px solid rgba(0,0,0,0.07)', borderRadius: '1rem', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                  <Link href={`/blog/${rel.slug}`} aria-label={`Read: ${rel.title}`} style={{ display: 'block', flexShrink: 0 }}>
+                    <div style={{ position: 'relative', aspectRatio: '16/8', backgroundColor: '#f0ede8' }}>
+                      <Image src={rel.featured_image} alt={rel.title} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
+                    </div>
+                  </Link>
+                  <div style={{ padding: '1.125rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      {rel.categories[0] && (
+                        <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-brand-sienna)', marginBottom: '0.375rem' }}>
+                          {rel.categories[0]}
+                        </p>
+                      )}
+                      <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1rem', fontWeight: 700, color: 'var(--color-brand-text)', lineHeight: 1.35, marginBottom: '0.5rem' }}>
+                        <Link href={`/blog/${rel.slug}`} aria-label={`Read: ${rel.title}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                          {rel.title}
+                        </Link>
+                      </h3>
+                    </div>
+                    <Link href={`/blog/${rel.slug}`} aria-label={`Read full article: ${rel.title}`} style={{ fontSize: 'var(--text-small)', fontWeight: 700, color: 'var(--color-brand-sienna)', textDecoration: 'none', marginTop: '0.75rem' }}>
+                      Read More →
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
       )}
 
-      <h1 className="text-4xl font-bold leading-tight mb-4">{post.title}</h1>
-
-      <div className="flex items-center gap-3 text-sm text-gray-400 mb-8">
-        <span>{post.author}</span>
-        <span>·</span>
-        <time dateTime={post.published_date}>
-          {new Date(post.published_date).toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          })}
-        </time>
-      </div>
-
-      <div className="relative aspect-[16/8] w-full rounded-lg overflow-hidden mb-10 bg-gray-100">
-        <Image
-          src={post.featured_image}
-          alt={post.title}
-          fill
-          priority
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 768px"
-        />
-      </div>
-
-      {/* Post body */}
-      <div
-        className="
-          text-gray-800 leading-relaxed text-base
-          [&_p]:mb-5
-          [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mt-10 [&_h2]:mb-4
-          [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-3
-          [&_h4]:text-lg [&_h4]:font-semibold [&_h4]:mt-6 [&_h4]:mb-2
-          [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-5 [&_ul>li]:mb-1.5
-          [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-5 [&_ol>li]:mb-1.5
-          [&_strong]:font-semibold
-          [&_em]:italic
-          [&_a]:underline [&_a]:text-black [&_a]:hover:opacity-70
-          [&_blockquote]:border-l-4 [&_blockquote]:border-gray-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-600 [&_blockquote]:mb-5
-          [&_hr]:my-8 [&_hr]:border-gray-200
-        "
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      />
-
-      {/* Prev / Next */}
-      <nav className="mt-16 pt-8 border-t border-gray-200 flex justify-between gap-4 text-sm">
-        {prev ? (
-          <Link href={`/blog/${prev.slug}`} className="flex-1 group">
-            <span className="block text-gray-400 mb-1">← Previous</span>
-            <span className="font-medium group-hover:underline">{prev.title}</span>
-          </Link>
-        ) : <div />}
-        {next ? (
-          <Link href={`/blog/${next.slug}`} className="flex-1 text-right group">
-            <span className="block text-gray-400 mb-1">Next →</span>
-            <span className="font-medium group-hover:underline">{next.title}</span>
-          </Link>
-        ) : <div />}
-      </nav>
-
-      <div className="mt-10 text-center">
-        <Link
-          href="/blog"
-          className="inline-block border border-black px-6 py-2 text-sm hover:bg-black hover:text-white transition-colors"
-        >
-          ← Back to Blog
-        </Link>
-      </div>
-    </main>
+    </div>
   );
 }

@@ -4,7 +4,22 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, ChevronDown, Search, LogIn } from 'lucide-react';
+import { blogPosts } from '@/lib/blog-data';
 
+// ── Compute top 3 blog categories at module load time ──────────────────────
+// (runs once on the server during SSG / on client at import — not in render)
+function getTopCategories(n: number) {
+  const counts: Record<string, number> = {};
+  blogPosts.forEach((p) => p.categories.forEach((c) => { counts[c] = (counts[c] ?? 0) + 1; }));
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, n)
+    .map(([name, count]) => ({ name, count }));
+}
+
+const topCategories = getTopCategories(3);
+
+// ── Navigation data ─────────────────────────────────────────────────────────
 const navigation = [
   {
     name: 'About',
@@ -72,16 +87,19 @@ const navigation = [
   {
     name: 'Blog',
     href: '/blog',
+    // "All Articles" + top 3 most-tagged categories, computed above
     dropdown: [
-      { name: 'All Articles',        href: '/blog',                        description: 'Thought leadership & insights' },
-      { name: 'Announcements',       href: '/blog/category/announcements', description: 'News & updates' },
-      { name: 'Breaking Bad Habits', href: '/blog/category/habits',        description: 'Habit change series' },
-      { name: 'Shadow Work',         href: '/blog/category/shadow-work',   description: 'Inner leadership work' },
-      { name: 'Mindfulness',         href: '/blog/category/mindfulness',   description: 'Presence & awareness' },
+      { name: 'All Articles', href: '/blog', description: 'Thought leadership & insights' },
+      ...topCategories.map(({ name, count }) => ({
+        name,
+        href: `/blog?category=${encodeURIComponent(name)}`,
+        description: `${count} article${count !== 1 ? 's' : ''}`,
+      })),
     ],
   },
 ];
 
+// ── Component ───────────────────────────────────────────────────────────────
 export function Header() {
   const [pastHero, setPastHero]         = useState(false);
   const [mobileOpen, setMobileOpen]     = useState(false);
@@ -160,11 +178,10 @@ export function Header() {
 
                 {/* Standard dropdown */}
                 {item.dropdown && openDropdown === item.name && (
-                  // paddingTop creates an invisible bridge — mouse never leaves the hover zone
                   <div style={{
                     position: 'absolute', top: '100%',
                     left: '50%', transform: 'translateX(-50%)',
-                    paddingTop: '0.75rem',         // ← bridge replaces the gap
+                    paddingTop: '0.75rem',
                     zIndex: 60, minWidth: '16rem',
                   }}>
                     <div style={{
@@ -191,11 +208,10 @@ export function Header() {
 
                 {/* Mega menu — Power Tools */}
                 {item.megaMenu && openDropdown === item.name && (
-                  // same bridge pattern
                   <div style={{
                     position: 'absolute', top: '100%',
                     left: '50%', transform: 'translateX(-50%)',
-                    paddingTop: '0.75rem',         // ← bridge
+                    paddingTop: '0.75rem',
                     zIndex: 60, width: '52rem',
                   }}>
                     <div style={{
