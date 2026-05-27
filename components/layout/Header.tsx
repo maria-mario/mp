@@ -154,18 +154,32 @@ export function Header() {
                 onMouseEnter={() => setOpenDropdown(item.name)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                <button style={{
-                  display: 'flex', alignItems: 'center', gap: '0.2rem',
-                  background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem 0',
-                  color: linkColor, fontSize: 'var(--text-small)', fontWeight: 700,
-                  fontFamily: 'var(--font-sans)', transition: 'color 0.15s',
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
-                  onMouseLeave={e => (e.currentTarget.style.color = linkColor)}
-                >
-                  {item.name}
-                  {(item.dropdown || item.megaMenu) && <ChevronDown className="w-3.5 h-3.5" />}
-                </button>
+                {!item.dropdown && !item.megaMenu ? (
+                  <Link href={item.href} style={{
+                    display: 'flex', alignItems: 'center',
+                    padding: '0.25rem 0', textDecoration: 'none',
+                    color: linkColor, fontSize: 'var(--text-small)', fontWeight: 700,
+                    fontFamily: 'var(--font-sans)', transition: 'color 0.15s',
+                  }}
+                    onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
+                    onMouseLeave={e => (e.currentTarget.style.color = linkColor)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <button style={{
+                    display: 'flex', alignItems: 'center', gap: '0.2rem',
+                    background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem 0',
+                    color: linkColor, fontSize: 'var(--text-small)', fontWeight: 700,
+                    fontFamily: 'var(--font-sans)', transition: 'color 0.15s',
+                  }}
+                    onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
+                    onMouseLeave={e => (e.currentTarget.style.color = linkColor)}
+                  >
+                    {item.name}
+                    <ChevronDown className="w-3.5 h-3.5" />
+                  </button>
+                )}
 
                 {/* Standard dropdown */}
                 {item.dropdown && openDropdown === item.name && (
