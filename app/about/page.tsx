@@ -272,7 +272,7 @@ export default function AboutPage() {
           ))}
         </div>
 
-        <h3 style={{ fontSize: '1.1rem', fontWeight: 800, letterSpacing: '0.01em', marginBottom: '1.75rem', color: 'var(--color-brand-text-muted)', textTransform: 'uppercase' as const, fontSize: 'var(--text-xs)', letterSpacing: '0.12em' }}>
+        <h3 style={{ fontWeight: 800, marginBottom: '1.75rem', color: 'var(--color-brand-text-muted)', textTransform: 'uppercase' as const, fontSize: 'var(--text-xs)', letterSpacing: '0.12em' }}>
           The Thinkers Who Shaped This Work
         </h3>
 
