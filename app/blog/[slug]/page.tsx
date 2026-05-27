@@ -5,7 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
 
-type Props = { params: { slug: string } };
+// Next 15+ — params is now a Promise
+type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -13,7 +14,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
   if (!post) return {};
   return {
     title: `${post.title} — Dr Mark Pirtle`,
@@ -35,7 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
   if (!post) notFound();
 
   const allPosts = await getAllPosts();
@@ -92,7 +95,7 @@ export default async function BlogPostPage({ params }: Props) {
         />
       </div>
 
-      {/* Post body — styled with Tailwind v4 utilities via [&_tag] selectors */}
+      {/* Post body */}
       <div
         className="
           text-gray-800 leading-relaxed text-base
