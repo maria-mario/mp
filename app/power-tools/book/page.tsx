@@ -105,7 +105,7 @@ const LEARNS = [
    CHECKOUT HANDLER
 ───────────────────────────────────────────── */
 async function startCheckout(priceId: string, coupon?: string) {
-  const res = await fetch('/api/checkout/book', {
+  const res = await fetch('/api/interest-list/checkout/book', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ priceId, coupon }),
