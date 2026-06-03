@@ -40,8 +40,8 @@ const columns = [
       { name: 'Overcoming Addictive Behaviors', href: '/power-tools/addictive'    },
       { name: 'Workbooks',                      href: '/power-tools/workbook-sa'  },
       { name: 'Meditation Programs',            href: '/power-tools/feel-better'  },
-      { name: 'The Book',                       href: 'https://www.wholehearted.org/', external: true },
-      { name: 'Documentary Film',               href: 'https://www.wholehearted.org/', external: true },
+      { name: 'The Book',                       href: '/power-tools/book'},
+      { name: 'Documentary Film',               href: 'https://tubitv.com/movies/701292/is-your-story-making-you-sick', external: true },
     ],
   },
   {

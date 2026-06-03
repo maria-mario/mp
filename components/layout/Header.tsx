@@ -69,8 +69,16 @@ const navigation = [
       {
         heading: 'Media',
         items: [
-          { name: 'The Book', href: 'https://www.wholehearted.org/', description: 'Available at wholehearted.org' },
-          { name: 'Doc Film', href: 'https://www.wholehearted.org/', description: 'Watch at wholehearted.org' },
+          {
+            name: 'Built This Way',
+            href: '/power-tools/book',
+            description: 'Book — join the launch team',
+          },
+          {
+            name: 'Is Your Story Making You Sick?',
+            href: 'https://tubitv.com/movies/701292/is-your-story-making-you-sick',
+            description: 'Watch for free on Tubi TV',
+          },
         ],
       },
     ],
