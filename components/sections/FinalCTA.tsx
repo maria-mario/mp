@@ -1,0 +1,85 @@
+import Link from 'next/link';
+
+export function FinalCTA() {
+  return (
+    <section style={{
+      backgroundColor: 'var(--color-brand-cream)',
+      padding: '6rem 1.5rem',
+      textAlign: 'center',
+    }}>
+      <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
+
+        <h2 style={{
+          fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
+          fontWeight: 800,
+          letterSpacing: '-0.02em',
+          color: 'var(--color-brand-text)',
+          marginBottom: '1.25rem',
+          lineHeight: 1.2,
+        }}>
+          You are not failing. You are patterned. And patterns can change.
+        </h2>
+
+        <p style={{
+          fontSize: '1.05rem',
+          color: 'var(--color-brand-text-muted)',
+          lineHeight: 1.75,
+          marginBottom: '2.5rem',
+          maxWidth: '44ch',
+          margin: '0 auto 2.5rem',
+        }}>
+          Start with the book, try the reader tool, practice with Power Tools, go deeper with the SAAQ, or join a guided experience when you are ready.
+        </p>
+
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Link href="/built-this-way" style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            backgroundColor: 'var(--color-brand-sienna)',
+            color: '#ffffff',
+            padding: '0.875rem 2rem',
+            borderRadius: '9999px',
+            fontWeight: 700,
+            fontSize: 'var(--text-small)',
+            textDecoration: 'none',
+          }}>
+            Join the Built This Way Launch Team
+          </Link>
+
+          <Link href="#start" style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            backgroundColor: 'transparent',
+            color: 'var(--color-brand-text)',
+            padding: '0.875rem 2rem',
+            borderRadius: '9999px',
+            fontWeight: 600,
+            fontSize: 'var(--text-small)',
+            textDecoration: 'none',
+            border: '1px solid var(--color-brand-border)',
+          }}>
+            Find the Right Starting Point
+          </Link>
+        </div>
+
+        <div style={{ marginTop: '1.5rem' }}>
+          <Link href="/retreats" style={{
+            fontSize: 'var(--text-small)',
+            fontWeight: 600,
+            color: 'var(--color-brand-sienna)',
+            textDecoration: 'none',
+          }}>
+            For EO/YPO, leaders, and forum retreats →
+          </Link>
+        </div>
+
+      </div>
+    </section>
+  );
+}
