@@ -88,11 +88,12 @@ export function PowerToolsPreview() {
           {categories.map(cat => (
             <div
               key={cat.label}
-              className="rounded-2xl p-6 flex flex-col"
+              className="p-6 flex flex-col"
               style={{
                 backgroundColor: '#ffffff',
                 border: '1px solid var(--color-brand-warm-gray)',
                 boxShadow: 'var(--shadow-card)',
+                borderRadius: '0.625rem',
               }}
             >
               {/* Category header */}
@@ -150,10 +151,11 @@ export function PowerToolsPreview() {
 
         {/* Membership CTA banner */}
         <div
-          className="rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6"
+          className="p-8 flex flex-col md:flex-row items-center justify-between gap-6"
           style={{
             backgroundColor: 'var(--color-brand-navy)',
-            backgroundImage: 'radial-gradient(ellipse 60% 80% at 90% 50%, rgba(192,82,42,0.15) 0%, transparent 70%)',
+            backgroundImage: 'radial-gradient(ellipse 60% 80% at 90% 50%, rgba(195,77,39,0.15) 0%, transparent 70%)',
+            borderRadius: '0.625rem',
           }}
         >
           <div className="flex items-start gap-4">
@@ -179,20 +181,20 @@ export function PowerToolsPreview() {
               href="/members"
               className="inline-flex items-center gap-2"
               style={{
-                backgroundColor: 'var(--color-brand-sienna)',
-                color: '#ffffff',
+                backgroundColor: '#ffffff',
+                color: '#c34d27',
                 padding: '0.875rem 1.75rem',
                 borderRadius: '9999px',
-                fontWeight: 700,
+                fontWeight: 600,
                 fontSize: 'var(--text-small)',
                 letterSpacing: '0.04em',
                 textTransform: 'uppercase' as const,
                 textDecoration: 'none',
                 whiteSpace: 'nowrap' as const,
-                transition: 'background-color 0.2s',
+                transition: 'background-color 0.2s, color 0.2s',
               }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-sienna-dark)')}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-sienna)')}
+              onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c34d27'; e.currentTarget.style.color = '#ffffff'; }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.color = '#c34d27'; }}
             >
               Join Membership <ArrowRight className="w-4 h-4" />
             </Link>

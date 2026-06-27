@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 export function BuiltThisWay() {
   return (
     <section style={{
-      backgroundColor: '#0f0f0f',
+      backgroundColor: '#000000',
       padding: '5rem 1.5rem',
     }}>
       <div style={{
@@ -39,7 +39,7 @@ export function BuiltThisWay() {
             </p>
             <p style={{
               fontSize: '1.25rem',
-              fontWeight: 800,
+              fontWeight: 600,
               color: '#ffffff',
               lineHeight: 1.3,
             }}>
@@ -51,9 +51,9 @@ export function BuiltThisWay() {
         {/* Content */}
         <div>
           <p style={{
-            fontSize: 'var(--text-xs)',
-            fontWeight: 700,
-            letterSpacing: '0.12em',
+            fontSize: '1rem',
+            fontWeight: 500,
+            letterSpacing: '0.06em',
             textTransform: 'uppercase',
             color: 'var(--color-brand-sienna-light)',
             marginBottom: '1rem',
@@ -63,7 +63,7 @@ export function BuiltThisWay() {
 
           <h2 style={{
             fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
-            fontWeight: 800,
+            fontWeight: 600,
             letterSpacing: '-0.02em',
             color: '#ffffff',
             marginBottom: '1.5rem',
@@ -95,11 +95,11 @@ export function BuiltThisWay() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              backgroundColor: 'var(--color-brand-sienna)',
-              color: '#ffffff',
+              backgroundColor: '#ffffff',
+              color: '#c34d27',
               padding: '0.875rem 2rem',
               borderRadius: '9999px',
-              fontWeight: 700,
+              fontWeight: 600,
               fontSize: 'var(--text-small)',
               textDecoration: 'none',
             }}>

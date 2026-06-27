@@ -127,19 +127,20 @@ export function AboutMark() {
                 href="/about"
                 className="inline-flex items-center gap-2"
                 style={{
-                  backgroundColor: 'var(--color-brand-sienna)',
-                  color: '#ffffff',
+                  backgroundColor: '#ffffff',
+                  color: '#c34d27',
+                  border: '2px solid #c34d27',
                   padding: '0.875rem 1.75rem',
                   borderRadius: '9999px',
-                  fontWeight: 700,
+                  fontWeight: 600,
                   fontSize: 'var(--text-small)',
                   letterSpacing: '0.04em',
                   textTransform: 'uppercase' as const,
                   textDecoration: 'none',
-                  transition: 'background-color 0.2s',
+                  transition: 'background-color 0.2s, color 0.2s',
                 }}
-                onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-sienna-dark)')}
-                onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-sienna)')}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c34d27'; e.currentTarget.style.color = '#ffffff'; }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.color = '#c34d27'; }}
               >
                 Read Full Story <ArrowRight className="w-4 h-4" />
               </Link>

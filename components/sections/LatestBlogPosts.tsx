@@ -85,7 +85,7 @@ export function LatestBlogPosts() {
               style={{
                 display: 'block',
                 backgroundColor: '#ffffff',
-                borderRadius: '1rem',
+                borderRadius: '0.625rem',
                 overflow: 'hidden',
                 border: '1px solid var(--color-brand-warm-gray)',
                 boxShadow: 'var(--shadow-card)',

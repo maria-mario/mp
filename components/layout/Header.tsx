@@ -166,7 +166,7 @@ export function Header() {
                   <Link href={item.href} style={{
                     display: 'flex', alignItems: 'center',
                     padding: '0.25rem 0', textDecoration: 'none',
-                    color: linkColor, fontSize: 'var(--text-small)', fontWeight: 700,
+                    color: linkColor, fontSize: 'var(--text-small)', fontWeight: 600,
                     fontFamily: 'var(--font-sans)', transition: 'color 0.15s',
                   }}
                     onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
@@ -178,7 +178,7 @@ export function Header() {
                   <button style={{
                     display: 'flex', alignItems: 'center', gap: '0.2rem',
                     background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem 0',
-                    color: linkColor, fontSize: 'var(--text-small)', fontWeight: 700,
+                    color: linkColor, fontSize: 'var(--text-small)', fontWeight: 600,
                     fontFamily: 'var(--font-sans)', transition: 'color 0.15s',
                   }}
                     onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
@@ -304,9 +304,9 @@ export function Header() {
 
             <Link href="/start" style={{
               backgroundColor: dark ? '#ffffff' : '#000000',
-              color: dark ? '#000000' : '#ffffff',
+              color: dark ? '#c34d27' : '#ffffff',
               padding: '0.6rem 1.4rem', borderRadius: '9999px',
-              fontWeight: 700, fontSize: 'var(--text-small)',
+              fontWeight: 600, fontSize: 'var(--text-small)',
               textDecoration: 'none', letterSpacing: '0.01em',
               transition: 'background-color 0.3s, color 0.3s', whiteSpace: 'nowrap',
             }}>

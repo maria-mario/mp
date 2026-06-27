@@ -9,9 +9,9 @@ export function WhyDidIReact() {
       <div style={{ maxWidth: '60rem', margin: '0 auto', textAlign: 'center' }}>
 
         <p style={{
-          fontSize: 'var(--text-xs)',
-          fontWeight: 700,
-          letterSpacing: '0.12em',
+          fontSize: '1rem',
+          fontWeight: 500,
+          letterSpacing: '0.06em',
           textTransform: 'uppercase',
           color: 'var(--color-brand-sienna)',
           marginBottom: '1rem',
@@ -21,7 +21,7 @@ export function WhyDidIReact() {
 
         <h2 style={{
           fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
-          fontWeight: 800,
+          fontWeight: 600,
           letterSpacing: '-0.02em',
           color: 'var(--color-brand-text)',
           marginBottom: '1.5rem',
@@ -54,11 +54,11 @@ export function WhyDidIReact() {
           display: 'inline-flex',
           alignItems: 'center',
           gap: '0.5rem',
-          backgroundColor: 'var(--color-brand-text)',
+          backgroundColor: '#000000',
           color: '#ffffff',
           padding: '0.875rem 2rem',
           borderRadius: '9999px',
-          fontWeight: 700,
+          fontWeight: 600,
           fontSize: 'var(--text-small)',
           textDecoration: 'none',
         }}>

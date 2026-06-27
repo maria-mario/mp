@@ -11,7 +11,7 @@ export function FinalCTA() {
 
         <h2 style={{
           fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
-          fontWeight: 800,
+          fontWeight: 600,
           letterSpacing: '-0.02em',
           color: 'var(--color-brand-text)',
           marginBottom: '1.25rem',
@@ -41,11 +41,12 @@ export function FinalCTA() {
           <Link href="/built-this-way" style={{
             display: 'inline-flex',
             alignItems: 'center',
-            backgroundColor: 'var(--color-brand-sienna)',
-            color: '#ffffff',
+            backgroundColor: '#ffffff',
+            color: '#c34d27',
+            border: '2px solid #c34d27',
             padding: '0.875rem 2rem',
             borderRadius: '9999px',
-            fontWeight: 700,
+            fontWeight: 600,
             fontSize: 'var(--text-small)',
             textDecoration: 'none',
           }}>

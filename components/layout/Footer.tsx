@@ -165,7 +165,7 @@ export function Footer() {
       <div style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
         <div style={{ maxWidth: '96rem', margin: '0 auto', padding: '5rem 2rem' }}>
           <div style={{ maxWidth: '36rem', margin: '0 auto', textAlign: 'center' }}>
-            <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-title)', fontWeight: 800, color: '#ffffff', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
+            <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-title)', fontWeight: 600, color: '#ffffff', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
               Stay{' '}
               <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna-light)' }}>SkillfullyAware®</em>
             </h3>

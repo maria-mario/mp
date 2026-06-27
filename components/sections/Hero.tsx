@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 export function Hero() {
   return (
     <section style={{
-      backgroundColor: '#0f0f0f',
+      backgroundColor: '#000000',
       paddingTop: '7rem',
       paddingBottom: '5rem',
     }}>
@@ -30,7 +30,7 @@ export function Hero() {
         {/* Main headline */}
         <h1 style={{
           fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
-          fontWeight: 800,
+          fontWeight: 600,
           lineHeight: 1.05,
           letterSpacing: '-0.03em',
           color: '#ffffff',
@@ -77,11 +77,11 @@ export function Hero() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            backgroundColor: 'var(--color-brand-sienna)',
-            color: '#ffffff',
+            backgroundColor: '#ffffff',
+            color: '#c34d27',
             padding: '0.875rem 2rem',
             borderRadius: '9999px',
-            fontWeight: 700,
+            fontWeight: 600,
             fontSize: 'var(--text-small)',
             letterSpacing: '0.02em',
             textDecoration: 'none',

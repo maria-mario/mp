@@ -28,16 +28,16 @@ const cards = [
 export function LeadershipSection() {
   return (
     <section style={{
-      backgroundColor: '#0f0f0f',
+      backgroundColor: '#000000',
       padding: '5rem 1.5rem',
     }}>
       <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
 
         <div style={{ marginBottom: '3rem' }}>
           <p style={{
-            fontSize: 'var(--text-xs)',
-            fontWeight: 700,
-            letterSpacing: '0.12em',
+            fontSize: '1rem',
+            fontWeight: 500,
+            letterSpacing: '0.06em',
             textTransform: 'uppercase',
             color: 'var(--color-brand-sienna-light)',
             marginBottom: '1rem',
@@ -46,7 +46,7 @@ export function LeadershipSection() {
           </p>
           <h2 style={{
             fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
-            fontWeight: 800,
+            fontWeight: 600,
             letterSpacing: '-0.02em',
             color: '#ffffff',
             marginBottom: '1.25rem',
@@ -74,7 +74,7 @@ export function LeadershipSection() {
             <div key={card.title} style={{
               backgroundColor: 'rgba(255,255,255,0.04)',
               border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '1rem',
+              borderRadius: '0.625rem',
               padding: '2rem',
               display: 'flex',
               flexDirection: 'column',

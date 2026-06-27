@@ -19,9 +19,9 @@ export function NewsletterSignup() {
       <div style={{ maxWidth: '48rem', margin: '0 auto', textAlign: 'center' }}>
 
         <p style={{
-          fontSize: 'var(--text-xs)',
-          fontWeight: 700,
-          letterSpacing: '0.12em',
+          fontSize: '1rem',
+          fontWeight: 500,
+          letterSpacing: '0.06em',
           textTransform: 'uppercase',
           color: 'rgba(255,255,255,0.6)',
           marginBottom: '1rem',
@@ -31,7 +31,7 @@ export function NewsletterSignup() {
 
         <h2 style={{
           fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-          fontWeight: 800,
+          fontWeight: 600,
           color: '#ffffff',
           marginBottom: '1rem',
           letterSpacing: '-0.02em',
@@ -84,11 +84,11 @@ export function NewsletterSignup() {
               }}
             />
             <button type="submit" style={{
-              backgroundColor: '#0f0f0f',
+              backgroundColor: '#000000',
               color: '#ffffff',
               padding: '0.875rem 1.75rem',
               borderRadius: '9999px',
-              fontWeight: 700,
+              fontWeight: 600,
               fontSize: 'var(--text-small)',
               border: 'none',
               cursor: 'pointer',

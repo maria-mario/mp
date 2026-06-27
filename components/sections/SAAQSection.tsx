@@ -17,9 +17,9 @@ export function SAAQSection() {
 
         <div>
           <p style={{
-            fontSize: 'var(--text-xs)',
-            fontWeight: 700,
-            letterSpacing: '0.12em',
+            fontSize: '1rem',
+            fontWeight: 500,
+            letterSpacing: '0.06em',
             textTransform: 'uppercase',
             color: 'var(--color-brand-sienna)',
             marginBottom: '1rem',
@@ -29,7 +29,7 @@ export function SAAQSection() {
 
           <h2 style={{
             fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
-            fontWeight: 800,
+            fontWeight: 600,
             letterSpacing: '-0.02em',
             color: 'var(--color-brand-text)',
             marginBottom: '1.5rem',
@@ -60,11 +60,11 @@ export function SAAQSection() {
             <Link href="/saaq" style={{
               display: 'inline-flex',
               alignItems: 'center',
-              backgroundColor: 'var(--color-brand-text)',
+              backgroundColor: '#000000',
               color: '#ffffff',
               padding: '0.875rem 2rem',
               borderRadius: '9999px',
-              fontWeight: 700,
+              fontWeight: 600,
               fontSize: 'var(--text-small)',
               textDecoration: 'none',
             }}>
@@ -88,7 +88,7 @@ export function SAAQSection() {
         <div style={{
           backgroundColor: '#ffffff',
           border: '1px solid var(--color-brand-border)',
-          borderRadius: '1.25rem',
+          borderRadius: '0.625rem',
           padding: '2.5rem',
         }}>
           {[

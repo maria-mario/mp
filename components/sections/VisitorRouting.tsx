@@ -49,9 +49,9 @@ export function VisitorRouting() {
 
         <div style={{ marginBottom: '3rem' }}>
           <p style={{
-            fontSize: 'var(--text-xs)',
-            fontWeight: 700,
-            letterSpacing: '0.12em',
+            fontSize: '1rem',
+            fontWeight: 500,
+            letterSpacing: '0.06em',
             textTransform: 'uppercase',
             color: 'var(--color-brand-sienna)',
             marginBottom: '0.75rem',
@@ -60,7 +60,7 @@ export function VisitorRouting() {
           </p>
           <h2 style={{
             fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
-            fontWeight: 800,
+            fontWeight: 600,
             letterSpacing: '-0.02em',
             color: 'var(--color-brand-text)',
             marginBottom: '0.75rem',
@@ -84,7 +84,7 @@ export function VisitorRouting() {
             <div key={card.cta} style={{
               backgroundColor: '#ffffff',
               border: '1px solid var(--color-brand-border)',
-              borderRadius: '1rem',
+              borderRadius: '0.625rem',
               padding: '1.75rem',
               display: 'flex',
               flexDirection: 'column',
