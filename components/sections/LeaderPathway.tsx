@@ -25,7 +25,7 @@ const cards = [
   },
 ];
 
-export function LeadershipSection() {
+export function LeaderPathway() {
   return (
     <section style={{
       backgroundColor: '#000000',

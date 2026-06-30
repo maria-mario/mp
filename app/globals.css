@@ -5,21 +5,31 @@
    ============================================ */
 
 @theme {
-  --color-brand-navy:           #000000;
-  --color-brand-navy-light:     #1a1a1a;
-  --color-brand-sienna:         #c34d27;
-  --color-brand-sienna-light:   #d96038;
-  --color-brand-sienna-dark:    #a33f20;
-  --color-brand-blue:           #3D8DAE;
-  --color-brand-blue-light:     #5aa3c2;
-  --color-brand-blue-dark:      #2e6d88;
-  --color-brand-cream:          #faf8f5;
-  --color-brand-off-white:      #f5f2ee;
-  --color-brand-warm-gray:      #e8e4de;
-  --color-brand-text:           #1a1a1a;
-  --color-brand-text-muted:     #5a5a5a;
-  --color-brand-text-light:     #8a8a8a;
-  --color-brand-border:         #d4cfc8;
+  /* DR. MARK PIRTLE — UPDATED BRAND COLORS */
+--color-brand-rust:           #C24A1C;
+--color-brand-rust-dark:      #9E4911;
+--color-brand-red:            #8B221E;
+--color-brand-teal:           #3D8CAD;
+--color-brand-navy:           #293643;
+--color-brand-olive:          #3B3423;
+--color-brand-black:          #140A04;
+
+/* Backgrounds */
+--color-brand-cream:          #faf8f5;
+--color-brand-off-white:      #f5f2ee;
+--color-brand-warm-gray:      #e8e4de;
+
+/* Text */
+--color-brand-text:           #140A04;
+--color-brand-text-muted:     #3B3423;
+--color-brand-text-light:     #293643;
+
+/* Borders */
+--color-brand-border:         #d4cfc8;
+
+/* Aliases for components */
+--color-brand-primary:        #C24A1C;
+--color-brand-secondary:      #3D8CAD;
 
   /* Plus Jakarta Sans as primary — bold, modern, Tony Robbins feel */
   --font-sans:  var(--font-jakarta), 'Helvetica Neue', Arial, sans-serif;

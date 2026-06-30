@@ -1,111 +1,96 @@
 'use client';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 
 export function Hero() {
   return (
     <section style={{
-      backgroundColor: '#000000',
+      backgroundColor: 'var(--color-brand-black)',
       paddingTop: '7rem',
       paddingBottom: '5rem',
     }}>
       <div style={{ maxWidth: '72rem', margin: '0 auto', padding: '0 1.5rem' }}>
 
-        {/* Small leadership link */}
-        <div style={{ marginBottom: '2rem' }}>
-          <Link href="/retreats" style={{
-            fontSize: 'var(--text-xs)',
-            fontWeight: 600,
-            color: 'var(--color-brand-sienna-light)',
-            textDecoration: 'none',
-            letterSpacing: '0.04em',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.35rem',
-          }}>
-            For EO/YPO, leaders, and forum retreats →
-          </Link>
-        </div>
-
-        {/* Main headline */}
         <h1 style={{
-          fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
-          fontWeight: 600,
+          fontSize: 'clamp(2.25rem, 5vw, 4.25rem)',
+          fontWeight: 800,
           lineHeight: 1.05,
           letterSpacing: '-0.03em',
           color: '#ffffff',
-          maxWidth: '18ch',
-          marginBottom: '2rem',
+          maxWidth: '22ch',
+          marginBottom: '1.75rem',
         }}>
-          Why do I keep repeating the same painful patterns?
+          Why do painful patterns keep repeating — in life, relationships, and leadership?
         </h1>
 
-        {/* Subheadline */}
-        <div style={{
-          marginBottom: '2rem',
-          maxWidth: '48ch',
+        <p style={{
+          fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
+          color: 'rgba(255,255,255,0.6)',
+          lineHeight: 1.75,
+          maxWidth: '52ch',
+          marginBottom: '0.75rem',
         }}>
-          <p style={{
-            fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
-            color: 'rgba(255,255,255,0.65)',
-            lineHeight: 1.75,
-            marginBottom: '1.25rem',
-          }}>
-            You know better. You understand the issue. You may even know exactly what you "should" do.
-          </p>
-          <p style={{
-            fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
-            color: 'rgba(255,255,255,0.65)',
-            lineHeight: 1.75,
-            marginBottom: '1.25rem',
-          }}>
-            But under stress, the old reaction still takes over.
-          </p>
-          <p style={{
-            fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
-            color: 'rgba(255,255,255,0.8)',
-            lineHeight: 1.75,
-            fontWeight: 500,
-          }}>
-            <strong style={{ color: '#ffffff' }}>Built This Way</strong> helps you understand why painful patterns repeat — and how real change becomes possible.
-          </p>
-        </div>
+          You may understand the issue and still struggle to change it.
+        </p>
 
-        {/* CTAs */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
+        <p style={{
+          fontSize: 'clamp(1rem, 1.5vw, 1.15rem)',
+          color: 'rgba(255,255,255,0.75)',
+          lineHeight: 1.75,
+          maxWidth: '52ch',
+          marginBottom: '2.5rem',
+        }}>
+          SkillfullyAware® helps people understand their patterns, work with themselves more skillfully, and grow into wiser, healthier, more effective human beings.
+        </p>
+
+        {/* Two audience CTAs */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+
           <Link href="/built-this-way" style={{
             display: 'inline-flex',
+            flexDirection: 'column',
             alignItems: 'center',
-            gap: '0.5rem',
-            backgroundColor: '#ffffff',
-            color: '#c34d27',
-            padding: '0.875rem 2rem',
+            backgroundColor: 'var(--color-brand-rust)',
+            color: '#ffffff',
+            padding: '1rem 2.25rem',
             borderRadius: '9999px',
-            fontWeight: 600,
-            fontSize: 'var(--text-small)',
-            letterSpacing: '0.02em',
             textDecoration: 'none',
           }}>
-            Join the Built This Way Launch Team
-            <ArrowRight className="w-4 h-4" />
+            <span style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '-0.01em' }}>
+              I'm a Reader
+            </span>
+            <span style={{ fontSize: '0.75rem', opacity: 0.8, fontWeight: 500, marginTop: '0.15rem' }}>
+              Start with Built This Way
+            </span>
           </Link>
 
-          <Link href="#start" style={{
+          <Link href="#leader-path" style={{
             display: 'inline-flex',
+            flexDirection: 'column',
             alignItems: 'center',
-            gap: '0.5rem',
-            backgroundColor: 'transparent',
-            color: 'rgba(255,255,255,0.75)',
-            padding: '0.875rem 2rem',
+            backgroundColor: 'var(--color-brand-teal)',
+            color: '#ffffff',
+            padding: '1rem 2.25rem',
             borderRadius: '9999px',
-            fontWeight: 600,
-            fontSize: 'var(--text-small)',
             textDecoration: 'none',
-            border: '1px solid rgba(255,255,255,0.2)',
           }}>
-            Find the Right Starting Point
+            <span style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '-0.01em' }}>
+              I'm a Leader
+            </span>
+            <span style={{ fontSize: '0.75rem', opacity: 0.8, fontWeight: 500, marginTop: '0.15rem' }}>
+              Explore SAAQ & Forum Retreats
+            </span>
           </Link>
+
         </div>
+
+        <Link href="#start" style={{
+          fontSize: '0.875rem',
+          color: 'rgba(255,255,255,0.45)',
+          textDecoration: 'none',
+          fontWeight: 500,
+        }}>
+          Not sure where to begin? Start here →
+        </Link>
 
       </div>
     </section>

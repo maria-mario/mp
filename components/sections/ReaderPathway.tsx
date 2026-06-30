@@ -39,7 +39,7 @@ const cards = [
   },
 ];
 
-export function VisitorRouting() {
+export function ReaderPathway() {
   return (
     <section id="start" style={{
       backgroundColor: 'var(--color-brand-cream)',
