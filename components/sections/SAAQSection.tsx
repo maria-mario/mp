@@ -51,9 +51,18 @@ export function SAAQSection() {
             fontSize: '1.05rem',
             color: 'var(--color-brand-text-muted)',
             lineHeight: 1.75,
+            marginBottom: '1.25rem',
+          }}>
+            The <strong style={{ color: 'var(--color-brand-text)' }}>SkillfullyAware Awareness Quotient, or SAAQ,</strong> is a private developmental reflection that helps you see your strengths, blind spots, stress reactions, growth edges, and practical next steps.
+          </p>
+
+          <p style={{
+            fontSize: '1.05rem',
+            color: 'var(--color-brand-text-muted)',
+            lineHeight: 1.75,
             marginBottom: '2rem',
           }}>
-            The <strong style={{ color: 'var(--color-brand-text)' }}>SkillfullyAware Awareness Quotient (SAAQ)</strong> gives you a deeper developmental reflection on how you operate under stress and how to reach the next level of your growth.
+            For leaders, the SAAQ can become a powerful starting point for coaching, forum retreats, and deeper leadership development.
           </p>
 
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>

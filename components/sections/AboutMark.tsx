@@ -70,17 +70,14 @@ export function AboutMark() {
             <span className="eyebrow">About Dr. Mark</span>
 
             <h2 className="mt-4 mb-6">
-              Guiding Leaders to{' '}
-              <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna)' }}>
-                Sustainable Transformation
-              </em>
+              Meet Dr. Mark Pirtle
             </h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
               {[
-                'Dr. Mark Pirtle has dedicated over 20 years to helping executives and entrepreneurs unlock their full leadership potential through the SkillfullyAware® methodology.',
-                'Drawing from neuroscience, contemplative practices, and decades of direct experience, Mark works with EO and YPO forums worldwide to create transformational retreat experiences that create lasting change.',
-                'His unique approach combines shadow work, mindfulness training, and systemic thinking to help leaders identify energy leaks, break unconscious patterns, and develop the emotional agility needed for conscious leadership.',
+                'Dr. Mark Pirtle is the creator of SkillfullyAware®, a practical system for helping people understand their patterns, work through them, expand their perspective, and continue evolving throughout life.',
+                'His work integrates mindfulness, neuroscience, developmental psychology, somatic awareness, shadow integration, habit change, and decades of experience helping people lead, relate, practice, and grow.',
+                'He is the author of Built This Way: Why Painful Patterns Repeat and How to Change Them, and the creator of the SkillfullyAware Awareness Quotient, or SAAQ.',
               ].map((text, i) => (
                 <p key={i} style={{ fontSize: 'var(--text-lead)', color: 'var(--color-brand-text-muted)', lineHeight: 1.75, maxWidth: '52ch' }}>
                   {text}

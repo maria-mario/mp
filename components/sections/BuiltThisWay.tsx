@@ -78,7 +78,16 @@ export function BuiltThisWay() {
             lineHeight: 1.75,
             marginBottom: '1.25rem',
           }}>
-            People do not repeat painful patterns because they lack willpower or are unwilling to change. They repeat them because they have been conditioned by experience, protection, repetition, stress, and old adaptations.
+            There&apos;s nothing wrong with you. There is a reason the pattern repeats.
+          </p>
+
+          <p style={{
+            fontSize: '1.05rem',
+            color: 'rgba(255,255,255,0.65)',
+            lineHeight: 1.75,
+            marginBottom: '1.25rem',
+          }}>
+            People do not repeat painful patterns because they lack willpower or are unwilling to change. They repeat them because old adaptations, nervous system patterns, emotional memory, and practiced responses often move faster than conscious choice.
           </p>
 
           <p style={{
@@ -103,7 +112,7 @@ export function BuiltThisWay() {
               fontSize: 'var(--text-small)',
               textDecoration: 'none',
             }}>
-              Join the Launch Team <ArrowRight className="w-4 h-4" />
+              Get Book Updates &amp; Reader Bonuses <ArrowRight className="w-4 h-4" />
             </Link>
 
             <Link href="/built-this-way#learn-more" style={{

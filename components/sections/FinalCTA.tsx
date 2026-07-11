@@ -17,7 +17,7 @@ export function FinalCTA() {
           marginBottom: '1.25rem',
           lineHeight: 1.2,
         }}>
-          You are not failing. You are patterned. And patterns can change.
+          There&apos;s nothing wrong with you. Patterns form for a reason, and patterns can change.
         </h2>
 
         <p style={{
@@ -28,7 +28,7 @@ export function FinalCTA() {
           maxWidth: '44ch',
           margin: '0 auto 2.5rem',
         }}>
-          Start with the book, try the reader tool, practice with Power Tools, go deeper with the SAAQ, or join a guided experience when you are ready.
+          Start with the book, explore the leadership work, try the reader tool, practice with Power Tools, or go deeper with the SAAQ. Choose the path that fits why you&apos;re here today.
         </p>
 
         <div style={{
@@ -50,10 +50,10 @@ export function FinalCTA() {
             fontSize: 'var(--text-small)',
             textDecoration: 'none',
           }}>
-            Join the Built This Way Launch Team
+            Start with the Book
           </Link>
 
-          <Link href="#start" style={{
+          <Link href="#leader-path" style={{
             display: 'inline-flex',
             alignItems: 'center',
             backgroundColor: 'transparent',
@@ -65,18 +65,18 @@ export function FinalCTA() {
             textDecoration: 'none',
             border: '1px solid var(--color-brand-border)',
           }}>
-            Find the Right Starting Point
+            Explore Leadership Work
           </Link>
         </div>
 
         <div style={{ marginTop: '1.5rem' }}>
-          <Link href="/retreats" style={{
+          <Link href="/newsletter" style={{
             fontSize: 'var(--text-small)',
             fontWeight: 600,
             color: 'var(--color-brand-sienna)',
             textDecoration: 'none',
           }}>
-            For EO/YPO, leaders, and forum retreats →
+            Get the Newsletter →
           </Link>
         </div>
 

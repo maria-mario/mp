@@ -4,37 +4,37 @@ import { BookOpen, Zap, BarChart2, Users, Lightbulb } from 'lucide-react';
 const cards = [
   {
     icon: BookOpen,
-    problem: 'I keep repeating painful patterns.',
-    solution: 'Start with Built This Way and learn why the pattern repeats.',
+    problem: 'Built This Way',
+    solution: 'Understand why painful patterns repeat.',
     cta: 'Start with the Book',
     href: '/built-this-way',
   },
   {
     icon: Lightbulb,
-    problem: 'I want to understand one real reaction from my life.',
-    solution: 'Use Why Did I React That Way? to examine one recent reaction and discover what may have been happening beneath the surface.',
+    problem: 'Why Did I React That Way?',
+    solution: 'Look at one real reaction from your own life.',
     cta: 'Try the Reader Tool',
     href: '/reader-tool',
   },
   {
     icon: Zap,
-    problem: 'I want practical exercises and meditations.',
-    solution: 'Explore Power Tools for online classes, workbooks, and guided meditation programs.',
+    problem: 'Power Tools',
+    solution: 'Practice with classes, workbooks, and guided meditations.',
     cta: 'Explore Power Tools',
     href: '/power-tools',
   },
   {
     icon: BarChart2,
-    problem: 'I want a deeper map of how I lead, relate, decide, and react.',
-    solution: 'Take the SAAQ and receive a personalized developmental reflection on your patterns.',
+    problem: 'SkillfullyAware Awareness Quotient (SAAQ)',
+    solution: 'Get a deeper developmental reflection on how you lead, relate, decide, and react under pressure.',
     cta: 'Explore the SAAQ',
     href: '/saaq',
   },
   {
     icon: Users,
-    problem: "I'm planning a forum, retreat, or leadership experience.",
-    solution: 'Explore guided experiences for EO/YPO forums, founders, and leadership groups.',
-    cta: 'Explore Retreats & Leadership',
+    problem: 'Retreats & Leadership',
+    solution: 'Bring SkillfullyAware® into coaching, forums, retreats, and leadership development.',
+    cta: 'Explore Leadership Work',
     href: '/retreats',
   },
 ];
@@ -56,7 +56,7 @@ export function ReaderPathway() {
             color: 'var(--color-brand-sienna)',
             marginBottom: '0.75rem',
           }}>
-            Where to Begin
+            Explore the Ecosystem
           </p>
           <h2 style={{
             fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
@@ -65,13 +65,13 @@ export function ReaderPathway() {
             color: 'var(--color-brand-text)',
             marginBottom: '0.75rem',
           }}>
-            Where should you begin?
+            Explore the Ecosystem
           </h2>
           <p style={{
             fontSize: '1.1rem',
             color: 'var(--color-brand-text-muted)',
           }}>
-            Start with the doorway that fits where you are right now.
+            Once you know your starting point, these are the main ways to continue the work.
           </p>
         </div>
 

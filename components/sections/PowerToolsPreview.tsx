@@ -72,14 +72,14 @@ export function PowerToolsPreview() {
           <div className="section-divider mx-auto mb-4" />
           <span className="eyebrow">Power Tools</span>
           <h2 className="mt-4 mb-4">
-            Tools That{' '}
-            <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna)' }}>
-              Transform
-            </em>
+            Practice the Change
           </h2>
           <p className="mx-auto" style={{ maxWidth: '52ch', color: 'var(--color-brand-text-muted)' }}>
-            Practical resources — classes, workbooks, and meditation programs — built on the
-            SkillfullyAware® framework. Members get unlimited access to everything.
+            Insight matters, but insight alone rarely changes a pattern.
+          </p>
+          <p className="mx-auto mt-3" style={{ maxWidth: '52ch', color: 'var(--color-brand-text-muted)' }}>
+            Power Tools are online classes, workbooks, guided meditations, and practical exercises
+            that help you work with attention, emotion, habits, reactions, and relationships in daily life.
           </p>
         </div>
 
@@ -167,10 +167,10 @@ export function PowerToolsPreview() {
             </div>
             <div>
               <h3 style={{ color: '#ffffff', fontSize: '1.25rem', marginBottom: '0.375rem' }}>
-                Members get unlimited access
+                Go deeper with a membership
               </h3>
               <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'var(--text-small)', maxWidth: '44ch', lineHeight: 1.6 }}>
-                Join the SkillfullyAware® membership to unlock all classes, workbooks,
+                The SkillfullyAware® membership gives you access to classes, workbooks,
                 and meditation programs — plus discounts on retreats and coaching.
               </p>
             </div>

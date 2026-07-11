@@ -48,8 +48,8 @@ export function LatestBlogPosts() {
               <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna)' }}>(habits)</em>
             </h2>
             <p style={{ color: 'var(--color-brand-text-muted)', fontSize: 'var(--text-lead)', maxWidth: '48ch' }}>
-              Insights on the hidden "shadow" patterns shaping our lives and clear solutions
-              to address the root causes.
+              Essays on why we get stuck, why change is hard, and how to practice becoming
+              more SkillfullyAware in daily life.
             </p>
           </div>
 
@@ -72,7 +72,7 @@ export function LatestBlogPosts() {
             onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-navy-light)')}
             onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-navy)')}
           >
-            View All Posts <ArrowRight className="w-4 h-4" />
+            Read the Latest Essays <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 

@@ -19,7 +19,7 @@ export function Hero() {
           maxWidth: '22ch',
           marginBottom: '1.75rem',
         }}>
-          Why do painful patterns keep repeating — in life, relationships, and leadership?
+          Why do painful patterns repeat in life and at work?
         </h1>
 
         <p style={{
@@ -29,7 +29,7 @@ export function Hero() {
           maxWidth: '52ch',
           marginBottom: '0.75rem',
         }}>
-          You may understand the issue and still struggle to change it.
+          You can understand the issue and still struggle to change it.
         </p>
 
         <p style={{
@@ -39,7 +39,16 @@ export function Hero() {
           maxWidth: '52ch',
           marginBottom: '2.5rem',
         }}>
-          SkillfullyAware® helps people understand their patterns, work with themselves more skillfully, and grow into wiser, healthier, more effective human beings.
+          SkillfullyAware® helps you understand your patterns, work through them, and grow into a wiser, healthier, more effective human being.
+        </p>
+
+        <p style={{
+          fontSize: '0.9rem',
+          color: 'rgba(255,255,255,0.5)',
+          marginBottom: '1.25rem',
+          fontWeight: 500,
+        }}>
+          Choose the path that fits why you&apos;re here today.
         </p>
 
         {/* Two audience CTAs */}
@@ -56,10 +65,10 @@ export function Hero() {
             textDecoration: 'none',
           }}>
             <span style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '-0.01em' }}>
-              I'm a Reader
+              Understand My Patterns
             </span>
             <span style={{ fontSize: '0.75rem', opacity: 0.8, fontWeight: 500, marginTop: '0.15rem' }}>
-              Start with Built This Way
+              Start with the Book
             </span>
           </Link>
 
@@ -74,10 +83,10 @@ export function Hero() {
             textDecoration: 'none',
           }}>
             <span style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '-0.01em' }}>
-              I'm a Leader
+              Leadership, Forums &amp; Retreats
             </span>
             <span style={{ fontSize: '0.75rem', opacity: 0.8, fontWeight: 500, marginTop: '0.15rem' }}>
-              Explore SAAQ & Forum Retreats
+              Explore Leadership Work
             </span>
           </Link>
 

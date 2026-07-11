@@ -23,7 +23,7 @@ export function ChooseYourPath() {
           color: 'var(--color-brand-black)',
           marginBottom: '0.75rem',
         }}>
-          Choose your starting point
+          Choose your path
         </h2>
 
         <p style={{
@@ -31,7 +31,7 @@ export function ChooseYourPath() {
           color: 'var(--color-brand-text-muted)',
           marginBottom: '3rem',
         }}>
-          SkillfullyAware® is one ecosystem with two common entry points.
+          SkillfullyAware® is one ecosystem with two common entry points. Start with the path that matches why you&apos;re here today.
         </p>
 
         <div style={{
@@ -58,17 +58,24 @@ export function ChooseYourPath() {
             <h3 style={{
               fontSize: '1.5rem', fontWeight: 800,
               color: 'var(--color-brand-black)',
-              marginBottom: '0.5rem',
+              marginBottom: '0.25rem',
             }}>
-              Understand why the pattern repeats.
+              Understand My Patterns
             </h3>
+            <p style={{
+              fontSize: '0.85rem', fontWeight: 600,
+              color: 'var(--color-brand-rust)',
+              marginBottom: '0.75rem',
+            }}>
+              Start with the book.
+            </p>
             <p style={{
               fontSize: '0.95rem',
               color: 'var(--color-brand-text-muted)',
               lineHeight: 1.7,
               marginBottom: '1.5rem',
             }}>
-              If you keep repeating painful patterns, reacting before you can think, or getting in your own way despite your best intentions — start here.
+              If you keep repeating painful patterns, reacting before you can think, or getting in your own way despite your best intentions, begin with Built This Way.
             </p>
             <p style={{
               fontSize: '0.8rem', fontWeight: 700,
@@ -88,7 +95,7 @@ export function ChooseYourPath() {
               fontSize: '0.875rem',
               textDecoration: 'none',
             }}>
-              Start as a Reader
+              Start with the Book
             </Link>
           </div>
 
@@ -110,17 +117,24 @@ export function ChooseYourPath() {
             <h3 style={{
               fontSize: '1.5rem', fontWeight: 800,
               color: '#ffffff',
-              marginBottom: '0.5rem',
+              marginBottom: '0.25rem',
             }}>
-              See the patterns shaping how you lead.
+              Leadership, Forums &amp; Retreats
             </h3>
+            <p style={{
+              fontSize: '0.85rem', fontWeight: 600,
+              color: 'var(--color-brand-teal)',
+              marginBottom: '0.75rem',
+            }}>
+              Bring SkillfullyAware® into leadership, forums, and high-trust growth work.
+            </p>
             <p style={{
               fontSize: '0.95rem',
               color: 'rgba(255,255,255,0.65)',
               lineHeight: 1.7,
               marginBottom: '1.5rem',
             }}>
-              If you are a leader, founder, EO/YPO member, or forum member looking for deeper self-awareness and meaningful development — start here.
+              For founders, executives, EO/YPO members, forums, and leadership groups seeking deeper insight, stronger trust, better conversations, and guided developmental experiences.
             </p>
             <p style={{
               fontSize: '0.8rem', fontWeight: 700,
@@ -128,7 +142,7 @@ export function ChooseYourPath() {
               marginBottom: '1.5rem',
               letterSpacing: '0.04em',
             }}>
-              SAAQ → Forum Retreats → Executive Coaching
+              SAAQ → Forum Retreats → Coaching
             </p>
             <Link href="#leader-path" style={{
               display: 'inline-flex',
@@ -140,7 +154,7 @@ export function ChooseYourPath() {
               fontSize: '0.875rem',
               textDecoration: 'none',
             }}>
-              Start as a Leader
+              Explore Leadership Work
             </Link>
           </div>
 

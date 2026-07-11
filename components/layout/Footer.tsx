@@ -30,7 +30,7 @@ const columns = [
       { name: 'For Founders & CEOs', href: '/consultation/founders' },
       { name: 'For Senior Leaders',  href: '/consultation/leaders'  },
       { name: 'Book a Consultation', href: '/contact'               },
-      { name: 'SA360 Assessment',    href: '/contact'               },
+      { name: 'SAAQ Assessment',      href: '/contact'               },
     ],
   },
   {
@@ -190,7 +190,7 @@ export function Footer() {
               SkillfullyAware®
             </div>
             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 'var(--text-small)', lineHeight: 1.75, maxWidth: '26ch', marginBottom: '1.5rem' }}>
-              Transforming leaders through the SkillfullyAware® methodology. Custom retreats, executive coaching, and experiences for conscious leadership.
+              SkillfullyAware® helps people understand their patterns, work through them, and continue evolving in life, relationships, and leadership.
             </p>
             <div style={{ display: 'flex', gap: '0.625rem', flexWrap: 'wrap' }}>
               {socials.map(s => (

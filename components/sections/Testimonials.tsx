@@ -277,10 +277,10 @@ export function Testimonials() {
           <div className="section-divider mx-auto mb-4" />
           <span className="eyebrow">Testimonials</span>
           <h2 className="mt-4 mb-4">
-            What Leaders Are Saying
+            What People Experience in the Work
           </h2>
           <p className="mx-auto" style={{ maxWidth: '52ch', color: 'var(--color-brand-text-muted)' }}>
-            Hear from executives and forum leaders who have experienced the SkillfullyAware® transformation.
+            Reflections from leaders, clients, and participants who have used SkillfullyAware® to understand patterns, deepen trust, and practice meaningful change.
           </p>
         </div>
 

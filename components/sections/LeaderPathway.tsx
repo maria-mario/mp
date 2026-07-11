@@ -5,21 +5,21 @@ const cards = [
   {
     icon: BarChart2,
     title: 'SAAQ for Leaders',
-    body: 'A deeper developmental map of how you lead, relate, decide, protect, and grow.',
-    cta: 'Explore SAAQ for Leaders',
+    body: 'A private developmental reflection on how you lead, relate, decide, protect, and grow under pressure.',
+    cta: 'Explore the SAAQ',
     href: '/saaq',
   },
   {
     icon: Compass,
     title: 'Forum Retreats',
-    body: 'Guided retreat experiences for EO/YPO forums and leadership groups.',
+    body: 'Guided experiences for EO/YPO forums and leadership groups ready for honest, skillful, well-held development.',
     cta: 'Explore Forum Retreats',
     href: '/retreats',
   },
   {
     icon: User,
     title: 'Executive Coaching',
-    body: 'One-on-one support for leaders working through pressure, transition, conflict, or growth.',
+    body: 'One-on-one support for leaders navigating pressure, transition, conflict, decision-making, identity, or growth.',
     cta: 'Explore Coaching',
     href: '/coaching',
   },
@@ -53,15 +53,24 @@ export function LeaderPathway() {
             lineHeight: 1.1,
             maxWidth: '22ch',
           }}>
-            For leaders, founders, forums, and teams.
+            For leaders, founders, forums, and teams
           </h2>
           <p style={{
             fontSize: '1.05rem',
             color: 'rgba(255,255,255,0.6)',
             lineHeight: 1.75,
             maxWidth: '52ch',
+            marginBottom: '1rem',
           }}>
-            The same painful patterns that shape personal life also show up in business and leadership — in decision-making, conflict, trust, avoidance, and the private pressure many high-performing leaders carry alone.
+            The same patterns that shape personal life also show up in leadership — in decision-making, conflict, trust, avoidance, over-control, burnout, and the private pressure many high-performing people carry alone.
+          </p>
+          <p style={{
+            fontSize: '1.05rem',
+            color: 'rgba(255,255,255,0.6)',
+            lineHeight: 1.75,
+            maxWidth: '52ch',
+          }}>
+            SkillfullyAware® experiences help leaders and groups build clearer self-awareness, stronger trust, more honest conversations, and practical growth.
           </p>
         </div>
 
