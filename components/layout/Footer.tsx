@@ -18,30 +18,22 @@ const columns = [
   {
     heading: 'Forum Retreats',
     links: [
-      { name: 'Mind Your Business',  href: '/forum-retreats/founders'       },
-      { name: 'Unfinished Business', href: '/forum-retreats/senior-leaders' },
-      { name: 'All Experiences',     href: '/experiences'                   },
-      { name: 'Tubac Ranch',         href: '/experiences#location'          },
+      { name: 'Forum Retreats',   href: '/forum-retreats' },
+      { name: 'SAAQ for Leaders', href: '/consultation'   },
     ],
   },
   {
     heading: 'SAAQ Coaching',
     links: [
-      { name: 'For Founders & CEOs', href: '/consultation/founders' },
-      { name: 'For Senior Leaders',  href: '/consultation/leaders'  },
-      { name: 'Book a Consultation', href: '/contact'               },
-      { name: 'SAAQ Assessment',      href: '/contact'               },
+      { name: 'Explore the SAAQ',    href: '/consultation' },
+      { name: 'Book a Consultation', href: '/contact'      },
     ],
   },
   {
     heading: 'Power Tools',
     links: [
-      { name: 'Project SkillfullyAware',        href: '/power-tools/project-sa'   },
-      { name: 'Overcoming Addictive Behaviors', href: '/power-tools/addictive'    },
-      { name: 'Workbooks',                      href: '/power-tools/workbook-sa'  },
-      { name: 'Meditation Programs',            href: '/power-tools/feel-better'  },
-      { name: 'The Book',                       href: '/power-tools/book'},
-      { name: 'Documentary Film',               href: 'https://tubitv.com/movies/701292/is-your-story-making-you-sick', external: true },
+      { name: 'Built This Way (Book)', href: '/power-tools/book' },
+      { name: 'Documentary Film',      href: 'https://tubitv.com/movies/701292/is-your-story-making-you-sick', external: true },
     ],
   },
   {
@@ -52,14 +44,6 @@ const columns = [
       { name: 'The Science',     href: '/about#science' },
       { name: 'Testimonials',    href: '/about#results' },
       { name: 'PBS Documentary', href: 'https://www.wholehearted.org/', external: true },
-    ],
-  },
-  {
-    heading: 'Membership',
-    links: [
-      { name: 'Explore Membership', href: '/members'       },
-      { name: 'Member Login',       href: '/members/login' },
-      { name: 'Start Here',         href: '/start'         },
     ],
   },
   {

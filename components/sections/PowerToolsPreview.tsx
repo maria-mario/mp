@@ -2,7 +2,7 @@
 
 import type { ElementType } from 'react';
 import Link from 'next/link';
-import { BookOpen, Video, Headphones, Film, ArrowRight, Lock } from 'lucide-react';
+import { BookOpen, Video, Headphones, Film } from 'lucide-react';
 
 type ToolItem = { name: string; href: string; tag: string; external?: boolean };
 
@@ -147,73 +147,6 @@ export function PowerToolsPreview() {
               </ul>
             </div>
           ))}
-        </div>
-
-        {/* Membership CTA banner */}
-        <div
-          className="p-8 flex flex-col md:flex-row items-center justify-between gap-6"
-          style={{
-            backgroundColor: 'var(--color-brand-navy)',
-            backgroundImage: 'radial-gradient(ellipse 60% 80% at 90% 50%, rgba(195,77,39,0.15) 0%, transparent 70%)',
-            borderRadius: '0.625rem',
-          }}
-        >
-          <div className="flex items-start gap-4">
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
-              style={{ backgroundColor: 'rgba(192,82,42,0.2)', border: '1px solid rgba(192,82,42,0.3)' }}
-            >
-              <Lock className="w-5 h-5" style={{ color: 'var(--color-brand-sienna-light)' }} />
-            </div>
-            <div>
-              <h3 style={{ color: '#ffffff', fontSize: '1.25rem', marginBottom: '0.375rem' }}>
-                Go deeper with a membership
-              </h3>
-              <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'var(--text-small)', maxWidth: '44ch', lineHeight: 1.6 }}>
-                The SkillfullyAware® membership gives you access to classes, workbooks,
-                and meditation programs — plus discounts on retreats and coaching.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <Link
-              href="/members"
-              className="inline-flex items-center gap-2"
-              style={{
-                backgroundColor: '#ffffff',
-                color: '#c34d27',
-                padding: '0.875rem 1.75rem',
-                borderRadius: '9999px',
-                fontWeight: 600,
-                fontSize: 'var(--text-small)',
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase' as const,
-                textDecoration: 'none',
-                whiteSpace: 'nowrap' as const,
-                transition: 'background-color 0.2s, color 0.2s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c34d27'; e.currentTarget.style.color = '#ffffff'; }}
-              onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.color = '#c34d27'; }}
-            >
-              Join Membership <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/power-tools"
-              style={{
-                color: 'rgba(255,255,255,0.55)',
-                fontSize: 'var(--text-small)',
-                textDecoration: 'none',
-                fontWeight: 500,
-                whiteSpace: 'nowrap' as const,
-                transition: 'color 0.15s',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#ffffff')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}
-            >
-              Browse all tools →
-            </Link>
-          </div>
         </div>
 
       </div>

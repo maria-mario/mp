@@ -1,4 +1,5 @@
 
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getAllExperiences, type Experience } from '@/lib/data/experiences';
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function ExperiencesIndexPage() {
+  notFound();
   const experiences = getAllExperiences();
   const core = experiences.filter((e) => e.type === 'core');
   const premium = experiences.filter((e) => e.type !== 'core');

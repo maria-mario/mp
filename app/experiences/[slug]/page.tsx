@@ -14,7 +14,7 @@ import { ExperienceGallery } from '@/components/experiences/ExperienceGallery';
 import { InterestListForm } from '@/components/experiences/InterestListForm';
 
 export function generateStaticParams() {
-  return getAllExperiences().map((e) => ({ slug: e.slug }));
+  return [];
 }
 
 export async function generateMetadata({
@@ -42,6 +42,7 @@ export default async function ExperiencePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  notFound();
   const exp = getExperienceBySlug(slug);
   if (!exp) notFound();
 
