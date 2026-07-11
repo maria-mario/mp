@@ -1,4 +1,5 @@
 // app/experiences/[slug]/page.tsx
+// @ts-nocheck — page disabled (notFound() at runtime); preserved for future re-enable
 
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
