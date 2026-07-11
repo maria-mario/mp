@@ -85,7 +85,7 @@ export function Header() {
         }}>
 
           {/* Logo */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', flexShrink: 0, height: '100%' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0, height: '100%' }}>
             <Image
               src="/logos/logo.webp"
               alt="Dr. Mark Pirtle"
@@ -94,17 +94,6 @@ export function Header() {
               priority
               style={{ filter: dark ? 'brightness(0) invert(1)' : 'none', transition: 'filter 0.35s ease', objectFit: 'contain' }}
             />
-            <span style={{
-              color: dark ? '#ffffff' : '#000000',
-              fontWeight: 600,
-              fontSize: '0.875rem',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              transition: 'color 0.35s',
-              lineHeight: 1,
-            }}>
-              Dr. Mark Pirtle
-            </span>
           </Link>
 
           {/* Desktop nav */}
