@@ -1,25 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Calendar } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
-/* ─── Collaborator data ─────────────────────────────────────────── */
-const collaborators = [
+/* ─── Science / roots sections ──────────────────────────────────── */
+const scienceSections = [
   {
-    names: 'Shinzen Young & John Yates, PhD',
-    body: "Shinzen Young's Unified Mindfulness system — developed alongside neuroscientists at Harvard and Carnegie Mellon — gave Mark a framework for systematic, science-integrated meditation practice. John Yates (Culadasa), a former neuroscience professor and author of The Mind Illuminated, united Buddhist wisdom with brain science in a single step-by-step approach. Both teachers shaped Mark's conviction that rigorous inner work and scientific understanding belong together.",
+    names: 'Mindfulness and Meditation Practice',
+    body: "Mark's meditation training gave him a systematic way to work with attention, emotion, awareness, and the moment-to-moment experience of the mind.",
   },
   {
-    names: 'Dr. Terri O\'Fallon & Kim Barta, MA',
-    body: "Terri O'Fallon's STAGES model — rooted in Ken Wilber's Integral Theory — maps how consciousness evolves across a lifetime. Kim Barta, a psychotherapist with 30+ years of experiential practice, developed groundbreaking approaches to shadow resolution and trauma work. Together they co-founded STAGES International, and their work on \"person perspectives\" directly informs how SkillfullyAware® approaches developmental growth.",
+    names: 'Shadow and Relational Work',
+    body: 'Shadow integration and relational development help reveal the hidden adaptations, projections, wounds, and protective strategies that shape how people react and relate.',
   },
   {
-    names: 'Fritjof Capra & Pier Luigi Luisi',
-    body: 'Physicist Fritjof Capra and biochemist Pier Luigi Luisi co-authored The Systems View of Life — showing that life is made up of interdependent, self-organizing systems. This Living Systems Theory shaped how SkillfullyAware® understands people: not as problems to be fixed, but as dynamic systems in relationship with their environment. Personal growth means cultivating harmony between inner processes, outer circumstances, and relationships.',
+    names: 'Development and Perspective-Taking',
+    body: 'Adult developmental theory informs how SkillfullyAware® understands growth, maturity, perspective, and the expanding capacity to hold complexity.',
   },
   {
-    names: 'Joanna Macy, PhD',
-    body: 'Scholar and activist Joanna Macy integrates Buddhist philosophy with systems thinking, emphasizing interdependence and mutual causality. Her insight — that inner transformation and outer change are inseparable — runs through every layer of the SkillfullyAware® approach. When you shift a pattern at its root, everything connected to it shifts too.',
+    names: 'Systems Thinking',
+    body: 'Systems thinking helps explain why patterns do not live only inside a person. They emerge through relationships, environments, stories, bodies, habits, incentives, and repeated interactions over time.',
   },
 ];
 
@@ -85,18 +85,62 @@ export default function AboutPage() {
             letterSpacing: '-0.03em',
             marginBottom: '1.25rem',
           }}>
-            Awareness Changes Everything.
+            Helping people understand their patterns and live them differently.
           </h1>
           <p style={{
             fontSize: 'clamp(1rem, 1.6vw, 1.15rem)',
             color: 'rgba(255,255,255,0.7)',
             lineHeight: 1.75,
             maxWidth: '52ch',
-            margin: '0 auto',
+            margin: '0 auto 2rem',
           }}>
-            Clinician. Meditation teacher. Leadership coach. Three decades helping high-performers
-            heal, grow, and lead from the inside out.
+            Dr. Mark Pirtle is the creator of SkillfullyAware®, author of{' '}
+            <em>Built This Way: Why Painful Patterns Repeat and How to Change Them</em>, and creator of the SkillfullyAware Awareness Quotient (SAAQ).
           </p>
+          <p style={{
+            fontSize: 'clamp(1rem, 1.6vw, 1.15rem)',
+            color: 'rgba(255,255,255,0.7)',
+            lineHeight: 1.75,
+            maxWidth: '52ch',
+            margin: '0 auto 2.5rem',
+          }}>
+            His work helps people understand why painful patterns repeat, how those patterns shape life and work, and how awareness, practice, integration, and compassion make change possible.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link
+              href="/power-tools/book"
+              style={{
+                backgroundColor: '#ffffff',
+                color: 'var(--color-brand-sienna)',
+                padding: '0.875rem 1.75rem',
+                borderRadius: '9999px',
+                fontWeight: 700,
+                fontSize: 'var(--text-small)',
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase' as const,
+                textDecoration: 'none',
+              }}
+            >
+              Start with the Book
+            </Link>
+            <Link
+              href="/forum-retreats"
+              style={{
+                backgroundColor: 'transparent',
+                color: '#ffffff',
+                padding: '0.875rem 1.75rem',
+                borderRadius: '9999px',
+                fontWeight: 700,
+                fontSize: 'var(--text-small)',
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase' as const,
+                textDecoration: 'none',
+                border: '1.5px solid rgba(255,255,255,0.4)',
+              }}
+            >
+              Explore Leadership Work
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -104,17 +148,17 @@ export default function AboutPage() {
       <Section id="story">
         <Eyebrow>The Story</Eyebrow>
         <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, lineHeight: 1.15, marginBottom: '2rem', letterSpacing: '-0.02em' }}>
-          From Loss to Liberation — A Path Built on Real Experience
+          How the Work Began
         </h2>
 
         <p style={{ marginBottom: '1.25rem', lineHeight: 1.8, color: 'var(--color-brand-text)' }}>
-          Mark Pirtle's journey to founding SkillfullyAware® didn't start with a vision. It started with a crisis.
+          Dr. Pirtle's work did not begin as a brand strategy or business model. It began when a professional crisis exposed how much identity, stress, and old protective patterns were quietly running his life.
         </p>
         <p style={{ marginBottom: '1.25rem', lineHeight: 1.8 }}>
-          Early in his career, he was a successful physical therapist and clinic owner — until a loophole in an
-          operating agreement stripped him of his business, his title, and his professional identity overnight.
-          The fallout wasn't just professional. It triggered a cascade of stress-related symptoms that forced him
-          to confront something far deeper: the inner patterns and narratives quietly running his life.
+          Early in his career, Mark was a successful physical therapist and entrepreneur. Then a loophole in an operating agreement cost him his business, his title, and his professional identity. The fallout was not only financial or professional. It triggered a cascade of stress-related symptoms that forced him to look more honestly at the patterns shaping his mind, body, relationships, and sense of self.
+        </p>
+        <p style={{ marginBottom: '1.25rem', lineHeight: 1.8 }}>
+          During a two-month retreat at a Tibetan Buddhist monastery, Mark immersed himself in meditation, silence, and sustained self-reflection. What he discovered there became the foundation for the work that followed: painful patterns can be seen, understood, practiced with, and changed.
         </p>
 
         <blockquote style={{
@@ -126,24 +170,14 @@ export default function AboutPage() {
           color: 'var(--color-brand-text-muted)',
           lineHeight: 1.7,
         }}>
-          Healing didn't come from a hospital. It came from a Tibetan Buddhist monastery.
+          "That retreat taught me something I still teach today: awareness is not an idea. It is a practice."
         </blockquote>
 
         <p style={{ marginBottom: '1.25rem', lineHeight: 1.8 }}>
-          During a two-month retreat, Mark immersed himself in meditation, silence, and unflinching
-          self-reflection. What he discovered there became the foundation for everything that followed:
-          awareness changes everything.
-        </p>
-        <p style={{ marginBottom: '1.25rem', lineHeight: 1.8 }}>
-          Returning to the U.S., he launched a mindfulness-based pain program for a nationally recognized
-          rehabilitation center and began developing the SkillfullyAware® System — a practical, evidence-informed
-          framework blending meditation, perspective-taking, and shadow work.
+          After returning to the United States, Mark launched a mindfulness-based pain program for a nationally recognized rehabilitation center and began developing SkillfullyAware®, a practical system that integrates awareness training, perspective-taking, shadow integration, nervous system regulation, and embodied practice.
         </p>
         <p style={{ marginBottom: '2rem', lineHeight: 1.8 }}>
-          Today, Mark's work reaches thousands through immersive forum retreats, executive coaching, online
-          programs, and his PBS documentary <em>Is Your Story Making You Sick?</em> His book,{' '}
-          <em>The Healing Mindset: Mastering the Art of Skillful Awareness</em>, distills decades of clinical
-          and contemplative experience into tools readers can use immediately.
+          Today, his work includes <em>Built This Way</em>, the SAAQ, Power Tools, coaching, retreats, leadership experiences, and the PBS documentary <em>Is Your Story Making You Sick?</em> Each doorway serves the same larger purpose: helping people understand their patterns, work through them, and continue evolving throughout life.
         </p>
 
         <Link
@@ -166,24 +200,36 @@ export default function AboutPage() {
       <Section id="system" bg="var(--color-brand-off-white)">
         <Eyebrow>The System</Eyebrow>
         <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, lineHeight: 1.15, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
-          A Practical Framework for Healing and Growth
+          A Practical System for Understanding and Changing Patterns
         </h2>
         <p style={{ marginBottom: '1.25rem', lineHeight: 1.8, color: 'var(--color-brand-text-muted)' }}>
-          Built for two kinds of people: those navigating stress-related illness, and leaders seeking greater
-          clarity and lasting impact. Most of the time, they're the same person.
+          SkillfullyAware® helps people see the patterns shaping how they react, relate, decide, protect themselves, and grow.
         </p>
         <p style={{ marginBottom: '2.5rem', lineHeight: 1.8 }}>
-          The system works across three interconnected domains — <strong>World, Body, and Mind</strong> — helping
-          individuals uncover unconscious patterns, regulate their nervous systems, and reshape the inner
-          narratives that shape their experience of everything.
+          If you are here to understand your own painful patterns, the work often begins with the book,{' '}
+          <em>Built This Way: Why Painful Patterns Repeat and How to Change Them</em>. If you are here for leadership, forums, retreats, or coaching, the work may begin with the SAAQ, coaching, or a forum retreat.
+          <br /><br />
+          Different starting points. One integrated system.
         </p>
 
         {/* Three practices */}
         <div style={{ display: 'grid', gap: '1.5rem', marginBottom: '3rem' }}>
           {[
-            { title: 'Meditation & Mindfulness', label: 'The Foundation', body: 'These practices build attentional stability, emotional regulation, and a reliable sense of present-moment awareness — creating the internal conditions for everything else to work.' },
-            { title: 'Perspective-Taking', label: 'The Expander', body: 'By learning to see through multiple perspectives — including your own blind spots — you develop empathy, cognitive flexibility, and a broader understanding of yourself and the people around you.' },
-            { title: 'Shadow Work', label: 'The Transformer', body: 'Shadow work brings hidden or disowned patterns into conscious view. What was once driving reactivity from the background becomes insight. What was unconscious becomes choice.' },
+            {
+              title: 'Seeing Yourself',
+              label: 'Meditation and Mindfulness',
+              body: 'These practices strengthen attention, emotional regulation, and present-moment awareness so you can see what is happening inside you before old patterns take over.',
+            },
+            {
+              title: 'Understanding Yourself',
+              label: 'Shadow and Unfinished Business',
+              body: 'Shadow work brings hidden or disowned patterns into conscious view. What was once driving reactivity from the background can become something you understand and work with more skillfully.',
+            },
+            {
+              title: 'Evolving Yourself',
+              label: 'Perspective and Development',
+              body: 'Perspective-taking helps you see through more than one lens, understand your own blind spots, and respond with greater maturity, flexibility, and compassion.',
+            },
           ].map(p => (
             <div key={p.title} style={{
               padding: '1.75rem 2rem',
@@ -224,9 +270,7 @@ export default function AboutPage() {
         </div>
 
         <p style={{ lineHeight: 1.8, color: 'var(--color-brand-text-muted)', marginBottom: '2rem' }}>
-          When these three dimensions are aligned, growth stops feeling like effort and starts feeling natural.
-          This is what SkillfullyAware® calls <strong>attunement</strong> — a living sense of connection with
-          yourself, others, and the systems you're part of.
+          The World-Body-Mind model helps people understand how experience is shaped by outer circumstances, inner stories, nervous system patterns, relationships, attention, and meaning-making. When these dimensions become more integrated, people can respond to life with greater clarity, connection, and resilience.
         </p>
 
         <Link
@@ -249,17 +293,18 @@ export default function AboutPage() {
       <Section id="science">
         <Eyebrow>The Science</Eyebrow>
         <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, lineHeight: 1.15, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
-          Evidence-Informed. Depth-Tested. Built to Last.
+          Grounded in Practice, Informed by Science
         </h2>
+        <p style={{ marginBottom: '1.25rem', lineHeight: 1.8, color: 'var(--color-brand-text-muted)' }}>
+          SkillfullyAware® is practical first. The point is not theory for its own sake. The point is helping people understand the patterns shaping their lives and practice living them differently.
+        </p>
         <p style={{ marginBottom: '1.5rem', lineHeight: 1.8, color: 'var(--color-brand-text-muted)' }}>
-          The SkillfullyAware® System draws from a rich body of research across neuroscience, psychology,
-          contemplative wisdom, and systems theory — each discipline reinforcing the others in a living,
-          integrated framework.
+          The work integrates mindfulness, neuroscience, developmental psychology, attachment and relational development, systems thinking, Buddhist psychology, CBT, Socratic inquiry, and decades of direct experience with clients, leaders, retreats, and practice communities.
         </p>
 
         {/* Pill tags */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '3rem' }}>
-          {['Positive Psychology', 'Affect Labeling', 'CBT', 'Developmental Psychology', 'Neuroscience', 'Contemplative Practice', 'Systems Theory'].map(tag => (
+          {['Mindfulness', 'Neuroscience', 'Developmental Psychology', 'Attachment & Relational Development', 'Systems Thinking', 'Buddhist Psychology', 'CBT', 'Socratic Inquiry'].map(tag => (
             <span key={tag} style={{
               padding: '0.35rem 0.9rem',
               borderRadius: '9999px',
@@ -273,17 +318,17 @@ export default function AboutPage() {
         </div>
 
         <h3 style={{ fontWeight: 800, marginBottom: '1.75rem', color: 'var(--color-brand-text-muted)', textTransform: 'uppercase' as const, fontSize: 'var(--text-xs)', letterSpacing: '0.12em' }}>
-          The Thinkers Who Shaped This Work
+          The Roots of the Work
         </h3>
 
         <div style={{ display: 'flex', flexDirection: 'column' as const }}>
-          {collaborators.map((c, i) => (
+          {scienceSections.map((c, i) => (
             <div key={c.names}>
               <div style={{ padding: '1.5rem 0' }}>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.6rem' }}>{c.names}</h3>
                 <p style={{ lineHeight: 1.8, color: 'var(--color-brand-text-muted)', margin: 0 }}>{c.body}</p>
               </div>
-              {i < collaborators.length - 1 && <Divider />}
+              {i < scienceSections.length - 1 && <Divider />}
             </div>
           ))}
         </div>
@@ -296,16 +341,15 @@ export default function AboutPage() {
           borderRadius: 'var(--radius-card)',
           textAlign: 'center',
         }}>
-          <p style={{ fontSize: 'var(--text-xs)', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: 'var(--color-brand-sienna-light)', marginBottom: '0.75rem' }}>Ready to Experience the System?</p>
-          <h3 style={{ fontSize: 'clamp(1.4rem, 3vw, 1.9rem)', fontWeight: 800, color: '#ffffff', marginBottom: '0.5rem' }}>
-            The work is real. The results speak for themselves.
+          <h3 style={{ fontSize: 'clamp(1.4rem, 3vw, 1.9rem)', fontWeight: 800, color: '#ffffff', marginBottom: '1rem' }}>
+            Choose Your Next Step
           </h3>
           <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: '2rem', maxWidth: '44ch', margin: '0 auto 2rem' }}>
-            Whether you're planning a forum retreat or looking for 1:1 coaching, the next step starts with a conversation.
+            If you are here to understand your own painful patterns, start with <em>Built This Way</em>. If you are here for leadership, forums, retreats, or coaching, explore the SAAQ, coaching, forum retreats, or leadership work.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link
-              href="/forum-retreats"
+              href="/power-tools/book"
               className="inline-flex items-center gap-2"
               style={{
                 backgroundColor: 'var(--color-brand-sienna)',
@@ -320,10 +364,10 @@ export default function AboutPage() {
                 boxShadow: 'var(--shadow-cta)',
               }}
             >
-              Plan Your Forum Retreat <ArrowRight className="w-4 h-4" />
+              Start with the Book <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/consultation"
+              href="/forum-retreats"
               className="inline-flex items-center gap-2"
               style={{
                 backgroundColor: 'rgba(255,255,255,0.12)',
@@ -338,7 +382,7 @@ export default function AboutPage() {
                 border: '1px solid rgba(255,255,255,0.25)',
               }}
             >
-              <Calendar className="w-4 h-4" /> Book a Discovery Call
+              Explore Leadership Work
             </Link>
           </div>
         </div>
