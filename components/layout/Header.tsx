@@ -100,7 +100,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0, height: '100%' }}>
             <div style={{ position: 'relative', height: '2.25rem', width: '2.25rem', flexShrink: 0, alignSelf: 'center' }}>
-              <Image src="/logos/logo.webp" alt="Dr. Mark Pirtle" fill className="object-contain" priority />
+              <Image src="/logos/logo.webp" alt="Dr. Mark Pirtle" fill className="object-contain" priority style={{ filter: dark ? 'brightness(0) invert(1)' : 'none', transition: 'filter 0.35s ease' }} />
             </div>
           </Link>
 
