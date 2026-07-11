@@ -98,17 +98,9 @@ export function Header() {
         }}>
 
           {/* Logo */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0, gap: '0.625rem', height: '100%' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0, height: '100%' }}>
             <div style={{ position: 'relative', height: '2.25rem', width: '2.25rem', flexShrink: 0, alignSelf: 'center' }}>
               <Image src="/logos/logo.webp" alt="Dr. Mark Pirtle" fill className="object-contain" priority />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', lineHeight: 1.2 }}>
-              <span style={{ color: dark ? '#ffffff' : '#000000', fontWeight: 800, fontSize: '0.95rem', letterSpacing: '-0.02em', transition: 'color 0.3s' }}>
-                Dr. Mark Pirtle
-              </span>
-              <span style={{ color: dark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)', fontSize: '0.65rem', letterSpacing: '0.06em', transition: 'color 0.3s' }}>
-                SkillfullyAware®
-              </span>
             </div>
           </Link>
 
