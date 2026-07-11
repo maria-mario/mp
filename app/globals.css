@@ -111,6 +111,13 @@
 
   --section-padding-y: 5rem;
   --section-padding-x: 1.5rem;
+
+  /* ── GRID SYSTEM ── */
+  --grid-max-width:    80rem;      /* 1280px — Tailwind max-w-7xl */
+  --grid-gutter-lg:   1.5rem;     /* 24px desktop gutter */
+  --grid-gutter-sm:   1rem;       /* 16px mobile/tablet gutter */
+  --grid-margin-md:   2rem;       /* 32px tablet margin */
+  --grid-margin-sm:   1rem;       /* 16px mobile margin */
 }
 
 /* ============================================
@@ -167,11 +174,25 @@ em { font-style: italic; }
   }
 
   .container {
-    max-width: 1200px;
+    max-width: var(--grid-max-width);   /* 1280px — max-w-7xl */
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: var(--grid-gutter-sm);
+    padding-right: var(--grid-gutter-sm);
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      padding-left: var(--grid-margin-md);
+      padding-right: var(--grid-margin-md);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: var(--grid-gutter-lg);
+      padding-right: var(--grid-gutter-lg);
+    }
   }
 
   .section-divider {
