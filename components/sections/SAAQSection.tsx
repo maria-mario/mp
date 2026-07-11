@@ -4,11 +4,9 @@ export function SAAQSection() {
   return (
     <section style={{
       backgroundColor: 'var(--color-brand-cream)',
-      padding: '5rem 1.5rem',
+      padding: '5rem 0',
     }}>
-      <div style={{
-        maxWidth: '72rem',
-        margin: '0 auto',
+      <div className="container" style={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
         gap: '4rem',

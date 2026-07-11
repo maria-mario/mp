@@ -29,9 +29,9 @@ export function LeaderPathway() {
   return (
     <section style={{
       backgroundColor: '#000000',
-      padding: '5rem 1.5rem',
+      padding: '5rem 0',
     }}>
-      <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
+      <div className="container">
 
         <div style={{ marginBottom: '3rem' }}>
           <p style={{

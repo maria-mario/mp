@@ -14,8 +14,9 @@ export function NewsletterSignup() {
   return (
     <section style={{
       backgroundColor: 'var(--color-brand-sienna)',
-      padding: '5rem 1.5rem',
+      padding: '5rem 0',
     }}>
+      <div className="container">
       <div style={{ maxWidth: '48rem', margin: '0 auto', textAlign: 'center' }}>
 
         <p style={{
@@ -107,6 +108,7 @@ export function NewsletterSignup() {
           No spam. Just practical reflections and tools for becoming more SkillfullyAware.
         </p>
 
+      </div>
       </div>
     </section>
   );

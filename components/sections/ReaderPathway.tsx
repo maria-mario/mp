@@ -43,9 +43,9 @@ export function ReaderPathway() {
   return (
     <section id="start" style={{
       backgroundColor: 'var(--color-brand-cream)',
-      padding: '5rem 1.5rem',
+      padding: '5rem 0',
     }}>
-      <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
+      <div className="container">
 
         <div style={{ marginBottom: '3rem' }}>
           <p style={{

@@ -45,13 +45,15 @@ function Section({ id, bg, children }: { id: string; bg?: string; children: Reac
     <section
       id={id}
       style={{
-        padding: '6rem var(--section-padding-x)',
+        padding: '6rem 0',
         backgroundColor: bg ?? 'var(--color-brand-cream)',
         scrollMarginTop: '80px',
       }}
     >
-      <div style={{ maxWidth: '820px', margin: '0 auto' }}>
-        {children}
+      <div className="container">
+        <div style={{ maxWidth: '820px', margin: '0 auto' }}>
+          {children}
+        </div>
       </div>
     </section>
   );
@@ -71,9 +73,10 @@ export default function AboutPage() {
       {/* ── HERO ──────────────────────────────────────────────────── */}
       <section style={{
         background: 'linear-gradient(135deg, var(--color-brand-navy) 0%, #2a1a0e 100%)',
-        padding: '8rem var(--section-padding-x) 6rem',
+        padding: '8rem 0 6rem',
         textAlign: 'center',
       }}>
+        <div className="container">
         <div style={{ maxWidth: '720px', margin: '0 auto' }}>
           <Eyebrow>About Dr. Mark Pirtle</Eyebrow>
           <h1 style={{
@@ -141,6 +144,7 @@ export default function AboutPage() {
               Explore Leadership Work
             </Link>
           </div>
+        </div>
         </div>
       </section>
 

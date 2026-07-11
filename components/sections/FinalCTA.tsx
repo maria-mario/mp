@@ -4,9 +4,10 @@ export function FinalCTA() {
   return (
     <section style={{
       backgroundColor: 'var(--color-brand-cream)',
-      padding: '6rem 1.5rem',
+      padding: '6rem 0',
       textAlign: 'center',
     }}>
+      <div className="container">
       <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
 
         <h2 style={{
@@ -80,6 +81,7 @@ export function FinalCTA() {
           </Link>
         </div>
 
+      </div>
       </div>
     </section>
   );

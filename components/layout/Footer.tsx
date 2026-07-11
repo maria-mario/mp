@@ -147,7 +147,7 @@ export function Footer() {
 
       {/* ── Newsletter band (unchanged) ── */}
       <div style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-        <div style={{ maxWidth: '96rem', margin: '0 auto', padding: '5rem 2rem' }}>
+        <div className="container" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
           <div style={{ maxWidth: '36rem', margin: '0 auto', textAlign: 'center' }}>
             <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-title)', fontWeight: 600, color: '#ffffff', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
               Stay{' '}
@@ -162,7 +162,7 @@ export function Footer() {
       </div>
 
       {/* ── Main grid — brand + 6 link columns ── */}
-      <div style={{ maxWidth: '96rem', margin: '0 auto', padding: '4rem 2rem', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+      <div className="container" style={{ paddingTop: '4rem', paddingBottom: '4rem', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 11rem), 1fr))', gap: '2.5rem' }}>
 
           {/* Brand — spans 2 cols on wide screens */}
@@ -218,7 +218,7 @@ export function Footer() {
 
       {/* ── Blog categories band (CNN-style) ── */}
       <div style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-        <div style={{ maxWidth: '96rem', margin: '0 auto', padding: '1.75rem 2rem' }}>
+        <div className="container" style={{ paddingTop: '1.75rem', paddingBottom: '1.75rem' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: '0.25rem 0' }}>
             {/* Section label */}
             <span style={{ fontSize: 'var(--text-xs)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#ffffff', marginRight: '1.25rem', whiteSpace: 'nowrap' }}>
@@ -252,7 +252,7 @@ export function Footer() {
       </div>
 
       {/* ── Bottom bar (unchanged) ── */}
-      <div style={{ maxWidth: '96rem', margin: '0 auto', padding: '1.5rem 2rem', display: 'flex', flexWrap: 'wrap' as const, justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
+      <div className="container" style={{ paddingTop: '1.5rem', paddingBottom: '1.5rem', display: 'flex', flexWrap: 'wrap' as const, justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
         <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 'var(--text-xs)' }}>
           © {new Date().getFullYear()} Dr. Mark Pirtle. All rights reserved.
         </p>

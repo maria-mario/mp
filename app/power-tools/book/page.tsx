@@ -139,8 +139,8 @@ export default function BuiltThisWayPage() {
     <main style={{ fontFamily: 'var(--font-sans)' }}>
 
       {/* ── BREADCRUMB ── */}
-      <div style={{ backgroundColor: 'var(--color-brand-navy)', padding: '0.75rem 1.5rem' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ backgroundColor: 'var(--color-brand-navy)', padding: '0.75rem 0' }}>
+        <div className="container">
           <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.5)', margin: 0 }}>
             <Link href="/" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>Home</Link>
             {' / '}
@@ -429,7 +429,7 @@ export default function BuiltThisWayPage() {
         id="tiers"
         style={{ backgroundColor: 'var(--color-brand-off-white)', padding: 'clamp(3.5rem,7vw,5.5rem) 1.5rem' }}
       >
-        <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
+        <div className="container">
 
           {/* Section header */}
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>

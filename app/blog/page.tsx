@@ -28,10 +28,10 @@ export default async function BlogPage({ searchParams }: Props) {
       {/* Page header */}
       <section style={{
         borderBottom: '1px solid rgba(0,0,0,0.07)',
-        padding: '3rem 2rem 2.5rem',
+        padding: '3rem 0 2.5rem',
         backgroundColor: '#fafaf9',
       }}>
-        <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
+        <div className="container">
           <p style={{
             fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em',
             textTransform: 'uppercase', color: 'var(--color-brand-sienna)', marginBottom: '0.75rem',
@@ -62,7 +62,7 @@ export default async function BlogPage({ searchParams }: Props) {
         top: '4.5rem',
         zIndex: 10,
       }}>
-        <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem', overflowX: 'auto' }}>
+        <div className="container" style={{ overflowX: 'auto' }}>
           <div style={{ display: 'flex', gap: '0.375rem', padding: '0.75rem 0', whiteSpace: 'nowrap' as const }}>
 
             <Link
@@ -102,7 +102,7 @@ export default async function BlogPage({ searchParams }: Props) {
       </section>
 
       {/* Post grid */}
-      <section style={{ maxWidth: '80rem', margin: '0 auto', padding: '3rem 2rem 5rem' }}>
+      <section className="container" style={{ paddingTop: '3rem', paddingBottom: '5rem' }}>
         {posts.length === 0 ? (
           <p style={{ textAlign: 'center', color: 'var(--color-brand-text-light)', padding: '4rem 0' }}>
             No posts found in this category.
