@@ -1,58 +1,132 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, Calendar, Target, Compass, Layers, Zap, RefreshCw } from 'lucide-react';
+import { CheckCircle, Target, Compass, Zap, RefreshCw, Activity, FileText } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'SAAQ Assessment & Coaching | Dr. Mark Pirtle | SkillfullyAware®',
+  description: 'The SkillfullyAware Awareness Quotient (SAAQ) is a private developmental assessment for individuals, leaders, EO/YPO forums, peer groups, and leadership teams. Use the SAAQ to understand strengths, blind spots, stress reactions, growth edges, and practical next steps.',
+};
 
 /* ── Copy ─────────────────────────────────────────── */
 const steps = [
   {
     icon: Compass,
-    title: 'Articulate Your Core Focus',
-    body: 'We identify the primary areas you want to address — your World (career, relationships, time), Body (health, fitness, nutrition), or Mind (meditation, mindfulness, shadow work).',
+    title: 'Complete the SAAQ',
+    body: 'Begin with a private developmental assessment that maps strengths, blind spots, stress reactions, and growth edges.',
+  },
+  {
+    icon: FileText,
+    title: 'Review your report',
+    body: 'We identify the patterns that matter most right now and clarify what deserves attention first.',
+  },
+  {
+    icon: Activity,
+    title: 'Name the pressure points',
+    body: 'We connect the report to real situations: decisions, relationships, conflict, avoidance, over-control, burnout, or transition.',
   },
   {
     icon: Target,
-    title: 'Define Your Core Values',
-    body: 'We uncover the values that matter most to you. These become the foundation for every decision, keeping you aligned and motivated throughout the process.',
-  },
-  {
-    icon: Layers,
-    title: 'Create Your Long-Term Vision',
-    body: 'Together we craft a clear 10-year vision with 5–7 SMART goals — Specific, Measurable, Achievable, Relevant, and Time-Bound.',
-  },
-  {
-    icon: ArrowRight,
-    title: 'Map the Intermediate Steps',
-    body: 'We break your vision into actionable 3-year and 1-year plans. Each stage builds on the last, ensuring steady, measurable progress.',
+    title: 'Build a practical growth plan',
+    body: 'Together we identify a focused set of practices, commitments, and next steps for the next 90 days.',
   },
   {
     icon: Zap,
-    title: 'Launch Your 90-Day Sprint',
-    body: 'We identify your most critical priorities for the next 90 days — your "Big Rocks" — so your efforts stay focused on what truly moves the needle.',
+    title: 'Practice in real life',
+    body: 'You apply the work in the conversations, choices, routines, and leadership moments that matter most.',
   },
   {
     icon: RefreshCw,
-    title: 'Ongoing Sprint Support',
-    body: "Once you're off and running, you decide what comes next. If you want to work through another sprint, we keep going. The process scales to where you are.",
+    title: 'Integrate and adjust',
+    body: 'We review what is changing, what is still repeating, and what support would help you continue developing.',
   },
 ];
 
 const sessionItems = [
-  { title: 'Hot Topics', body: 'Address any pressing or time-sensitive issues that need immediate attention.' },
-  { title: 'Big Rock Work', body: 'Check in on your priorities, hold yourself accountable, and keep momentum on what matters most.' },
-  { title: 'Weekly Planning', body: 'Plan for the week ahead, set commitments, and leave every session prepared for what\'s next.' },
-  { title: 'Daily Practices', body: 'Build mindful habits — from meditation and perspective-taking to shadow work and actionable steps that support your growth.' },
-  { title: 'Mindfulness & Shadow Work', body: 'Essential tools woven seamlessly into every conversation, building greater clarity, resilience, and self-awareness over time.' },
-];
-
-const audiences = [
   {
-    label: 'Founders & CEOs',
-    headline: 'Build the business. Keep yourself.',
-    body: 'You\'ve scaled the company. Now scale yourself. SAAQ coaching helps founders align inner operating system with outer ambition — before the gap costs you.',
+    title: 'Current pressure',
+    body: 'Work with the decisions, conversations, conflicts, or transitions that are active now.',
   },
   {
-    label: 'Senior Leaders',
-    headline: 'Finish what you started.',
-    body: 'You\'ve done the work. Some things are still unresolved. SAAQ coaching creates the space to address the patterns, beliefs, and blind spots that slow seasoned leaders down.',
+    title: 'SAAQ insights',
+    body: 'Return to the report to understand what pattern may be showing up and what it is asking you to practice.',
+  },
+  {
+    title: 'Pattern practice',
+    body: 'Learn to notice old protective strategies before they run the conversation or decision.',
+  },
+  {
+    title: 'Leadership and relationship work',
+    body: 'Apply the work to trust, conflict, boundaries, communication, and responsibility.',
+  },
+  {
+    title: 'Daily practices',
+    body: 'Build simple practices that support attention, emotional regulation, perspective-taking, and follow-through.',
+  },
+];
+
+const pathCards = [
+  {
+    heading: 'Individual SAAQ',
+    subheading: 'Understand your own patterns.',
+    body: 'For people who want a private developmental reflection on how they react, relate, decide, protect themselves, and grow under pressure.',
+    cta: 'Take the Individual SAAQ',
+    href: 'https://saaq-pi.vercel.app/',
+    external: true,
+  },
+  {
+    heading: 'SAAQ Coaching',
+    subheading: 'Turn insight into practice.',
+    body: 'For leaders and growth-minded individuals who want coaching built around their SAAQ report, current goals, stress patterns, relationships, and next developmental steps.',
+    cta: 'Explore SAAQ Coaching',
+    href: '#book',
+    external: false,
+  },
+  {
+    heading: 'SAAQ Forum Immersion',
+    subheading: 'Give your forum a deeper map.',
+    body: 'A one-day, six-hour premium developmental intensive for EO/YPO forums, peer groups, founders, and leadership teams. Each participant completes the SAAQ and receives a private report before the immersion, helping the group go deeper, faster, and with more clarity.',
+    cta: 'Explore Forum Immersion',
+    href: '/forum-retreats',
+    external: false,
+  },
+];
+
+const saaqOptions = [
+  {
+    heading: 'Individual SAAQ',
+    price: '$350–$1,000',
+    body: 'Choose from a 15-question snapshot or a 30-question deep dive, with report-only or report-plus-session options.',
+    note: 'For most people, the recommended starting point is the 30-question report + sessions option because it provides the most complete reflection and gives you time to review the results with Dr. Mark.',
+    cta: 'Take the SAAQ',
+    href: 'https://saaq-pi.vercel.app/',
+    external: true,
+  },
+  {
+    heading: 'SAAQ Coaching',
+    price: 'Available after the initial SAAQ',
+    body: 'For people who want to apply their SAAQ insights to real decisions, relationships, leadership challenges, stress patterns, and practical next steps. Begin with the SAAQ, then discuss whether ongoing coaching is the right next step.',
+    note: '',
+    cta: 'Start with the SAAQ',
+    href: 'https://saaq-pi.vercel.app/',
+    external: true,
+  },
+  {
+    heading: 'SAAQ Forum Immersion',
+    price: 'Starting at $12,500 per forum',
+    body: 'A premium developmental experience for EO/YPO forums, peer groups, founders, and leadership teams. Each participant completes the SAAQ and receives a private developmental report before the immersion. The group then comes together for a facilitated process focused on strengths, blind spots, stress patterns, growth edges, and a practical 90-day plan.',
+    note: '',
+    cta: 'Schedule a Conversation',
+    href: '/contact',
+    external: false,
+  },
+  {
+    heading: 'Premium SAAQ Forum Immersion',
+    price: 'Custom premium engagements from $18,000',
+    body: 'Premium SAAQ engagements may include individual pre-immersion debriefs, a more customized group summary, additional follow-up calls, and more hands-on 90-day integration support.',
+    note: 'Final pricing depends on format, group size, customization, debrief structure, and follow-up support.',
+    cta: 'Book a SAAQ Conversation',
+    href: '/contact',
+    external: false,
   },
 ];
 
@@ -74,30 +148,33 @@ export default function ConsultationPage() {
         />
         <div className="container relative z-10 max-w-3xl">
           <div className="section-divider mb-4" />
-          <span className="eyebrow">SAAQ Coaching</span>
+          <span className="eyebrow">SkillfullyAware Awareness Quotient (SAAQ)</span>
           <h1 className="mt-4 mb-6" style={{ color: '#ffffff' }}>
-            Know Yourself.<br />
-            <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna-light)' }}>
-              Lead Better.
-            </em>
+            See the patterns shaping how you lead, relate, decide, and grow.
           </h1>
+          <p style={{ fontSize: 'var(--text-lead)', color: 'rgba(255,255,255,0.72)', lineHeight: 1.75, maxWidth: '52ch', marginBottom: '1rem' }}>
+            The SkillfullyAware Awareness Quotient (SAAQ) is a private developmental assessment that
+            helps you understand your strengths, blind spots, stress reactions, growth edges, and
+            practical next steps.
+          </p>
           <p style={{ fontSize: 'var(--text-lead)', color: 'rgba(255,255,255,0.72)', lineHeight: 1.75, maxWidth: '52ch' }}>
-            The SAAQ diagnostic maps your inner operating system — your values, habits, blind spots,
-            and strengths. Coaching builds on that map to create lasting change in how you lead,
-            decide, and live.
+            The SAAQ can stand alone as an individual assessment, guide one-on-one coaching, or
+            anchor a premium forum immersion for EO/YPO forums, founders, peer groups, and
+            leadership teams.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
+            <Link href="/contact" className="btn btn-primary">
+              Book a SAAQ Conversation
+            </Link>
             <a
               href="https://saaq-pi.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-primary"
+              className="btn btn-outline"
+              style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.3)' }}
             >
-              Take the SAAQ Assessment
+              Take the Individual SAAQ
             </a>
-            <Link href="#book" className="btn btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.3)' }}>
-              Book a Discovery Call
-            </Link>
           </div>
         </div>
       </section>
@@ -106,27 +183,50 @@ export default function ConsultationPage() {
       <section className="section" style={{ backgroundColor: 'var(--color-surface)' }}>
         <div className="container">
           <div className="section-divider mb-4" />
-          <span className="eyebrow">Who It's For</span>
-          <h2 className="mt-4 mb-12" style={{ maxWidth: '28ch' }}>
-            One process. Two entry points.
+          <span className="eyebrow">Who It&apos;s For</span>
+          <h2 className="mt-4 mb-12" style={{ maxWidth: '32ch' }}>
+            Choose the SAAQ path that fits why you&apos;re here
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {audiences.map((a) => (
+          <div className="grid md:grid-cols-3 gap-8">
+            {pathCards.map((card) => (
               <div
-                key={a.label}
-                className="rounded-2xl p-8"
+                key={card.heading}
+                className="rounded-2xl p-8 flex flex-col gap-4"
                 style={{ backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border)' }}
               >
-                <span className="eyebrow mb-3 block">{a.label}</span>
-                <h3 className="mb-4" style={{ fontSize: 'var(--text-h3)' }}>{a.headline}</h3>
-                <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.75 }}>{a.body}</p>
+                <div>
+                  <h3 className="mb-1" style={{ fontSize: 'var(--text-h3)' }}>{card.heading}</h3>
+                  <p style={{ fontWeight: 600, color: 'var(--color-brand-sienna)', marginBottom: '0.75rem', fontSize: 'var(--text-small)' }}>
+                    {card.subheading}
+                  </p>
+                  <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.75 }}>{card.body}</p>
+                </div>
+                {card.external ? (
+                  <a
+                    href={card.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline mt-auto"
+                    style={{ alignSelf: 'flex-start' }}
+                  >
+                    {card.cta}
+                  </a>
+                ) : (
+                  <Link
+                    href={card.href}
+                    className="btn btn-outline mt-auto"
+                    style={{ alignSelf: 'flex-start' }}
+                  >
+                    {card.cta}
+                  </Link>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── SAAQ DIAGNOSTIC CTA ─────────────────────────── */}
+      {/* ── START WITH A DEEPER MAP ─────────────────────── */}
       <section
         className="section"
         style={{
@@ -134,36 +234,109 @@ export default function ConsultationPage() {
         }}
       >
         <div className="container max-w-2xl text-center">
-          <h2 className="mb-4" style={{ color: '#ffffff' }}>Start with the Assessment</h2>
-          <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 'var(--text-lead)', lineHeight: 1.75, marginBottom: '2.5rem' }}>
-            The SAAQ diagnostic is the entry point to every coaching engagement. It takes about
-            15 minutes and gives you — and Mark — a clear picture of where you are and what to
-            work on first.
+          <h2 className="mb-4" style={{ color: '#ffffff' }}>Start with a deeper map</h2>
+          <p style={{ color: 'rgba(255,255,255,0.88)', fontSize: 'var(--text-lead)', lineHeight: 1.75, marginBottom: '1.25rem' }}>
+            Every SAAQ engagement begins with a private assessment and developmental reflection.
+            The assessment helps identify patterns that are often difficult to see from the inside:
+            strengths, blind spots, stress reactions, protective strategies, growth edges, and
+            practical next steps.
           </p>
-          <a
-            href="https://saaq-pi.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn"
-            style={{ backgroundColor: '#ffffff', color: 'var(--color-brand-sienna)', fontWeight: 700 }}
-          >
-            Take the SAAQ Assessment →
-          </a>
+          <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 'var(--text-lead)', lineHeight: 1.75, marginBottom: '2.5rem' }}>
+            For individuals, the SAAQ can serve as a private starting point. For coaching, it
+            becomes the map for focused work. For forums and leadership groups, it gives each
+            participant a private report and gives the group a clearer foundation for deeper
+            conversation.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <a
+              href="https://saaq-pi.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn"
+              style={{ backgroundColor: '#ffffff', color: 'var(--color-brand-sienna)', fontWeight: 700 }}
+            >
+              Take the Individual SAAQ
+            </a>
+            <Link
+              href="/contact"
+              className="btn"
+              style={{ backgroundColor: 'transparent', color: '#ffffff', border: '1.5px solid rgba(255,255,255,0.5)', fontWeight: 600 }}
+            >
+              Book a SAAQ Conversation
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ── CORE STRUCTURE ──────────────────────────────── */}
+      {/* ── SAAQ OPTIONS ────────────────────────────────── */}
       <section className="section">
         <div className="container">
           <div className="section-divider mb-4" />
-          <span className="eyebrow">The Coaching Structure</span>
-          <h2 className="mt-4 mb-4">Clarity, Action, Results</h2>
+          <span className="eyebrow">SAAQ Options</span>
+          <h2 className="mt-4 mb-4">Find the right level of support</h2>
           <p
             className="mb-14"
             style={{ color: 'var(--color-text-muted)', fontSize: 'var(--text-lead)', maxWidth: '54ch', lineHeight: 1.75 }}
           >
-            Every coaching relationship begins with a focused exploration of your goals and values
-            to create a personalized roadmap. Here's how it unfolds.
+            The SAAQ can be used in different ways depending on the level of support needed. Some
+            people begin with an individual assessment. Others use the SAAQ as the foundation for
+            coaching, a forum immersion, or a larger leadership development process.
+          </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            {saaqOptions.map((opt) => (
+              <div
+                key={opt.heading}
+                className="rounded-2xl p-8 flex flex-col gap-4"
+                style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}
+              >
+                <div>
+                  <h3 className="mb-1" style={{ fontSize: 'var(--text-h4, 1.25rem)', fontWeight: 700 }}>{opt.heading}</h3>
+                  <p style={{ fontWeight: 700, color: 'var(--color-brand-sienna)', fontSize: 'var(--text-small)', marginBottom: '0.875rem' }}>
+                    {opt.price}
+                  </p>
+                  <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.75, marginBottom: opt.note ? '0.875rem' : 0 }}>{opt.body}</p>
+                  {opt.note && (
+                    <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.75, fontSize: 'var(--text-small)', fontStyle: 'italic' }}>{opt.note}</p>
+                  )}
+                </div>
+                {opt.external ? (
+                  <a
+                    href={opt.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary mt-auto"
+                    style={{ alignSelf: 'flex-start' }}
+                  >
+                    {opt.cta}
+                  </a>
+                ) : (
+                  <Link
+                    href={opt.href}
+                    className="btn btn-primary mt-auto"
+                    style={{ alignSelf: 'flex-start' }}
+                  >
+                    {opt.cta}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── COACHING STRUCTURE ──────────────────────────── */}
+      <section className="section" style={{ backgroundColor: 'var(--color-surface)' }}>
+        <div className="container">
+          <div className="section-divider mb-4" />
+          <span className="eyebrow">The Coaching Structure</span>
+          <h2 className="mt-4 mb-4">From insight to practice</h2>
+          <p
+            className="mb-14"
+            style={{ color: 'var(--color-text-muted)', fontSize: 'var(--text-lead)', maxWidth: '54ch', lineHeight: 1.75 }}
+          >
+            The SAAQ is useful because it does not stop at insight. It gives us a map we can
+            practice with. Coaching helps you use that map in real decisions, conversations,
+            relationships, and leadership challenges.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {steps.map((s, i) => {
@@ -189,20 +362,20 @@ export default function ConsultationPage() {
       </section>
 
       {/* ── SESSION FORMAT ──────────────────────────────── */}
-      <section className="section" style={{ backgroundColor: 'var(--color-surface)' }}>
+      <section className="section">
         <div className="container max-w-3xl">
           <div className="section-divider mb-4" />
           <span className="eyebrow">Session Format</span>
-          <h2 className="mt-4 mb-4">What Happens in Every Session</h2>
+          <h2 className="mt-4 mb-4">What SAAQ coaching focuses on</h2>
           <p
             className="mb-12"
             style={{ color: 'var(--color-text-muted)', fontSize: 'var(--text-lead)', lineHeight: 1.75 }}
           >
-            Each session is a blend of focused strategy and personal growth, ensuring you're
-            consistently moving toward your goals.
+            Sessions are practical and responsive. We use the SAAQ map, current real-life pressure,
+            and SkillfullyAware® practices to help you see patterns sooner and respond more skillfully.
           </p>
           <div className="flex flex-col gap-6">
-            {sessionItems.map((item, i) => (
+            {sessionItems.map((item) => (
               <div key={item.title} className="flex gap-5 items-start">
                 <CheckCircle size={20} style={{ color: 'var(--color-brand-sienna)', flexShrink: 0, marginTop: '0.2rem' }} />
                 <div>
@@ -215,7 +388,7 @@ export default function ConsultationPage() {
         </div>
       </section>
 
-      {/* ── BOOK CTA ────────────────────────────────────── */}
+      {/* ── GET STARTED CTA ─────────────────────────────── */}
       <section
         id="book"
         className="section"
@@ -225,27 +398,34 @@ export default function ConsultationPage() {
           <div className="section-divider mb-4 mx-auto" style={{ margin: '0 auto 1rem' }} />
           <span className="eyebrow">Get Started</span>
           <h2 className="mt-4 mb-4" style={{ color: '#ffffff' }}>
-            Ready to Take Control?
+            Choose your SAAQ starting point
           </h2>
           <p
             className="mb-10"
             style={{ color: 'rgba(255,255,255,0.7)', fontSize: 'var(--text-lead)', lineHeight: 1.75 }}
           >
-            Start with the SAAQ assessment, then book a free discovery call. We'll review your
-            results together, talk through your goals, and determine if coaching is the right
-            next step.
+            Start with the individual assessment, book a conversation about SAAQ coaching, or
+            explore a SAAQ Forum Immersion for your EO/YPO forum, peer group, or leadership team.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/contact" className="btn btn-primary">
+              Book a SAAQ Conversation
+            </Link>
             <a
               href="https://saaq-pi.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-primary"
+              className="btn btn-outline"
+              style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.3)' }}
             >
-              Take the Assessment First
+              Take the Individual SAAQ
             </a>
-            <Link href="/contact" className="btn btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.3)' }}>
-              Book a Discovery Call
+            <Link
+              href="/forum-retreats"
+              className="btn btn-outline"
+              style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.3)' }}
+            >
+              Explore Forum Immersion
             </Link>
           </div>
         </div>
