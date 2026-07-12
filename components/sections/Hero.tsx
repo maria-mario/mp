@@ -5,11 +5,7 @@ import Image from 'next/image';
 export function Hero() {
   return (
     <section style={{ backgroundColor: '#000000', paddingTop: '6.25rem' }}>
-      <div style={{
-        maxWidth: '76.5rem', // 1224px
-        margin: '0 auto',
-        padding: '0 1.5rem',
-      }}>
+      <div className="container">
         {/* Hero image card */}
         <div style={{
           position: 'relative',
