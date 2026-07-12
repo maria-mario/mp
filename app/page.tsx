@@ -10,8 +10,18 @@ import { AboutMark }         from '@/components/sections/AboutMark';
 import { Testimonials }      from '@/components/sections/Testimonials';
 import { LatestBlogPosts }   from '@/components/sections/LatestBlogPosts';
 import { FinalCTA }          from '@/components/sections/FinalCTA';
+import { getPageBySlug }     from '@/lib/pages';
+import BlockRenderer         from '@/components/blocks/BlockRenderer';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const cmsPage = await getPageBySlug('/');
+  if (cmsPage && cmsPage.blocks.length > 0) {
+    return (
+      <div className="min-h-screen">
+        <BlockRenderer blocks={cmsPage.blocks} />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen">
       <Hero />           {/* Two CTAs: I'm a Reader / I'm a Leader */}

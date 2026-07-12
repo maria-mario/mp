@@ -1,7 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { getPageBySlug } from '@/lib/pages';
+import BlockRenderer from '@/components/blocks/BlockRenderer';
 
 /* ─── Science / roots sections ──────────────────────────────────── */
 const scienceSections = [
@@ -67,7 +67,16 @@ function Divider() {
 /* ═══════════════════════════════════════════════════════════════════
    PAGE
 ═══════════════════════════════════════════════════════════════════ */
-export default function AboutPage() {
+export default async function AboutPage() {
+  const cmsPage = await getPageBySlug('/about');
+  if (cmsPage && cmsPage.blocks.length > 0) {
+    return (
+      <main className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
+        <BlockRenderer blocks={cmsPage.blocks} />
+      </main>
+    );
+  }
+
   return (
     <>
       {/* ── HERO ──────────────────────────────────────────────────── */}

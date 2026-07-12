@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CheckCircle, Target, Compass, Zap, RefreshCw, Activity, FileText } from 'lucide-react';
+import { getPageBySlug } from '@/lib/pages';
+import BlockRenderer from '@/components/blocks/BlockRenderer';
 
 export const metadata: Metadata = {
   title: 'SAAQ Assessment & Coaching | Dr. Mark Pirtle | SkillfullyAware®',
@@ -131,7 +133,16 @@ const saaqOptions = [
 ];
 
 /* ── Page ─────────────────────────────────────────── */
-export default function ConsultationPage() {
+export default async function ConsultationPage() {
+  const cmsPage = await getPageBySlug('/consultation');
+  if (cmsPage && cmsPage.blocks.length > 0) {
+    return (
+      <main className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
+        <BlockRenderer blocks={cmsPage.blocks} />
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
 
