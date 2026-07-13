@@ -1,13 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CheckCircle, Target, Compass, Zap, RefreshCw, Activity, FileText } from 'lucide-react';
-import { getPageBySlug } from '@/lib/pages';
+import { getPageBySlug, buildMetadata } from '@/lib/pages';
 import BlockRenderer from '@/components/blocks/BlockRenderer';
 
-export const metadata: Metadata = {
+const DEFAULT_META = {
   title: 'SAAQ Assessment & Coaching | Dr. Mark Pirtle | SkillfullyAware®',
-  description: 'The SkillfullyAware Awareness Quotient (SAAQ) is a private developmental assessment for individuals, leaders, EO/YPO forums, peer groups, and leadership teams. Use the SAAQ to understand strengths, blind spots, stress reactions, growth edges, and practical next steps.',
+  description: 'The SkillfullyAware Awareness Quotient (SAAQ) is a private developmental assessment for individuals, leaders, EO/YPO forums, peer groups, and leadership teams.',
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getPageBySlug('/consultation');
+  return buildMetadata(page?.seo, DEFAULT_META);
+}
 
 /* ── Copy ─────────────────────────────────────────── */
 const steps = [

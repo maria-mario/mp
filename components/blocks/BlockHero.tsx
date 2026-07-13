@@ -48,16 +48,17 @@ export default function BlockHero({ block }: { block: BlockHeroData }) {
         >
           {block.heading}
         </h1>
-        {block.body && (
-          <p style={{
+        {block.body && block.body.split('\n\n').map((para, i) => (
+          <p key={i} style={{
             fontSize: 'var(--text-lead)',
             color: onDark ? 'rgba(255,255,255,0.72)' : 'var(--color-brand-text-muted)',
             lineHeight: 1.75,
             maxWidth: '52ch',
+            marginBottom: '1rem',
           }}>
-            {block.body}
+            {para}
           </p>
-        )}
+        ))}
         {(block.cta_primary_label && block.cta_primary_url) || (block.cta_secondary_label && block.cta_secondary_url) ? (
           <div className="mt-10 flex flex-wrap gap-4">
             {block.cta_primary_label && block.cta_primary_url && (

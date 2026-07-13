@@ -1,7 +1,18 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { getPageBySlug } from '@/lib/pages';
+import { getPageBySlug, buildMetadata } from '@/lib/pages';
 import BlockRenderer from '@/components/blocks/BlockRenderer';
+
+const DEFAULT_META = {
+  title: 'About Dr. Mark Pirtle | SkillfullyAware®',
+  description: 'Dr. Mark Pirtle is the creator of SkillfullyAware®, author of Built This Way, and creator of the SAAQ. His work helps people understand why painful patterns repeat and how to change them.',
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getPageBySlug('/about');
+  return buildMetadata(page?.seo, DEFAULT_META);
+}
 
 /* ─── Science / roots sections ──────────────────────────────────── */
 const scienceSections = [
