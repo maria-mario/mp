@@ -73,10 +73,10 @@ export async function renderNewsletterById(newsletterId: number): Promise<string
   const [item, posts] = await Promise.all([getNewsletterItem(newsletterId), getLatestPosts(2)]);
 
   const templateData: NewsletterTemplateData = {
-    introTitle: item.intro_title,
-    introDescription: item.intro_description,
+    introTitle: item.intro_title ?? '',
+    introDescription: item.intro_description ?? '',
     mainImageUrl: assetUrl(item.main_image),
-    bodyContentHtml: item.body_content,
+    bodyContentHtml: item.body_content ?? '',
     promoBannerHeading: item.promo_banner_heading,
     promoBannerText: item.promo_banner_text,
     promoBannerLinkText: item.promo_banner_link_text,
