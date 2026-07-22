@@ -64,10 +64,10 @@ export function SAAQSection() {
           </p>
 
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link href="/saaq" style={{
+            <Link href="/consultation" style={{
               display: 'inline-flex',
               alignItems: 'center',
-              backgroundColor: '#000000',
+              backgroundColor: 'var(--color-brand-sienna)',
               color: '#ffffff',
               padding: '0.875rem 2rem',
               borderRadius: '9999px',
@@ -76,17 +76,6 @@ export function SAAQSection() {
               textDecoration: 'none',
             }}>
               Explore the SAAQ →
-            </Link>
-            <Link href="/saaq#sample" style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              fontSize: 'var(--text-small)',
-              fontWeight: 600,
-              color: 'var(--color-brand-text-muted)',
-              textDecoration: 'none',
-              padding: '0.875rem 0',
-            }}>
-              See a Sample Report →
             </Link>
           </div>
         </div>

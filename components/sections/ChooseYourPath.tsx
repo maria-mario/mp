@@ -85,7 +85,7 @@ export function ChooseYourPath() {
             }}>
               Built This Way → Reader Tool → Power Tools
             </p>
-            <Link href="/built-this-way" style={{
+            <Link href="/power-tools/book" style={{
               display: 'inline-flex',
               backgroundColor: 'var(--color-brand-rust)',
               color: '#ffffff',

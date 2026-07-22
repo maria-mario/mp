@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
+import { getSiteMedia } from '@/lib/site-settings';
 import BlogCard from '@/components/blog/BlogCard';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -42,7 +43,7 @@ export default async function BlogPostPage({ params }: Props) {
   const post = await getPostBySlug(slug);
   if (!post) notFound();
 
-  const allPosts = await getAllPosts();
+  const [allPosts, media] = await Promise.all([getAllPosts(), getSiteMedia()]);
   const idx = allPosts.findIndex((p) => p.slug === post.slug);
   const prev = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
   const next = idx > 0 ? allPosts[idx - 1] : null;
@@ -156,7 +157,7 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Author / date */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2.5rem', paddingBottom: '2rem', borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
               <div style={{ width: '2.25rem', height: '2.25rem', borderRadius: '9999px', backgroundColor: '#e8e4de', flexShrink: 0, overflow: 'hidden', position: 'relative' }}>
-                <Image src="/logos/logo.webp" alt="Mark Pirtle" fill style={{ objectFit: 'cover' }} />
+                <Image src={media.logoMark} alt="Mark Pirtle" fill sizes="2.25rem" style={{ objectFit: 'cover' }} />
               </div>
               <div>
                 <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-brand-text)' }}>{post.author}</div>
@@ -240,24 +241,8 @@ export default async function BlogPostPage({ params }: Props) {
               </Link>
             </div>
 
-            {/* Membership CTA */}
-            <div style={{ backgroundColor: '#f0ede8', border: '1px solid rgba(0,0,0,0.07)', borderRadius: '1rem', padding: '1.5rem' }}>
-              <div style={{ fontSize: '1.5rem', marginBottom: '0.625rem' }}>🔑</div>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-brand-text)', marginBottom: '0.375rem' }}>
-                Power Tools Access
-              </h3>
-              <p style={{ fontSize: '0.875rem', color: 'var(--color-brand-text-light)', lineHeight: 1.6, marginBottom: '1rem' }}>
-                Unlimited access to online courses, workbooks, meditation programs, and the full SkillfullyAware® toolkit.
-              </p>
-              <Link href="/members" style={{
-                display: 'block', textAlign: 'center',
-                backgroundColor: 'var(--color-brand-text)', color: '#ffffff',
-                fontWeight: 700, fontSize: '0.875rem', textDecoration: 'none',
-                borderRadius: '0.5rem', padding: '0.65rem 1rem',
-              }}>
-                Explore Membership →
-              </Link>
-            </div>
+            {/* Membership CTA — removed in Phase 1: /members route does not exist
+                and memberships are dormant. Restore when the member area ships. */}
 
             {/* Retreats CTA */}
             <div style={{ border: '1.5px solid rgba(0,0,0,0.1)', borderRadius: '1rem', padding: '1.5rem' }}>

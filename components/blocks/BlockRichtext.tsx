@@ -12,7 +12,7 @@ export default function BlockRichtext({ block }: { block: BlockRichtextData }) {
   const centered = block.align === 'center';
 
   return (
-    <section className="section" style={{ backgroundColor: bg }}>
+    <section id={block.anchor_id || undefined} className="section" style={{ backgroundColor: bg }}>
       <div className="container">
         <div style={{
           maxWidth: block.narrow ? '52ch' : undefined,

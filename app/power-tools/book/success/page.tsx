@@ -60,8 +60,8 @@ export default function BookSuccessPage() {
         </p>
 
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link href="/members" className="btn-primary" style={{ padding: '0.9rem 2rem' }}>
-            Go to Member Area <ArrowRight className="inline w-4 h-4 ml-1" />
+          <Link href="/power-tools/book" className="btn-primary" style={{ padding: '0.9rem 2rem' }}>
+            Back to the Book <ArrowRight className="inline w-4 h-4 ml-1" />
           </Link>
           <Link href="/" className="btn-ghost" style={{ padding: '0.9rem 2rem' }}>
             Back to Home

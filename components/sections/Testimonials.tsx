@@ -2,71 +2,7 @@
 
 import { useState } from 'react';
 import { Play, Volume2, ChevronLeft, ChevronRight } from 'lucide-react';
-
-type TestimonialType = 'text' | 'video' | 'audio';
-
-interface Testimonial {
-  id: number;
-  type: TestimonialType;
-  name: string;
-  title: string;
-  company?: string;
-  location: string;
-  quote: string;
-  mediaUrl?: string;
-  thumbnail?: string; // for video cards
-}
-
-const testimonials: Testimonial[] = [
-  {
-    id: 1,
-    type: 'video',
-    name: 'Bob Lambert',
-    title: 'General Manager',
-    company: 'Carte Hotel',
-    location: 'San Diego, California',
-    quote: 'His approach to shadow work and emotional intelligence transformed our team dynamics. If your team needs alignment, bring Mark in—you won\'t regret it.',
-    mediaUrl: 'https://vimeo.com/179221240',
-    thumbnail: undefined,
-  },
-  {
-    id: 2,
-    type: 'text',
-    name: 'John Lund',
-    title: 'CEO & Business Strategy Coach',
-    company: 'Serial Entrepreneur',
-    location: 'Nebraska / Arizona',
-    quote: 'Dr. Pirtle\'s shadow work coaching has been transformative for both my personal and professional life. Through his guidance, I\'ve developed a heightened ability to attune to myself, others, and situations. His insights are practical and profound, transferring seamlessly to any domain. I\'m a better version of myself because of his coaching.',
-  },
-  {
-    id: 3,
-    type: 'video',
-    name: 'Cristina Burgess',
-    title: 'Founder',
-    company: 'Augustina Luxury Boutique',
-    location: 'Toronto, Canada',
-    quote: 'Working with Dr. Pirtle has transformed my understanding of my mind, myself, and what it is to live with skillful awareness.',
-    mediaUrl: 'https://vimeo.com/179221240',
-    thumbnail: undefined,
-  },
-  {
-    id: 4,
-    type: 'text',
-    name: 'Alex Hsu',
-    title: 'Investor, Father, Seeker',
-    location: 'California',
-    quote: 'I attended Mark Pirtle\'s men\'s retreat, and it was truly transformative. The shadow work and group sessions helped me confront parts of myself I had been avoiding for years. I left with new friendships I know will last.',
-  },
-  {
-    id: 5,
-    type: 'audio',
-    name: 'Forum Leader',
-    title: 'EO Chapter President',
-    location: 'Texas',
-    quote: 'The retreat experience exceeded every expectation. Mark has a rare gift for creating psychological safety in a group, allowing real transformation to happen.',
-    mediaUrl: '/audio/testimonial-sample.mp3',
-  },
-];
+import { FALLBACK_TESTIMONIALS, type Testimonial, type TestimonialType } from '@/lib/testimonials';
 
 function Initials({ name }: { name: string }) {
   return (
@@ -261,12 +197,15 @@ function AudioCard({ t }: { t: Testimonial }) {
   );
 }
 
-export function Testimonials() {
+export function Testimonials({ items = FALLBACK_TESTIMONIALS }: { items?: Testimonial[] }) {
   const [videoModal, setVideoModal] = useState<string | null>(null);
   const [page, setPage] = useState(0);
   const perPage = 3;
+  const testimonials = items;
   const totalPages = Math.ceil(testimonials.length / perPage);
   const visible = testimonials.slice(page * perPage, page * perPage + perPage);
+
+  if (testimonials.length === 0) return null;
 
   return (
     <section className="section" style={{ backgroundColor: 'var(--color-brand-off-white)' }}>

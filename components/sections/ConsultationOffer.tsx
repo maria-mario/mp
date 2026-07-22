@@ -30,15 +30,8 @@ export function ConsultationOffer() {
   return (
     <section
       className="section relative overflow-hidden"
-      style={{ backgroundColor: 'var(--color-brand-navy)' }}
+      style={{ backgroundColor: '#ffffff' }}
     >
-      {/* Subtle orb */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 60% 60% at 80% 50%, rgba(192,82,42,0.1) 0%, transparent 70%)',
-        }}
-      />
 
       <div className="container relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -48,9 +41,9 @@ export function ConsultationOffer() {
             <div className="section-divider mb-4" />
             <span className="eyebrow">SAAQ Coaching</span>
 
-            <h2 className="mt-4 mb-6" style={{ color: '#ffffff' }}>
+            <h2 className="mt-4 mb-6" style={{ color: 'var(--color-brand-text)' }}>
               With the Right Guidance,{' '}
-              <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna-light)' }}>
+              <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna)' }}>
                 Anything is Possible
               </em>
             </h2>
@@ -59,28 +52,27 @@ export function ConsultationOffer() {
               className="mb-5"
               style={{
                 fontSize: 'var(--text-lead)',
-                color: 'rgba(255,255,255,0.7)',
+                color: 'var(--color-brand-text-muted)',
                 lineHeight: 1.75,
                 maxWidth: '48ch',
               }}
             >
               If you're ready to map your inner operating system and upgrade the habits that run it,
-              SkillfullyAware-Awareness Quotient (SA360) coaching is the next step.
+              SkillfullyAware-Awareness Quotient (SAAQ) coaching is the next step.
             </p>
 
             <p
               className="mb-10"
               style={{
                 fontSize: 'var(--text-body)',
-                color: 'rgba(255,255,255,0.5)',
+                color: 'var(--color-brand-text-muted)',
                 lineHeight: 1.8,
                 maxWidth: '48ch',
               }}
             >
-              Through the SA360 framework we'll assess your seven Power Centers and six Leadership
-              Aptitudes, pinpoint where your energy leaks, and build a tailored practice plan to plug
-              them. Leaders who commit to this process gain systemic vision, steadier emotions, and
-              greater influence.
+              Through the SAAQ framework we'll assess your leadership patterns, pinpoint where your
+              energy leaks, and build a tailored practice plan. Leaders who commit to this process gain
+              systemic vision, steadier emotions, and greater influence.
             </p>
 
             <Link
@@ -115,26 +107,26 @@ export function ConsultationOffer() {
                 className="flex items-start gap-4 rounded-2xl transition-all duration-200"
                 style={{
                   padding: '1.25rem 1.5rem',
-                  backgroundColor: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  backgroundColor: '#ffffff',
+                  border: '1px solid var(--color-brand-border)',
                 }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(192,82,42,0.35)')}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--color-brand-border)')}
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{
-                    backgroundColor: 'rgba(192,82,42,0.15)',
-                    border: '1px solid rgba(192,82,42,0.25)',
+                    backgroundColor: 'rgba(192,82,42,0.08)',
+                    border: '1px solid rgba(192,82,42,0.18)',
                   }}
                 >
-                  <f.icon className="w-5 h-5" style={{ color: 'var(--color-brand-sienna-light)' }} />
+                  <f.icon className="w-5 h-5" style={{ color: 'var(--color-brand-sienna)' }} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginBottom: '0.25rem' }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-brand-text)', marginBottom: '0.25rem' }}>
                     {f.title}
                   </h3>
-                  <p style={{ fontSize: 'var(--text-small)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, maxWidth: 'none' }}>
+                  <p style={{ fontSize: 'var(--text-small)', color: 'var(--color-brand-text-muted)', lineHeight: 1.6, maxWidth: 'none' }}>
                     {f.description}
                   </p>
                 </div>

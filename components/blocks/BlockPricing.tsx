@@ -7,7 +7,7 @@ function isExternal(url: string) {
 
 export default function BlockPricing({ block }: { block: BlockPricingData }) {
   return (
-    <section className="section">
+    <section id={block.anchor_id || undefined} className="section">
       <div className="container">
         {block.eyebrow && (
           <>

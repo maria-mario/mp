@@ -4,47 +4,47 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, Search } from 'lucide-react';
-import { blogPosts } from '@/lib/blog-data';
 
-function getTopCategories(n: number) {
-  const counts: Record<string, number> = {};
-  blogPosts.forEach((p) => p.categories.forEach((c) => { counts[c] = (counts[c] ?? 0) + 1; }));
-  return Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, n)
-    .map(([name, count]) => ({ name, count }));
+/** Top blog categories, resolved from Directus by the server layout. */
+export type HeaderCategory = { name: string; count: number };
+
+function buildNavigation(topCategories: HeaderCategory[]) {
+  return [
+    {
+      name: 'About',
+      href: '/about',
+      dropdown: [
+        { name: 'The Story',   href: '/about#story',   description: "Mark's journey and mission" },
+        { name: 'The System',  href: '/about#system',  description: 'SkillfullyAware® methodology' },
+        { name: 'The Science', href: '/about#science', description: 'Neuroscience behind the work' },
+      ],
+    },
+    { name: 'Forum Retreats', href: '/forum-retreats' },
+    { name: 'SAAQ Coaching',  href: '/consultation'   },
+    { name: 'Power Tools',    href: '/power-tools/book' },
+    {
+      name: 'Blog',
+      href: '/blog',
+      dropdown: [
+        { name: 'All Articles', href: '/blog', description: 'Thought leadership & insights' },
+        ...topCategories.map(({ name, count }) => ({
+          name,
+          href: `/blog?category=${encodeURIComponent(name)}`,
+          description: `${count} article${count !== 1 ? 's' : ''}`,
+        })),
+      ],
+    },
+  ];
 }
 
-const topCategories = getTopCategories(3);
-
-const navigation = [
-  {
-    name: 'About',
-    href: '/about',
-    dropdown: [
-      { name: 'The Story',   href: '/about#story',   description: "Mark's journey and mission" },
-      { name: 'The System',  href: '/about#system',  description: 'SkillfullyAware® methodology' },
-      { name: 'The Science', href: '/about#science', description: 'Neuroscience behind the work' },
-    ],
-  },
-  { name: 'Forum Retreats', href: '/forum-retreats' },
-  { name: 'SAAQ Coaching',  href: '/consultation'   },
-  { name: 'Power Tools',    href: '/power-tools/book' },
-  {
-    name: 'Blog',
-    href: '/blog',
-    dropdown: [
-      { name: 'All Articles', href: '/blog', description: 'Thought leadership & insights' },
-      ...topCategories.map(({ name, count }) => ({
-        name,
-        href: `/blog?category=${encodeURIComponent(name)}`,
-        description: `${count} article${count !== 1 ? 's' : ''}`,
-      })),
-    ],
-  },
-];
-
-export function Header() {
+export function Header({
+  logo = '/logos/logo-2026.png',
+  categories = [],
+}: {
+  logo?: string;
+  categories?: HeaderCategory[];
+}) {
+  const navigation = buildNavigation(categories);
   const [pastHero, setPastHero]         = useState(false);
   const [mobileOpen, setMobileOpen]     = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -65,16 +65,17 @@ export function Header() {
     return () => obs.disconnect();
   }, []);
 
-  const dark = !pastHero;
-  const linkColor = dark ? '#ffffff' : 'rgba(0,0,0,0.72)';
-  const linkHover = dark ? 'rgba(255,255,255,0.7)' : '#000000';
+  // Header is light on every page now that the heroes are cream rather than navy/black.
+  // `pastHero` no longer flips the colour scheme — it only adds the scrolled border.
+  const linkColor = 'rgba(0,0,0,0.72)';
+  const linkHover = '#000000';
 
   return (
     <>
       <header style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
         height: '6.25rem',
-        backgroundColor: pastHero ? '#ffffff' : '#000000',
+        backgroundColor: '#ffffff',
         borderBottom: pastHero ? '1px solid rgba(0,0,0,0.07)' : 'none',
         transition: 'background-color 0.35s ease',
       }}>
@@ -84,15 +85,21 @@ export function Header() {
           height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
 
-          {/* Logo */}
+          {/* Logo — natural colour; header is light on every page */}
           <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0, height: '100%' }}>
             <Image
-              src="/logos/logo.webp"
+              src={logo}
               alt="Dr. Mark Pirtle"
-              width={36}
-              height={36}
+              width={325}
+              height={66}
               priority
-              style={{ filter: dark ? 'brightness(0) invert(1)' : 'none', transition: 'filter 0.35s ease', objectFit: 'contain' }}
+              style={{
+                height: '2.25rem',
+                width: 'auto',
+                filter: 'none',
+                transition: 'filter 0.35s ease',
+                objectFit: 'contain',
+              }}
             />
           </Link>
 
@@ -175,10 +182,10 @@ export function Header() {
               <Search className="w-5 h-5" />
             </button>
 
-            <Link href="/start" style={{
+            <Link href="/#start" style={{
               border: '1.5px solid #c34d27',
               backgroundColor: 'transparent',
-              color: dark ? '#ffffff' : '#c34d27',
+              color: '#c34d27',
               padding: '0.6875rem 1.625rem',
               borderRadius: '9999px',
               fontWeight: 600,
@@ -189,7 +196,7 @@ export function Header() {
               whiteSpace: 'nowrap',
             }}
               onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c34d27'; e.currentTarget.style.color = '#ffffff'; }}
-              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = dark ? '#ffffff' : '#c34d27'; }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#c34d27'; }}
             >
               Start Here
             </Link>
@@ -197,7 +204,7 @@ export function Header() {
 
           {/* Mobile burger */}
           <button onClick={() => setMobileOpen(o => !o)} className="lg:hidden"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', color: dark ? '#fff' : '#000', padding: '0.5rem', transition: 'color 0.3s' }}>
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#000', padding: '0.5rem', transition: 'color 0.3s' }}>
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
@@ -253,7 +260,7 @@ export function Header() {
                 </div>
               ))}
               <div style={{ paddingTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <Link href="/start" onClick={() => setMobileOpen(false)}
+                <Link href="/#start" onClick={() => setMobileOpen(false)}
                   style={{ display: 'block', textAlign: 'center', border: '1.5px solid #c34d27', color: '#c34d27', backgroundColor: 'transparent', padding: '0.875rem', borderRadius: '9999px', fontWeight: 600, fontSize: 'var(--text-small)', textDecoration: 'none' }}>
                   Start Here
                 </Link>

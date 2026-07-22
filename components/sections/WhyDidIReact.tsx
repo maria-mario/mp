@@ -54,7 +54,7 @@ export function WhyDidIReact() {
           display: 'inline-flex',
           alignItems: 'center',
           gap: '0.5rem',
-          backgroundColor: '#000000',
+          backgroundColor: 'var(--color-brand-sienna)',
           color: '#ffffff',
           padding: '0.875rem 2rem',
           borderRadius: '9999px',

@@ -39,7 +39,7 @@ export function FinalCTA() {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-          <Link href="/built-this-way" style={{
+          <Link href="/power-tools/book" style={{
             display: 'inline-flex',
             alignItems: 'center',
             backgroundColor: '#ffffff',
@@ -71,7 +71,7 @@ export function FinalCTA() {
         </div>
 
         <div style={{ marginTop: '1.5rem' }}>
-          <Link href="/newsletter" style={{
+          <Link href="/#newsletter" style={{
             fontSize: 'var(--text-small)',
             fontWeight: 600,
             color: 'var(--color-brand-sienna)',

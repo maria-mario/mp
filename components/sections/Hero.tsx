@@ -2,9 +2,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-export function Hero() {
+export function Hero({ image = '/images/mark-hero-v3.webp' }: { image?: string }) {
   return (
-    <section style={{ backgroundColor: '#000000', paddingTop: '6.25rem' }}>
+    <section style={{ backgroundColor: 'var(--color-brand-cream)', paddingTop: '6.25rem', paddingBottom: '2rem' }}>
       <div className="container">
         {/* Hero image card */}
         <div style={{
@@ -18,7 +18,7 @@ export function Hero() {
 
           {/* Background photo */}
           <Image
-            src="/images/mark-hero-v3.webp"
+            src={image}
             alt="Dr. Mark Pirtle"
             fill
             className="object-cover"
@@ -133,7 +133,7 @@ export function Hero() {
 
             </div>
 
-            <Link href="/start" style={{
+            <Link href="/#start" style={{
               fontSize: '1rem',
               color: '#3d8cad',
               textDecoration: 'none',

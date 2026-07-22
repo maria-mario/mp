@@ -139,14 +139,12 @@ export default function BuiltThisWayContent() {
     <main style={{ fontFamily: 'var(--font-sans)' }}>
 
       {/* ── BREADCRUMB ── */}
-      <div style={{ backgroundColor: 'var(--color-brand-navy)', padding: '0.75rem 0' }}>
+      <div style={{ backgroundColor: 'var(--color-brand-off-white)', padding: '0.75rem 0' }}>
         <div className="container">
-          <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.5)', margin: 0 }}>
-            <Link href="/" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>Home</Link>
+          <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-brand-text-light)', margin: 0 }}>
+            <Link href="/" style={{ color: 'var(--color-brand-text-light)', textDecoration: 'none' }}>Home</Link>
             {' / '}
-            <Link href="/power-tools" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>Power Tools</Link>
-            {' / '}
-            <span style={{ color: 'rgba(255,255,255,0.8)' }}>Built This Way</span>
+            <span style={{ color: 'var(--color-brand-text-muted)' }}>Built This Way</span>
           </p>
         </div>
       </div>
@@ -156,7 +154,7 @@ export default function BuiltThisWayContent() {
       ═══════════════════════════════════════ */}
       <section
         style={{
-          backgroundColor: 'var(--color-brand-navy)',
+          backgroundColor: 'var(--color-brand-cream)',
           padding: 'clamp(4rem, 8vw, 7rem) 1.5rem clamp(4rem, 8vw, 6rem)',
           textAlign: 'center',
           position: 'relative',
@@ -166,7 +164,7 @@ export default function BuiltThisWayContent() {
         {/* Subtle radial glow */}
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(192,82,42,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(192,82,42,0.07) 0%, transparent 70%)',
         }} />
 
         <div style={{ maxWidth: '820px', margin: '0 auto', position: 'relative' }}>
@@ -177,7 +175,7 @@ export default function BuiltThisWayContent() {
             fontWeight: 700,
             letterSpacing: '0.14em',
             textTransform: 'uppercase',
-            color: 'var(--color-brand-sienna-light)',
+            color: 'var(--color-brand-sienna)',
             marginBottom: '1.25rem',
           }}>
             Now Available · Book Launch Team
@@ -189,11 +187,11 @@ export default function BuiltThisWayContent() {
             fontWeight: 800,
             lineHeight: 1.1,
             letterSpacing: '-0.03em',
-            color: '#ffffff',
+            color: 'var(--color-brand-text)',
             marginBottom: '1.5rem',
           }}>
             For anyone who has ever thought,<br />
-            <em style={{ color: 'var(--color-brand-sienna-light)', fontStyle: 'italic' }}>
+            <em style={{ color: 'var(--color-brand-sienna)', fontStyle: 'italic' }}>
               "I know better, but I still do it."
             </em>
           </h1>
@@ -201,7 +199,7 @@ export default function BuiltThisWayContent() {
           {/* Subheadline */}
           <p style={{
             fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
-            color: 'rgba(255,255,255,0.72)',
+            color: 'var(--color-brand-text-muted)',
             lineHeight: 1.75,
             maxWidth: '60ch',
             margin: '0 auto 2.5rem',

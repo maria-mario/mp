@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
-export function AboutMark() {
+export function AboutMark({ portrait = '/images/mark-hero-v3.webp' }: { portrait?: string }) {
   return (
     <section className="section" style={{ backgroundColor: 'var(--color-brand-cream)' }}>
       <div className="container">
@@ -21,14 +21,8 @@ export function AboutMark() {
                 boxShadow: 'var(--shadow-premium)',
               }}
             >
-              <Image
-                src="/images/mark-about.jpg"
-                alt="Dr. Mark Pirtle"
-                fill
-                className="object-cover"
-                style={{ objectPosition: 'center top' }}
-              />
-              {/* Fallback if no image */}
+              {/* Placeholder sits *behind* the photo so it only shows if the image
+                  fails to load. Previously it was painted on top and hid the photo. */}
               <div
                 style={{
                   position: 'absolute', inset: 0,
@@ -38,6 +32,16 @@ export function AboutMark() {
               >
                 <span style={{ fontSize: '4rem', fontWeight: 800, color: 'var(--color-brand-text-light)' }}>MP</span>
               </div>
+              <Image
+                src={portrait}
+                alt="Dr. Mark Pirtle"
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                className="object-cover"
+                /* Source is a 2:1 landscape with Mark right-of-centre; pull the
+                   crop toward him so the 4:5 frame doesn't cut him off. */
+                style={{ objectPosition: '70% center' }}
+              />
             </div>
 
             {/* Floating credential badge */}

@@ -10,7 +10,7 @@ export default function BlockCards({ block }: { block: BlockCardsData }) {
   const gridCols = cols === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3';
 
   return (
-    <section className="section" style={{ backgroundColor: 'var(--color-surface)' }}>
+    <section id={block.anchor_id || undefined} className="section" style={{ backgroundColor: 'var(--color-surface)' }}>
       <div className="container">
         {block.eyebrow && (
           <>

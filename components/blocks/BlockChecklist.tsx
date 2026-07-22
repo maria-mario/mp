@@ -3,7 +3,7 @@ import type { BlockChecklistData } from '@/lib/pages';
 
 export default function BlockChecklist({ block }: { block: BlockChecklistData }) {
   return (
-    <section className="section">
+    <section id={block.anchor_id || undefined} className="section">
       <div className="container max-w-3xl">
         {block.eyebrow && (
           <>

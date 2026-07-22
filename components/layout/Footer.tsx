@@ -3,15 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ExternalLink, PlayCircle, Camera, Mail } from 'lucide-react';
-import { blogPosts } from '@/lib/blog-data';
-
-// ── Compute all blog categories at module level (no render cost) ─────────────
-function getAllBlogCategories(): string[] {
-  const seen = new Set<string>();
-  blogPosts.forEach((p) => p.categories.forEach((c) => seen.add(c)));
-  return Array.from(seen).sort();
-}
-const blogCategories = getAllBlogCategories();
 
 // ── Link data ────────────────────────────────────────────────────────────────
 const columns = [
@@ -141,7 +132,8 @@ const mutedLink: React.CSSProperties = {
 };
 
 // ── Footer ───────────────────────────────────────────────────────────────────
-export function Footer() {
+/** Blog categories come from Directus, resolved by the server layout. */
+export function Footer({ blogCategories = [] }: { blogCategories?: string[] }) {
   return (
     <footer style={{ backgroundColor: 'var(--color-brand-navy)', color: '#ffffff' }}>
 

@@ -21,11 +21,12 @@ function CTA({ label, url, primary }: { label: string; url: string; primary: boo
 }
 
 export default function BlockHero({ block }: { block: BlockHeroData }) {
-  const bg = bgMap[block.background ?? 'navy'] ?? bgMap.navy;
-  const onDark = (block.background ?? 'navy') === 'navy';
+  const bg = bgMap[block.background ?? 'cream'] ?? bgMap.cream;
+  const onDark = block.background === 'navy';
 
   return (
     <section
+      id={block.anchor_id || undefined}
       className="section relative overflow-hidden"
       style={{ backgroundColor: bg, paddingTop: '8rem', paddingBottom: '6rem' }}
     >

@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 export function BuiltThisWay() {
   return (
     <section style={{
-      backgroundColor: '#000000',
+      backgroundColor: '#ffffff',
       padding: '5rem 0',
     }}>
       <div className="container" style={{
@@ -60,19 +60,19 @@ export function BuiltThisWay() {
           </p>
 
           <h2 style={{
-            fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
+            fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
             fontWeight: 600,
             letterSpacing: '-0.02em',
-            color: '#ffffff',
+            color: 'var(--color-brand-text)',
             marginBottom: '1.5rem',
-            lineHeight: 1.1,
+            lineHeight: 1.15,
           }}>
             Start with the book. Understand why the pattern repeats.
           </h2>
 
           <p style={{
             fontSize: '1.05rem',
-            color: 'rgba(255,255,255,0.65)',
+            color: 'var(--color-brand-text-muted)',
             lineHeight: 1.75,
             marginBottom: '1.25rem',
           }}>
@@ -81,7 +81,7 @@ export function BuiltThisWay() {
 
           <p style={{
             fontSize: '1.05rem',
-            color: 'rgba(255,255,255,0.65)',
+            color: 'var(--color-brand-text-muted)',
             lineHeight: 1.75,
             marginBottom: '1.25rem',
           }}>
@@ -90,20 +90,20 @@ export function BuiltThisWay() {
 
           <p style={{
             fontSize: '1.05rem',
-            color: 'rgba(255,255,255,0.65)',
+            color: 'var(--color-brand-text-muted)',
             lineHeight: 1.75,
             marginBottom: '2rem',
           }}>
-            <strong style={{ color: '#ffffff' }}>Built This Way</strong> helps you understand why you react before you can think, why insight alone is not enough, and how real change becomes possible through awareness, practice, integration, and compassion.
+            <strong style={{ color: 'var(--color-brand-text)' }}>Built This Way</strong> helps you understand why you react before you can think, why insight alone is not enough, and how real change becomes possible through awareness, practice, integration, and compassion.
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-            <Link href="/built-this-way" style={{
+            <Link href="/power-tools/book#tiers" style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              backgroundColor: '#ffffff',
-              color: '#c34d27',
+              backgroundColor: 'var(--color-brand-sienna)',
+              color: '#ffffff',
               padding: '0.875rem 2rem',
               borderRadius: '9999px',
               fontWeight: 600,
@@ -113,12 +113,12 @@ export function BuiltThisWay() {
               Get Book Updates &amp; Reader Bonuses <ArrowRight className="w-4 h-4" />
             </Link>
 
-            <Link href="/built-this-way#learn-more" style={{
+            <Link href="/power-tools/book" style={{
               display: 'inline-flex',
               alignItems: 'center',
               fontSize: 'var(--text-small)',
               fontWeight: 600,
-              color: 'rgba(255,255,255,0.6)',
+              color: 'var(--color-brand-text-muted)',
               textDecoration: 'none',
               padding: '0.875rem 0',
             }}>

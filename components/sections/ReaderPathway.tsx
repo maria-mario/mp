@@ -41,7 +41,7 @@ const cards = [
 
 export function ReaderPathway() {
   return (
-    <section id="start" style={{
+    <section id="reader-path" style={{
       backgroundColor: 'var(--color-brand-cream)',
       padding: '5rem 0',
     }}>

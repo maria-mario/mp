@@ -31,7 +31,7 @@ export default function BlockCta({ block }: { block: BlockCtaData }) {
     : { backgroundColor: 'transparent', color: 'var(--color-brand-sienna)', border: '1.5px solid var(--color-brand-sienna)', fontWeight: 600 };
 
   return (
-    <section className="section" style={{ background: bg, textAlign: 'center' }}>
+    <section id={block.anchor_id || undefined} className="section" style={{ background: bg, textAlign: 'center' }}>
       <div className="container max-w-2xl">
         <h2 className="mb-4" style={{ color: onDark ? '#ffffff' : 'var(--color-brand-text)' }}>
           {block.heading}

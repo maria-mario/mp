@@ -6,7 +6,7 @@ const icons = [Compass, FileText, Activity, Target, Zap, RefreshCw, ArrowRight, 
 
 export default function BlockSteps({ block }: { block: BlockStepsData }) {
   return (
-    <section className="section" style={{ backgroundColor: 'var(--color-surface)' }}>
+    <section id={block.anchor_id || undefined} className="section" style={{ backgroundColor: 'var(--color-surface)' }}>
       <div className="container">
         {block.eyebrow && (
           <>

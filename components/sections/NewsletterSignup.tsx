@@ -12,7 +12,7 @@ export function NewsletterSignup() {
   };
 
   return (
-    <section style={{
+    <section id="newsletter" style={{
       backgroundColor: 'var(--color-brand-sienna)',
       padding: '5rem 0',
     }}>
@@ -85,11 +85,11 @@ export function NewsletterSignup() {
               }}
             />
             <button type="submit" style={{
-              backgroundColor: '#000000',
-              color: '#ffffff',
+              backgroundColor: '#ffffff',
+              color: 'var(--color-brand-sienna)',
               padding: '0.875rem 1.75rem',
               borderRadius: '9999px',
-              fontWeight: 600,
+              fontWeight: 700,
               fontSize: 'var(--text-small)',
               border: 'none',
               cursor: 'pointer',

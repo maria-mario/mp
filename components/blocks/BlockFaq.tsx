@@ -8,7 +8,7 @@ export default function BlockFaq({ block }: { block: BlockFaqData }) {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="section" style={{ backgroundColor: 'var(--color-surface)' }}>
+    <section id={block.anchor_id || undefined} className="section" style={{ backgroundColor: 'var(--color-surface)' }}>
       <div className="container" style={{ maxWidth: '720px' }}>
         {block.eyebrow && (
           <>

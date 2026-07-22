@@ -11,10 +11,16 @@ import { Testimonials }      from '@/components/sections/Testimonials';
 import { LatestBlogPosts }   from '@/components/sections/LatestBlogPosts';
 import { FinalCTA }          from '@/components/sections/FinalCTA';
 import { getPageBySlug }     from '@/lib/pages';
+import { getSiteMedia }      from '@/lib/site-settings';
+import { getTestimonials }   from '@/lib/testimonials';
 import BlockRenderer         from '@/components/blocks/BlockRenderer';
 
 export default async function HomePage() {
-  const cmsPage = await getPageBySlug('/');
+  const [cmsPage, media, testimonials] = await Promise.all([
+    getPageBySlug('/'),
+    getSiteMedia(),
+    getTestimonials(),
+  ]);
   if (cmsPage && cmsPage.blocks.length > 0) {
     return (
       <div className="min-h-screen">
@@ -24,7 +30,7 @@ export default async function HomePage() {
   }
   return (
     <div className="min-h-screen">
-      <Hero />           {/* Two CTAs: I'm a Reader / I'm a Leader */}
+      <Hero image={media.heroImage} />  {/* Two CTAs: I'm a Reader / I'm a Leader */}
       <ChooseYourPath /> {/* Two cards: Reader path / Leader path */}
       <ReaderPathway />  {/* Book → Reader Tool → Power Tools */}
       <LeaderPathway />  {/* SAAQ → Forum Retreats → Coaching */}
@@ -32,8 +38,8 @@ export default async function HomePage() {
       <SAAQSection />
       <PowerToolsPreview />
       <NewsletterSignup />
-      <AboutMark />
-      <Testimonials />
+      <AboutMark portrait={media.aboutPortrait} />
+      <Testimonials items={testimonials} />
       <LatestBlogPosts />
       <FinalCTA />
     </div>

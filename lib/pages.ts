@@ -4,6 +4,7 @@ export type BlockBackground = 'navy' | 'cream' | 'white' | 'sienna';
 
 export type BlockHeroData = {
   id: number;
+  anchor_id?: string;
   eyebrow?: string;
   heading: string;
   body?: string;
@@ -16,6 +17,7 @@ export type BlockHeroData = {
 
 export type BlockRichtextData = {
   id: number;
+  anchor_id?: string;
   eyebrow?: string;
   heading?: string;
   body: string;
@@ -26,6 +28,7 @@ export type BlockRichtextData = {
 
 export type BlockCtaData = {
   id: number;
+  anchor_id?: string;
   heading: string;
   body?: string;
   cta_primary_label?: string;
@@ -45,6 +48,7 @@ export type CardItem = {
 
 export type BlockCardsData = {
   id: number;
+  anchor_id?: string;
   eyebrow?: string;
   heading?: string;
   intro?: string;
@@ -63,6 +67,7 @@ export type PricingOption = {
 
 export type BlockPricingData = {
   id: number;
+  anchor_id?: string;
   eyebrow?: string;
   heading: string;
   intro?: string;
@@ -73,6 +78,7 @@ export type StepItem = { title?: string; body?: string };
 
 export type BlockStepsData = {
   id: number;
+  anchor_id?: string;
   eyebrow?: string;
   heading: string;
   intro?: string;
@@ -83,6 +89,7 @@ export type ChecklistItem = { title?: string; body?: string };
 
 export type BlockChecklistData = {
   id: number;
+  anchor_id?: string;
   eyebrow?: string;
   heading: string;
   intro?: string;
@@ -93,14 +100,15 @@ export type FaqItem = { q: string; a: string };
 
 export type BlockFaqData = {
   id: number;
+  anchor_id?: string;
   eyebrow?: string;
   heading: string;
   items?: FaqItem[];
 };
 
-export type BlockTestimonialsData = { id: number };
-export type BlockBlogFeedData    = { id: number; heading?: string; limit?: number };
-export type BlockHeroPhotoData   = { id: number };
+export type BlockTestimonialsData = { id: number; anchor_id?: string };
+export type BlockBlogFeedData    = { id: number; anchor_id?: string; heading?: string; limit?: number };
+export type BlockHeroPhotoData   = { id: number; anchor_id?: string };
 
 export type BlockCollectionName =
   | 'blocks_hero'
@@ -194,7 +202,7 @@ export async function getPageBySlug(slug: string): Promise<PageData | null> {
   try {
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
-      next: { revalidate: 60 },
+      next: { tags: ['cms-pages'] },
     });
     if (!res.ok) return null;
     const json = await res.json();

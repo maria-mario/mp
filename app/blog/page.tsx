@@ -16,7 +16,7 @@ type Props = { searchParams: Promise<{ category?: string }> };
 export default async function BlogPage({ searchParams }: Props) {
   const { category: activeCategory } = await searchParams;
   const allPosts = await getAllPosts();
-  const categories = getAllCategories();
+  const categories = await getAllCategories();
 
   const posts = activeCategory
     ? allPosts.filter((p) => p.categories.includes(activeCategory))

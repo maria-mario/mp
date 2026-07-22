@@ -27,8 +27,8 @@ const cards = [
 
 export function LeaderPathway() {
   return (
-    <section style={{
-      backgroundColor: '#000000',
+    <section id="leader-path" style={{
+      backgroundColor: '#ffffff',
       padding: '5rem 0',
     }}>
       <div className="container">
@@ -39,25 +39,25 @@ export function LeaderPathway() {
             fontWeight: 500,
             letterSpacing: '0.06em',
             textTransform: 'uppercase',
-            color: 'var(--color-brand-sienna-light)',
+            color: 'var(--color-brand-sienna)',
             marginBottom: '1rem',
           }}>
             For Leaders
           </p>
           <h2 style={{
-            fontSize: 'clamp(1.75rem, 3vw, 2.75rem)',
+            fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
             fontWeight: 600,
             letterSpacing: '-0.02em',
-            color: '#ffffff',
+            color: 'var(--color-brand-text)',
             marginBottom: '1.25rem',
-            lineHeight: 1.1,
+            lineHeight: 1.15,
             maxWidth: '22ch',
           }}>
             For leaders, founders, forums, and teams
           </h2>
           <p style={{
             fontSize: '1.05rem',
-            color: 'rgba(255,255,255,0.6)',
+            color: 'var(--color-brand-text-muted)',
             lineHeight: 1.75,
             maxWidth: '52ch',
             marginBottom: '1rem',
@@ -66,7 +66,7 @@ export function LeaderPathway() {
           </p>
           <p style={{
             fontSize: '1.05rem',
-            color: 'rgba(255,255,255,0.6)',
+            color: 'var(--color-brand-text-muted)',
             lineHeight: 1.75,
             maxWidth: '52ch',
           }}>
@@ -81,8 +81,8 @@ export function LeaderPathway() {
         }}>
           {cards.map((card) => (
             <div key={card.title} style={{
-              backgroundColor: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              backgroundColor: '#ffffff',
+              border: '1px solid var(--color-brand-border)',
               borderRadius: '0.625rem',
               padding: '2rem',
               display: 'flex',
@@ -93,24 +93,24 @@ export function LeaderPathway() {
                 width: '2.5rem',
                 height: '2.5rem',
                 borderRadius: '0.625rem',
-                backgroundColor: 'rgba(192,82,42,0.15)',
-                border: '1px solid rgba(192,82,42,0.25)',
+                backgroundColor: 'rgba(192,82,42,0.08)',
+                border: '1px solid rgba(192,82,42,0.18)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <card.icon className="w-5 h-5" style={{ color: 'var(--color-brand-sienna-light)' }} />
+                <card.icon className="w-5 h-5" style={{ color: 'var(--color-brand-sienna)' }} />
               </div>
               <h3 style={{
                 fontSize: '1.1rem',
                 fontWeight: 700,
-                color: '#ffffff',
+                color: 'var(--color-brand-text)',
               }}>
                 {card.title}
               </h3>
               <p style={{
                 fontSize: 'var(--text-small)',
-                color: 'rgba(255,255,255,0.55)',
+                color: 'var(--color-brand-text-muted)',
                 lineHeight: 1.65,
                 flex: 1,
               }}>
@@ -119,7 +119,7 @@ export function LeaderPathway() {
               <Link href={card.href} style={{
                 fontSize: 'var(--text-small)',
                 fontWeight: 700,
-                color: 'var(--color-brand-sienna-light)',
+                color: 'var(--color-brand-sienna)',
                 textDecoration: 'none',
               }}>
                 {card.cta} →
