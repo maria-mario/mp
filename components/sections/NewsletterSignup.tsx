@@ -4,11 +4,22 @@ import { useState } from 'react';
 export function NewsletterSignup() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Connect to your email platform here
-    setSubmitted(true);
+    setError(false);
+    try {
+      const res = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) setSubmitted(true);
+      else setError(true);
+    } catch {
+      setError(true);
+    }
   };
 
   return (
@@ -98,6 +109,12 @@ export function NewsletterSignup() {
               Send Me the Newsletter
             </button>
           </form>
+        )}
+
+        {error && (
+          <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 'var(--text-small)', marginTop: '1rem' }}>
+            Something went wrong. Please try again.
+          </p>
         )}
 
         <p style={{

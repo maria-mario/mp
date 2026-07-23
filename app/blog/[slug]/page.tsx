@@ -8,7 +8,7 @@ import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import { getSiteMedia } from '@/lib/site-settings';
 import BlogCard from '@/components/blog/BlogCard';
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ subscribed?: string }> };
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -38,8 +38,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function BlogPostPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const { subscribed } = await searchParams;
   const post = await getPostBySlug(slug);
   if (!post) notFound();
 
@@ -206,19 +207,29 @@ export default async function BlogPostPage({ params }: Props) {
               <p style={{ fontSize: '0.875rem', color: 'var(--color-brand-text-light)', lineHeight: 1.6, marginBottom: '1rem' }}>
                 Get the latest insights, practices, and transformative wisdom delivered straight to your inbox.
               </p>
-              <form action="/api/newsletter" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-                <input
-                  type="email" name="email" required placeholder="your@email.com"
-                  style={{ padding: '0.6rem 0.875rem', borderRadius: '0.5rem', border: '1.5px solid rgba(0,0,0,0.15)', fontSize: '0.875rem', outline: 'none', width: '100%' }}
-                />
-                <button type="submit" style={{
-                  backgroundColor: 'var(--color-brand-sienna)', color: '#ffffff', fontWeight: 700,
-                  fontSize: '0.875rem', border: 'none', borderRadius: '0.5rem',
-                  padding: '0.65rem 1rem', cursor: 'pointer',
-                }}>
-                  Subscribe →
-                </button>
-              </form>
+              {subscribed === 'success' ? (
+                <p style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-brand-text)' }}>
+                  ✓ Thanks! Check your email for confirmation.
+                </p>
+              ) : (
+                <form action="/api/newsletter/subscribe" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+                  <input type="hidden" name="redirect_to" value={`/blog/${post.slug}`} />
+                  <input
+                    type="email" name="email" required placeholder="your@email.com"
+                    style={{ padding: '0.6rem 0.875rem', borderRadius: '0.5rem', border: '1.5px solid rgba(0,0,0,0.15)', fontSize: '0.875rem', outline: 'none', width: '100%' }}
+                  />
+                  <button type="submit" style={{
+                    backgroundColor: 'var(--color-brand-sienna)', color: '#ffffff', fontWeight: 700,
+                    fontSize: '0.875rem', border: 'none', borderRadius: '0.5rem',
+                    padding: '0.65rem 1rem', cursor: 'pointer',
+                  }}>
+                    Subscribe →
+                  </button>
+                  {subscribed === 'error' && (
+                    <p style={{ fontSize: '0.75rem', color: '#dc2626', margin: 0 }}>Something went wrong. Please try again.</p>
+                  )}
+                </form>
+              )}
               <p style={{ fontSize: '0.65rem', color: 'var(--color-brand-text-muted)', marginTop: '0.625rem' }}>No spam. Unsubscribe anytime.</p>
             </div>
 
