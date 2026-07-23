@@ -7,9 +7,7 @@ import { renderNewsletterHTML, type NewsletterPostSummary, type NewsletterTempla
 const DIRECTUS_URL = process.env.NEXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
 const DIRECTUS_TOKEN = process.env.DIRECTUS_STATIC_TOKEN;
 
-// TODO(Mark): confirm final values before going live — these are placeholders.
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://mp-teal.vercel.app';
-const LOGO_URL = process.env.NEWSLETTER_LOGO_URL || `${SITE_URL}/logo.png`;
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://mp-web-psi.vercel.app';
 const PHYSICAL_ADDRESS = process.env.NEWSLETTER_PHYSICAL_ADDRESS || 'ADDRESS NOT SET — required by CAN-SPAM, set NEWSLETTER_PHYSICAL_ADDRESS';
 
 interface DirectusNewsletterItem {
@@ -68,9 +66,20 @@ async function getLatestPosts(limit = 2): Promise<DirectusBlogPost[]> {
   );
 }
 
+/** Same logo the live site's header uses — kept in sync via Directus, not a static file. */
+async function getSiteLogoUrl(): Promise<string> {
+  if (process.env.NEWSLETTER_LOGO_URL) return process.env.NEWSLETTER_LOGO_URL;
+  const settings = await directusFetch<{ logo: string | null }>('/items/site_settings?fields=logo');
+  return assetUrl(settings.logo);
+}
+
 /** Fetches a newsletter + latest posts and renders the final send-ready HTML. */
 export async function renderNewsletterById(newsletterId: number): Promise<string> {
-  const [item, posts] = await Promise.all([getNewsletterItem(newsletterId), getLatestPosts(2)]);
+  const [item, posts, logoUrl] = await Promise.all([
+    getNewsletterItem(newsletterId),
+    getLatestPosts(2),
+    getSiteLogoUrl(),
+  ]);
 
   const templateData: NewsletterTemplateData = {
     introTitle: item.intro_title ?? '',
@@ -98,7 +107,7 @@ export async function renderNewsletterById(newsletterId: number): Promise<string
   }));
 
   return renderNewsletterHTML(templateData, postSummaries, {
-    logoUrl: LOGO_URL,
+    logoUrl,
     siteUrl: SITE_URL,
     physicalAddress: PHYSICAL_ADDRESS,
   });
