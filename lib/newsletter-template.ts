@@ -44,7 +44,7 @@ export interface NewsletterTemplateOptions {
   logoUrl: string;
   siteUrl: string;
   physicalAddress: string;
-  /** Mailgun mailing-list unsubscribe placeholder — substituted by Mailgun at send time. */
+  /** Mailgun unsubscribe placeholder — substituted by Mailgun at send time via domain-level suppression tracking. */
   unsubscribeUrlPlaceholder?: string;
 }
 
@@ -148,7 +148,7 @@ export function renderNewsletterHTML(
   posts: NewsletterPostSummary[],
   options: NewsletterTemplateOptions
 ): string {
-  const unsubscribe = options.unsubscribeUrlPlaceholder ?? '%mailing_list_unsubscribe_url%';
+  const unsubscribe = options.unsubscribeUrlPlaceholder ?? '%unsubscribe_url%';
 
   return `<!DOCTYPE html>
 <html lang="en">
