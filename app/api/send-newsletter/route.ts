@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { renderNewsletterById } from '@/lib/newsletter-render';
-import { sendNewsletterToSubscribers } from '@/lib/mailgun-send';
+import { sendNewsletterToSubscribers, sendTestEmail } from '@/lib/mailgun-send';
 
 const DIRECTUS_URL = process.env.NEXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
 const DIRECTUS_TOKEN = process.env.DIRECTUS_STATIC_TOKEN;
@@ -14,18 +14,19 @@ export async function POST(request: NextRequest) {
   }
 
   let newsletterId: number;
+  let testEmail: string | null = null;
   try {
     const body = await request.json();
     newsletterId = Number(body.newsletter_id);
     if (!newsletterId || isNaN(newsletterId)) throw new Error('invalid id');
+    if (body.test_email) testEmail = String(body.test_email);
   } catch {
     return NextResponse.json({ error: 'newsletter_id required' }, { status: 400 });
   }
 
   // Compose the final send-ready HTML from the structured template fields
   // (intro/main image/body/promo banner/latest posts/final banner/contact banner)
-  // and the 2 latest published blog posts, then stash it on `content` for a
-  // permanent record of exactly what was sent.
+  // and the 2 latest published blog posts.
   let html: string;
   try {
     html = await renderNewsletterById(newsletterId);
@@ -49,6 +50,23 @@ export async function POST(request: NextRequest) {
   }
   const { data: newsletterItem } = await itemRes.json();
 
+  // Test mode: sends only to test_email, touches nothing in Directus (no content
+  // save, no status/sent tracking) — safe to run against a real newsletter item
+  // without affecting real subscribers or marking it as sent.
+  if (testEmail) {
+    try {
+      const testResult = await sendTestEmail(testEmail, newsletterItem.subject, html);
+      return NextResponse.json({ ok: true, test: true, sentTo: testEmail, ...testResult });
+    } catch (err) {
+      return NextResponse.json(
+        { error: `Mailgun test send failed: ${err instanceof Error ? err.message : String(err)}` },
+        { status: 500 }
+      );
+    }
+  }
+
+  // Real send from here on — stash the rendered HTML on `content` for a
+  // permanent record of exactly what was sent.
   const patchContentRes = await fetch(`${DIRECTUS_URL}/items/newsletters/${newsletterId}`, {
     method: 'PATCH',
     headers: authHeaders,

@@ -83,3 +83,29 @@ export async function sendNewsletterToSubscribers(subject: string, html: string)
 
   return { recipientCount: recipients.length, messageIds };
 }
+
+/** Sends `html` to a single address only — for previewing/testing before a real send. */
+export async function sendTestEmail(to: string, subject: string, html: string): Promise<{ messageId: string }> {
+  if (!MAILGUN_API_KEY || !MAILGUN_DOMAIN) {
+    throw new Error('Mailgun not configured — set MAILGUN_API_KEY and MAILGUN_DOMAIN');
+  }
+
+  const form = new FormData();
+  form.append('from', MAILGUN_FROM);
+  form.append('to', to);
+  form.append('subject', `[TEST] ${subject}`);
+  form.append('html', html);
+  form.append('recipient-variables', JSON.stringify({ [to]: { name: 'there' } }));
+
+  const res = await fetch(`https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`, {
+    method: 'POST',
+    headers: { Authorization: `Basic ${Buffer.from(`api:${MAILGUN_API_KEY}`).toString('base64')}` },
+    body: form,
+  });
+
+  if (!res.ok) {
+    throw new Error(`Mailgun test send failed (${res.status}): ${await res.text()}`);
+  }
+  const json = await res.json();
+  return { messageId: json.id };
+}
