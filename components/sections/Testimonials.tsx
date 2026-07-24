@@ -197,7 +197,17 @@ function AudioCard({ t }: { t: Testimonial }) {
   );
 }
 
-export function Testimonials({ items = FALLBACK_TESTIMONIALS }: { items?: Testimonial[] }) {
+export function Testimonials({
+  items = FALLBACK_TESTIMONIALS,
+  eyebrow = 'Testimonials',
+  heading = 'What People Experience in the Work',
+  intro = 'Reflections from leaders, clients, and participants who have used SkillfullyAware® to understand patterns, deepen trust, and practice meaningful change.',
+}: {
+  items?: Testimonial[];
+  eyebrow?: string;
+  heading?: string;
+  intro?: string;
+}) {
   const [videoModal, setVideoModal] = useState<string | null>(null);
   const [page, setPage] = useState(0);
   const perPage = 3;
@@ -214,12 +224,12 @@ export function Testimonials({ items = FALLBACK_TESTIMONIALS }: { items?: Testim
         {/* Header */}
         <div className="text-center mb-14">
           <div className="section-divider mx-auto mb-4" />
-          <span className="eyebrow">Testimonials</span>
+          <span className="eyebrow">{eyebrow}</span>
           <h2 className="mt-4 mb-4">
-            What People Experience in the Work
+            {heading}
           </h2>
           <p className="mx-auto" style={{ maxWidth: '52ch', color: 'var(--color-brand-text-muted)' }}>
-            Reflections from leaders, clients, and participants who have used SkillfullyAware® to understand patterns, deepen trust, and practice meaningful change.
+            {intro}
           </p>
         </div>
 

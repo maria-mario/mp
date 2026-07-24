@@ -70,6 +70,20 @@ export default function BlockHero({ block }: { block: BlockHeroData }) {
             )}
           </div>
         ) : null}
+        {block.quick_facts && block.quick_facts.length > 0 && (
+          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2" style={{ listStyle: 'none', padding: 0 }}>
+            {block.quick_facts.map((fact, i) => (
+              <li key={i} style={{
+                fontSize: 'var(--text-small)',
+                fontWeight: 600,
+                color: onDark ? 'rgba(255,255,255,0.72)' : 'var(--color-brand-text-muted)',
+              }}>
+                <span style={{ color: 'var(--color-brand-sienna)', marginRight: '0.5rem' }}>·</span>
+                {fact.text}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );

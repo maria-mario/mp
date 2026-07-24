@@ -1,6 +1,25 @@
 import Link from 'next/link';
+import type { HomepageCopy } from '@/lib/homepage';
 
-export function ChooseYourPath() {
+/** Card 1 is the reader (light/rust), card 2 the leader (navy/teal). */
+const CARD_THEMES = [
+  {
+    background: '#ffffff',
+    border: 'var(--color-brand-rust)',
+    accent: 'var(--color-brand-rust)',
+    heading: 'var(--color-brand-black)',
+    body: 'var(--color-brand-text-muted)',
+  },
+  {
+    background: 'var(--color-brand-navy)',
+    border: 'var(--color-brand-teal)',
+    accent: 'var(--color-brand-teal)',
+    heading: '#ffffff',
+    body: 'rgba(255,255,255,0.65)',
+  },
+];
+
+export function ChooseYourPath({ copy }: { copy: HomepageCopy }) {
   return (
     <section id="start" style={{
       backgroundColor: 'var(--color-brand-cream)',
@@ -14,7 +33,7 @@ export function ChooseYourPath() {
           color: 'var(--color-brand-rust)',
           marginBottom: '0.75rem',
         }}>
-          One Ecosystem. Two Starting Points.
+          {copy.path_eyebrow}
         </p>
 
         <h2 style={{
@@ -23,7 +42,7 @@ export function ChooseYourPath() {
           color: 'var(--color-brand-black)',
           marginBottom: '0.75rem',
         }}>
-          Choose your path
+          {copy.path_heading}
         </h2>
 
         <p style={{
@@ -31,7 +50,7 @@ export function ChooseYourPath() {
           color: 'var(--color-brand-text-muted)',
           marginBottom: '3rem',
         }}>
-          SkillfullyAware® is one ecosystem with two common entry points. Start with the path that matches why you&apos;re here today.
+          {copy.path_intro}
         </p>
 
         <div style={{
@@ -39,125 +58,68 @@ export function ChooseYourPath() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '1.5rem',
         }}>
-
-          {/* Reader Card */}
-          <div style={{
-            backgroundColor: '#ffffff',
-            border: '2px solid var(--color-brand-rust)',
-            borderRadius: '1.25rem',
-            padding: '2.5rem',
-          }}>
-            <p style={{
-              fontSize: '0.75rem', fontWeight: 700,
-              letterSpacing: '0.1em', textTransform: 'uppercase',
-              color: 'var(--color-brand-rust)',
-              marginBottom: '0.75rem',
-            }}>
-              For Readers
-            </p>
-            <h3 style={{
-              fontSize: '1.5rem', fontWeight: 800,
-              color: 'var(--color-brand-black)',
-              marginBottom: '0.25rem',
-            }}>
-              Understand My Patterns
-            </h3>
-            <p style={{
-              fontSize: '0.85rem', fontWeight: 600,
-              color: 'var(--color-brand-rust)',
-              marginBottom: '0.75rem',
-            }}>
-              Start with the book.
-            </p>
-            <p style={{
-              fontSize: '0.95rem',
-              color: 'var(--color-brand-text-muted)',
-              lineHeight: 1.7,
-              marginBottom: '1.5rem',
-            }}>
-              If you keep repeating painful patterns, reacting before you can think, or getting in your own way despite your best intentions, begin with Built This Way.
-            </p>
-            <p style={{
-              fontSize: '0.8rem', fontWeight: 700,
-              color: 'var(--color-brand-rust)',
-              marginBottom: '1.5rem',
-              letterSpacing: '0.04em',
-            }}>
-              Built This Way → Reader Tool → Power Tools
-            </p>
-            <Link href="/power-tools/book" style={{
-              display: 'inline-flex',
-              backgroundColor: 'var(--color-brand-rust)',
-              color: '#ffffff',
-              padding: '0.875rem 2rem',
-              borderRadius: '9999px',
-              fontWeight: 700,
-              fontSize: '0.875rem',
-              textDecoration: 'none',
-            }}>
-              Start with the Book
-            </Link>
-          </div>
-
-          {/* Leader Card */}
-          <div style={{
-            backgroundColor: 'var(--color-brand-navy)',
-            border: '2px solid var(--color-brand-teal)',
-            borderRadius: '1.25rem',
-            padding: '2.5rem',
-          }}>
-            <p style={{
-              fontSize: '0.75rem', fontWeight: 700,
-              letterSpacing: '0.1em', textTransform: 'uppercase',
-              color: 'var(--color-brand-teal)',
-              marginBottom: '0.75rem',
-            }}>
-              For Leaders
-            </p>
-            <h3 style={{
-              fontSize: '1.5rem', fontWeight: 800,
-              color: '#ffffff',
-              marginBottom: '0.25rem',
-            }}>
-              Leadership, Forums &amp; Retreats
-            </h3>
-            <p style={{
-              fontSize: '0.85rem', fontWeight: 600,
-              color: 'var(--color-brand-teal)',
-              marginBottom: '0.75rem',
-            }}>
-              Bring SkillfullyAware® into leadership, forums, and high-trust growth work.
-            </p>
-            <p style={{
-              fontSize: '0.95rem',
-              color: 'rgba(255,255,255,0.65)',
-              lineHeight: 1.7,
-              marginBottom: '1.5rem',
-            }}>
-              For founders, executives, EO/YPO members, forums, and leadership groups seeking deeper insight, stronger trust, better conversations, and guided developmental experiences.
-            </p>
-            <p style={{
-              fontSize: '0.8rem', fontWeight: 700,
-              color: 'var(--color-brand-teal)',
-              marginBottom: '1.5rem',
-              letterSpacing: '0.04em',
-            }}>
-              SAAQ → Forum Retreats → Coaching
-            </p>
-            <Link href="#leader-path" style={{
-              display: 'inline-flex',
-              backgroundColor: 'var(--color-brand-teal)',
-              color: '#ffffff',
-              padding: '0.875rem 2rem',
-              borderRadius: '9999px',
-              fontWeight: 700,
-              fontSize: '0.875rem',
-              textDecoration: 'none',
-            }}>
-              Explore Leadership Work
-            </Link>
-          </div>
-
+          {copy.path_cards.map((card, i) => {
+            const theme = CARD_THEMES[i % CARD_THEMES.length];
+            return (
+              <div key={card.heading} style={{
+                backgroundColor: theme.background,
+                border: `2px solid ${theme.border}`,
+                borderRadius: '1.25rem',
+                padding: '2.5rem',
+              }}>
+                <p style={{
+                  fontSize: '0.75rem', fontWeight: 700,
+                  letterSpacing: '0.1em', textTransform: 'uppercase',
+                  color: theme.accent,
+                  marginBottom: '0.75rem',
+                }}>
+                  {card.eyebrow}
+                </p>
+                <h3 style={{
+                  fontSize: '1.5rem', fontWeight: 800,
+                  color: theme.heading,
+                  marginBottom: '0.25rem',
+                }}>
+                  {card.heading}
+                </h3>
+                <p style={{
+                  fontSize: '0.85rem', fontWeight: 600,
+                  color: theme.accent,
+                  marginBottom: '0.75rem',
+                }}>
+                  {card.subheading}
+                </p>
+                <p style={{
+                  fontSize: '0.95rem',
+                  color: theme.body,
+                  lineHeight: 1.7,
+                  marginBottom: '1.5rem',
+                }}>
+                  {card.body}
+                </p>
+                <p style={{
+                  fontSize: '0.8rem', fontWeight: 700,
+                  color: theme.accent,
+                  marginBottom: '1.5rem',
+                  letterSpacing: '0.04em',
+                }}>
+                  {card.path_line}
+                </p>
+                <Link href={card.cta_url} style={{
+                  display: 'inline-flex',
+                  backgroundColor: theme.accent,
+                  color: '#ffffff',
+                  padding: '0.875rem 2rem',
+                  borderRadius: '9999px',
+                  fontWeight: 700,
+                  fontSize: '0.875rem',
+                  textDecoration: 'none',
+                }}>
+                  {card.cta_label}
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

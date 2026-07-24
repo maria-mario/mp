@@ -105,3 +105,56 @@ export async function getAllCategories(): Promise<string[]> {
   all.forEach((p) => p.categories.forEach((c) => cats.add(c)));
   return Array.from(cats).sort();
 }
+
+/**
+ * The curated SkillfullyAware® taxonomy from the `blog_categories` collection —
+ * the nav, filter bar and Browse by Topic all read this, so Mark controls the
+ * category structure from Directus rather than from whatever tags posts carry.
+ * Categories with no published posts are dropped so nothing links to an empty page.
+ */
+export type BlogCategory = { name: string; slug: string; description: string };
+
+const TAXONOMY_FALLBACK: BlogCategory[] = [
+  { name: 'Painful Patterns',       slug: 'painful-patterns',       description: 'Why patterns repeat' },
+  { name: 'Habit Change',           slug: 'habit-change',           description: 'Practice changing what repeats' },
+  { name: 'Leadership & Forums',    slug: 'leadership-forums',      description: 'For founders, forums, and teams' },
+  { name: 'Mindfulness & Awareness', slug: 'mindfulness-awareness', description: 'Attention, practice, and SkillfullyAware®' },
+  { name: 'SAAQ & Development',     slug: 'saaq-development',       description: 'Growth, blind spots, and next steps' },
+];
+
+export async function getCuratedCategories(): Promise<BlogCategory[]> {
+  let curated = TAXONOMY_FALLBACK;
+
+  if (DIRECTUS_URL) {
+    try {
+      const res = await fetch(
+        `${DIRECTUS_URL}/items/blog_categories` +
+          `?filter[visible][_eq]=true&fields=name,slug,nav_description&sort[]=sort&limit=-1`,
+        {
+          headers: DIRECTUS_TOKEN ? { Authorization: `Bearer ${DIRECTUS_TOKEN}` } : {},
+          next: { tags: ['blog-categories'] },
+        }
+      );
+      if (!res.ok) throw new Error(`Directus responded ${res.status}`);
+      const rows: { name: string; slug: string; nav_description: string | null }[] =
+        (await res.json())?.data ?? [];
+      if (rows.length > 0) {
+        curated = rows.map((r) => ({
+          name: r.name,
+          slug: r.slug,
+          description: r.nav_description ?? '',
+        }));
+      }
+    } catch (err) {
+      console.error('[blog] category fetch failed, using bundled taxonomy:', err);
+    }
+  }
+
+  // Hide categories with no published posts so nothing links to an empty page.
+  // If the intersection comes back empty the post fetch fell back to the bundled
+  // copy, which still carries the pre-V2 tags — show the full taxonomy rather
+  // than an empty nav.
+  const live = new Set(await getAllCategories());
+  const withPosts = curated.filter((c) => live.has(c.name));
+  return withPosts.length > 0 ? withPosts : curated;
+}

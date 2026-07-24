@@ -3,8 +3,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
+import type { HomepageCopy } from '@/lib/homepage';
 
-export function AboutMark({ portrait = '/images/mark-hero-v3.webp' }: { portrait?: string }) {
+export function AboutMark({
+  portrait = '/images/mark-hero-v3.webp',
+  copy,
+}: {
+  portrait?: string;
+  copy: HomepageCopy;
+}) {
   return (
     <section className="section" style={{ backgroundColor: 'var(--color-brand-cream)' }}>
       <div className="container">
@@ -71,18 +78,14 @@ export function AboutMark({ portrait = '/images/mark-hero-v3.webp' }: { portrait
           {/* Right — content */}
           <div>
             <div className="section-divider mb-4" />
-            <span className="eyebrow">About Dr. Mark</span>
+            <span className="eyebrow">{copy.about_eyebrow}</span>
 
             <h2 className="mt-4 mb-6">
-              Meet Dr. Mark Pirtle
+              {copy.about_heading}
             </h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2.5rem' }}>
-              {[
-                'Dr. Mark Pirtle is the creator of SkillfullyAware®, a practical system for helping people understand their patterns, work through them, expand their perspective, and continue evolving throughout life.',
-                'His work integrates mindfulness, neuroscience, developmental psychology, somatic awareness, shadow integration, habit change, and decades of experience helping people lead, relate, practice, and grow.',
-                'He is the author of Built This Way: Why Painful Patterns Repeat and How to Change Them, and the creator of the SkillfullyAware Awareness Quotient, or SAAQ.',
-              ].map((text, i) => (
+              {[copy.about_body_1, copy.about_body_2, copy.about_body_3].map((text, i) => (
                 <p key={i} style={{ fontSize: 'var(--text-lead)', color: 'var(--color-brand-text-muted)', lineHeight: 1.75, maxWidth: '52ch' }}>
                   {text}
                 </p>
@@ -125,7 +128,7 @@ export function AboutMark({ portrait = '/images/mark-hero-v3.webp' }: { portrait
 
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
               <Link
-                href="/about"
+                href={copy.about_cta_primary_url}
                 className="inline-flex items-center gap-2"
                 style={{
                   backgroundColor: '#ffffff',
@@ -143,11 +146,11 @@ export function AboutMark({ portrait = '/images/mark-hero-v3.webp' }: { portrait
                 onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c34d27'; e.currentTarget.style.color = '#ffffff'; }}
                 onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.color = '#c34d27'; }}
               >
-                Read Full Story <ArrowRight className="w-4 h-4" />
+                {copy.about_cta_primary_label} <ArrowRight className="w-4 h-4" />
               </Link>
 
               <Link
-                href="/contact"
+                href={copy.about_cta_secondary_url}
                 style={{
                   backgroundColor: 'transparent',
                   color: 'var(--color-brand-text)',
@@ -170,7 +173,7 @@ export function AboutMark({ portrait = '/images/mark-hero-v3.webp' }: { portrait
                   e.currentTarget.style.color = 'var(--color-brand-text)';
                 }}
               >
-                Get in Touch
+                {copy.about_cta_secondary_label}
               </Link>
             </div>
           </div>

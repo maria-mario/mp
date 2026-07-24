@@ -6,8 +6,8 @@ import { Calendar, Users, TrendingUp, Award } from 'lucide-react';
 const features = [
   {
     icon: Calendar,
-    title: 'SA360 Framework',
-    description: 'Comprehensive assessment of your leadership power centers and aptitudes.',
+    title: 'SAAQ Assessment',
+    description: 'A private developmental reflection on how you lead, relate, decide, protect, and grow under pressure.',
   },
   {
     icon: Users,

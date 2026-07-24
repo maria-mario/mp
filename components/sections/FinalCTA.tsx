@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import type { HomepageCopy } from '@/lib/homepage';
 
-export function FinalCTA() {
+export function FinalCTA({ copy }: { copy: HomepageCopy }) {
   return (
     <section style={{
       backgroundColor: 'var(--color-brand-cream)',
@@ -18,7 +19,7 @@ export function FinalCTA() {
           marginBottom: '1.25rem',
           lineHeight: 1.2,
         }}>
-          There&apos;s nothing wrong with you. Patterns form for a reason, and patterns can change.
+          {copy.final_heading}
         </h2>
 
         <p style={{
@@ -29,7 +30,7 @@ export function FinalCTA() {
           maxWidth: '44ch',
           margin: '0 auto 2.5rem',
         }}>
-          Start with the book, explore the leadership work, try the reader tool, practice with Power Tools, or go deeper with the SAAQ. Choose the path that fits why you&apos;re here today.
+          {copy.final_body}
         </p>
 
         <div style={{
@@ -39,7 +40,7 @@ export function FinalCTA() {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-          <Link href="/power-tools/book" style={{
+          <Link href={copy.final_cta_primary_url} style={{
             display: 'inline-flex',
             alignItems: 'center',
             backgroundColor: '#ffffff',
@@ -51,10 +52,10 @@ export function FinalCTA() {
             fontSize: 'var(--text-small)',
             textDecoration: 'none',
           }}>
-            Start with the Book
+            {copy.final_cta_primary_label}
           </Link>
 
-          <Link href="#leader-path" style={{
+          <Link href={copy.final_cta_secondary_url} style={{
             display: 'inline-flex',
             alignItems: 'center',
             backgroundColor: 'transparent',
@@ -66,18 +67,18 @@ export function FinalCTA() {
             textDecoration: 'none',
             border: '1px solid var(--color-brand-border)',
           }}>
-            Explore Leadership Work
+            {copy.final_cta_secondary_label}
           </Link>
         </div>
 
         <div style={{ marginTop: '1.5rem' }}>
-          <Link href="/#newsletter" style={{
+          <Link href={copy.final_link_url} style={{
             fontSize: 'var(--text-small)',
             fontWeight: 600,
             color: 'var(--color-brand-sienna)',
             textDecoration: 'none',
           }}>
-            Get the Newsletter →
+            {copy.final_link_label}
           </Link>
         </div>
 

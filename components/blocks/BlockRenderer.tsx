@@ -10,6 +10,7 @@ import BlockFaq          from './BlockFaq';
 import BlockTestimonials from './BlockTestimonials';
 import BlockBlogFeed     from './BlockBlogFeed';
 import BlockHeroPhoto    from './BlockHeroPhoto';
+import BlockNewsletter   from './BlockNewsletter';
 
 export default function BlockRenderer({ blocks }: { blocks: PageBlock[] }) {
   return (
@@ -27,6 +28,7 @@ export default function BlockRenderer({ blocks }: { blocks: PageBlock[] }) {
           case 'blocks_testimonials': return <BlockTestimonials key={block.id} />;
           case 'blocks_blog_feed':    return <BlockBlogFeed     key={block.id} />;
           case 'blocks_hero_photo':   return <BlockHeroPhoto    key={block.id} />;
+          case 'blocks_newsletter':   return <BlockNewsletter   key={block.id} block={block.item} />;
           default:                    return null;
         }
       })}

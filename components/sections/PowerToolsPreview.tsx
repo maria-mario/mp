@@ -3,66 +3,32 @@
 import type { ElementType } from 'react';
 import Link from 'next/link';
 import { BookOpen, Video, Headphones, Film } from 'lucide-react';
+import type { HomepageCopy, PowerToolItem } from '@/lib/homepage';
 
-type ToolItem = { name: string; href: string; tag: string; external?: boolean };
+/** Icon + swatch per category name, matching the Directus `category` values. */
+const CATEGORY_STYLE: Record<string, { icon: ElementType; iconColor: string; color: string; borderColor: string }> = {
+  'Online Classes':      { icon: Video,      iconColor: 'var(--color-brand-sienna)', color: 'rgba(192,82,42,0.08)', borderColor: 'rgba(192,82,42,0.18)' },
+  'Workbooks':           { icon: BookOpen,   iconColor: 'var(--color-brand-text)',   color: 'rgba(26,26,26,0.05)',  borderColor: 'rgba(26,26,26,0.12)'  },
+  'Meditation Programs': { icon: Headphones, iconColor: 'var(--color-brand-sienna)', color: 'rgba(192,82,42,0.08)', borderColor: 'rgba(192,82,42,0.18)' },
+  'Media':               { icon: Film,       iconColor: 'var(--color-brand-text)',   color: 'rgba(26,26,26,0.05)',  borderColor: 'rgba(26,26,26,0.12)'  },
+};
 
-const categories: {
-  icon: ElementType;
-  label: string;
-  color: string;
-  borderColor: string;
-  iconColor: string;
-  items: ToolItem[];
-}[] = [
-  {
-    icon: Video,
-    label: 'Online Classes',
-    color: 'rgba(192,82,42,0.12)',
-    borderColor: 'rgba(192,82,42,0.25)',
-    iconColor: 'var(--color-brand-sienna)',
-    items: [
-      { name: 'Project SkillfullyAware',        href: '/power-tools/project-sa',  tag: 'Class' },
-      { name: 'Overcoming Addictive Behaviors',  href: '/power-tools/addictive',   tag: 'Class' },
-    ],
-  },
-  {
-    icon: BookOpen,
-    label: 'Workbooks',
-    color: 'rgba(26,26,26,0.04)',
-    borderColor: 'rgba(26,26,26,0.1)',
-    iconColor: 'var(--color-brand-text)',
-    items: [
-      { name: 'Becoming SkillfullyAware',  href: '/power-tools/workbook-sa',  tag: 'PDF' },
-      { name: 'Raising Awareness',          href: '/power-tools/workbook-ra',  tag: 'PDF' },
-      { name: 'Chasing Shadow Work',        href: '/power-tools/workbook-csw', tag: 'PDF' },
-    ],
-  },
-  {
-    icon: Headphones,
-    label: 'Meditation Programs',
-    color: 'rgba(192,82,42,0.08)',
-    borderColor: 'rgba(192,82,42,0.2)',
-    iconColor: 'var(--color-brand-sienna)',
-    items: [
-      { name: 'Feel Better Series',     href: '/power-tools/feel-better',   tag: 'Audio + PDF' },
-      { name: 'Learn To Meditate',      href: '/power-tools/meditate',      tag: 'Audio' },
-      { name: 'Comprehensive Program',  href: '/power-tools/comprehensive', tag: 'Bundle' },
-    ],
-  },
-  {
-    icon: Film,
-    label: 'Media',
-    color: 'rgba(26,26,26,0.04)',
-    borderColor: 'rgba(26,26,26,0.1)',
-    iconColor: 'var(--color-brand-text)',
-    items: [
-      { name: 'The Book',  href: 'https://www.wholehearted.org/', tag: 'Book',      external: true },
-      { name: 'Doc Film',  href: 'https://www.wholehearted.org/', tag: 'Film',      external: true },
-    ],
-  },
-];
+const FALLBACK_STYLE = CATEGORY_STYLE['Workbooks'];
 
-export function PowerToolsPreview() {
+/** Preserve the order the items appear in Directus. */
+function groupByCategory(items: PowerToolItem[]) {
+  const order: string[] = [];
+  const groups = new Map<string, PowerToolItem[]>();
+  for (const item of items) {
+    if (!groups.has(item.category)) { groups.set(item.category, []); order.push(item.category); }
+    groups.get(item.category)!.push(item);
+  }
+  return order.map(label => ({ label, items: groups.get(label)!, ...(CATEGORY_STYLE[label] ?? FALLBACK_STYLE) }));
+}
+
+export function PowerToolsPreview({ copy }: { copy: HomepageCopy }) {
+  const categories = groupByCategory(copy.powertools_items);
+
   return (
     <section className="section" style={{ backgroundColor: 'var(--color-brand-off-white)' }}>
       <div className="container">
@@ -70,16 +36,15 @@ export function PowerToolsPreview() {
         {/* Header */}
         <div className="text-center mb-14">
           <div className="section-divider mx-auto mb-4" />
-          <span className="eyebrow">Power Tools</span>
+          <span className="eyebrow">{copy.powertools_eyebrow}</span>
           <h2 className="mt-4 mb-4">
-            Practice the Change
+            {copy.powertools_heading}
           </h2>
           <p className="mx-auto" style={{ maxWidth: '52ch', color: 'var(--color-brand-text-muted)' }}>
-            Insight matters, but insight alone rarely changes a pattern.
+            {copy.powertools_body_1}
           </p>
           <p className="mx-auto mt-3" style={{ maxWidth: '52ch', color: 'var(--color-brand-text-muted)' }}>
-            Power Tools are online classes, workbooks, guided meditations, and practical exercises
-            that help you work with attention, emotion, habits, reactions, and relationships in daily life.
+            {copy.powertools_body_2}
           </p>
         </div>
 
@@ -147,6 +112,22 @@ export function PowerToolsPreview() {
               </ul>
             </div>
           ))}
+        </div>
+
+        <div className="text-center">
+          <Link href={copy.powertools_cta_url} style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            backgroundColor: 'var(--color-brand-sienna)',
+            color: '#ffffff',
+            padding: '0.875rem 2rem',
+            borderRadius: '9999px',
+            fontWeight: 600,
+            fontSize: 'var(--text-small)',
+            textDecoration: 'none',
+          }}>
+            {copy.powertools_cta_label} →
+          </Link>
         </div>
 
       </div>

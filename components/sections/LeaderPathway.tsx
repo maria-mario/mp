@@ -1,31 +1,11 @@
 import Link from 'next/link';
 import { BarChart2, Compass, User } from 'lucide-react';
+import type { HomepageCopy } from '@/lib/homepage';
 
-const cards = [
-  {
-    icon: BarChart2,
-    title: 'SAAQ for Leaders',
-    body: 'A private developmental reflection on how you lead, relate, decide, protect, and grow under pressure.',
-    cta: 'Explore the SAAQ',
-    href: '/saaq',
-  },
-  {
-    icon: Compass,
-    title: 'Forum Retreats',
-    body: 'Guided experiences for EO/YPO forums and leadership groups ready for honest, skillful, well-held development.',
-    cta: 'Explore Forum Retreats',
-    href: '/retreats',
-  },
-  {
-    icon: User,
-    title: 'Executive Coaching',
-    body: 'One-on-one support for leaders navigating pressure, transition, conflict, decision-making, identity, or growth.',
-    cta: 'Explore Coaching',
-    href: '/coaching',
-  },
-];
+/** Icons cycle in the order the cards are listed in Directus. */
+const ICONS = [BarChart2, Compass, User];
 
-export function LeaderPathway() {
+export function LeaderPathway({ copy }: { copy: HomepageCopy }) {
   return (
     <section id="leader-path" style={{
       backgroundColor: '#ffffff',
@@ -42,7 +22,7 @@ export function LeaderPathway() {
             color: 'var(--color-brand-sienna)',
             marginBottom: '1rem',
           }}>
-            For Leaders
+            {copy.leadership_eyebrow}
           </p>
           <h2 style={{
             fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
@@ -53,7 +33,7 @@ export function LeaderPathway() {
             lineHeight: 1.15,
             maxWidth: '22ch',
           }}>
-            For leaders, founders, forums, and teams
+            {copy.leadership_heading}
           </h2>
           <p style={{
             fontSize: '1.05rem',
@@ -62,7 +42,7 @@ export function LeaderPathway() {
             maxWidth: '52ch',
             marginBottom: '1rem',
           }}>
-            The same patterns that shape personal life also show up in leadership — in decision-making, conflict, trust, avoidance, over-control, burnout, and the private pressure many high-performing people carry alone.
+            {copy.leadership_body_1}
           </p>
           <p style={{
             fontSize: '1.05rem',
@@ -70,7 +50,7 @@ export function LeaderPathway() {
             lineHeight: 1.75,
             maxWidth: '52ch',
           }}>
-            SkillfullyAware® experiences help leaders and groups build clearer self-awareness, stronger trust, more honest conversations, and practical growth.
+            {copy.leadership_body_2}
           </p>
         </div>
 
@@ -79,7 +59,9 @@ export function LeaderPathway() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
           gap: '1.25rem',
         }}>
-          {cards.map((card) => (
+          {copy.leadership_cards.map((card, i) => {
+            const Icon = ICONS[i % ICONS.length];
+            return (
             <div key={card.title} style={{
               backgroundColor: '#ffffff',
               border: '1px solid var(--color-brand-border)',
@@ -99,7 +81,7 @@ export function LeaderPathway() {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <card.icon className="w-5 h-5" style={{ color: 'var(--color-brand-sienna)' }} />
+                <Icon className="w-5 h-5" style={{ color: 'var(--color-brand-sienna)' }} />
               </div>
               <h3 style={{
                 fontSize: '1.1rem',
@@ -116,16 +98,17 @@ export function LeaderPathway() {
               }}>
                 {card.body}
               </p>
-              <Link href={card.href} style={{
+              <Link href={card.cta_url} style={{
                 fontSize: 'var(--text-small)',
                 fontWeight: 700,
                 color: 'var(--color-brand-sienna)',
                 textDecoration: 'none',
               }}>
-                {card.cta} →
+                {card.cta_label} →
               </Link>
             </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

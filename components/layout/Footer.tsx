@@ -16,13 +16,14 @@ const columns = [
   {
     heading: 'SAAQ Coaching',
     links: [
-      { name: 'Explore the SAAQ',    href: '/consultation' },
+      { name: 'SAAQ Assessment',     href: '/consultation' },
       { name: 'Book a Consultation', href: '/contact'      },
     ],
   },
   {
     heading: 'Power Tools',
     links: [
+      { name: 'All Power Tools',       href: '/power-tools'      },
       { name: 'Built This Way (Book)', href: '/power-tools/book' },
       { name: 'Documentary Film',      href: 'https://tubitv.com/movies/701292/is-your-story-making-you-sick', external: true },
     ],
@@ -56,7 +57,7 @@ const socials = [
 ];
 
 // ── Newsletter form (unchanged from original) ────────────────────────────────
-function NewsletterForm() {
+function NewsletterForm({ buttonLabel }: { buttonLabel: string }) {
   const [mounted, setMounted] = useState(false);
   const [email,   setEmail]   = useState('');
   const [status,  setStatus]  = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -70,7 +71,7 @@ function NewsletterForm() {
       const res = await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, source_page: `${window.location.pathname} (footer)` }),
       });
       if (res.ok) { setStatus('success'); setEmail(''); setTimeout(() => setStatus('idle'), 5000); }
       else setStatus('error');
@@ -111,7 +112,7 @@ function NewsletterForm() {
           onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-sienna-dark)')}
           onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-sienna)')}
         >
-          {status === 'loading' ? 'Subscribing…' : 'Subscribe'}
+          {status === 'loading' ? 'Subscribing…' : buttonLabel}
         </button>
       </div>
       {status === 'error' && (
@@ -132,8 +133,22 @@ const mutedLink: React.CSSProperties = {
 };
 
 // ── Footer ───────────────────────────────────────────────────────────────────
-/** Blog categories come from Directus, resolved by the server layout. */
-export function Footer({ blogCategories = [] }: { blogCategories?: string[] }) {
+/** Brand copy, newsletter copy and blog categories all come from Directus. */
+export function Footer({
+  blogCategories = [],
+  brandCopy,
+  newsletterHeading,
+  newsletterBody,
+  newsletterButtonLabel,
+  newsletterPrivacyLine,
+}: {
+  blogCategories?: string[];
+  brandCopy: string;
+  newsletterHeading: string;
+  newsletterBody: string;
+  newsletterButtonLabel: string;
+  newsletterPrivacyLine: string;
+}) {
   return (
     <footer style={{ backgroundColor: 'var(--color-brand-navy)', color: '#ffffff' }}>
 
@@ -142,13 +157,15 @@ export function Footer({ blogCategories = [] }: { blogCategories?: string[] }) {
         <div className="container" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
           <div style={{ maxWidth: '36rem', margin: '0 auto', textAlign: 'center' }}>
             <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-title)', fontWeight: 600, color: '#ffffff', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
-              Stay{' '}
-              <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna-light)' }}>SkillfullyAware®</em>
+              {newsletterHeading}
             </h3>
             <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'var(--text-lead)', marginBottom: '2rem' }}>
-              Get the latest insights, practices, and transformative wisdom delivered to your inbox.
+              {newsletterBody}
             </p>
-            <NewsletterForm />
+            <NewsletterForm buttonLabel={newsletterButtonLabel} />
+            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 'var(--text-xs)', marginTop: '1rem' }}>
+              {newsletterPrivacyLine}
+            </p>
           </div>
         </div>
       </div>
@@ -166,7 +183,7 @@ export function Footer({ blogCategories = [] }: { blogCategories?: string[] }) {
               SkillfullyAware®
             </div>
             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 'var(--text-small)', lineHeight: 1.75, maxWidth: '26ch', marginBottom: '1.5rem' }}>
-              SkillfullyAware® helps people understand their patterns, work through them, and continue evolving in life, relationships, and leadership.
+              {brandCopy}
             </p>
             <div style={{ display: 'flex', gap: '0.625rem', flexWrap: 'wrap' }}>
               {socials.map(s => (

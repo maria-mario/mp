@@ -2,38 +2,22 @@
 
 import Link from 'next/link';
 import { Calendar, ArrowRight, Clock } from 'lucide-react';
+import type { BlogPost } from '@/lib/blog';
+import type { HomepageCopy } from '@/lib/homepage';
 
-const blogPosts = [
-  {
-    id: 1,
-    title: 'Of Wolves, Rivers, and Us',
-    excerpt: 'Exploring the interconnected systems that shape leadership and organizational dynamics...',
-    category: 'Leadership Power',
-    date: '2024-03-15',
-    readTime: '6 min read',
-    slug: 'of-wolves-rivers-and-us',
-  },
-  {
-    id: 2,
-    title: 'The Detour That Made the Book Better',
-    excerpt: 'Sometimes the obstacles we face become the very things that transform our path...',
-    category: 'SkillfullyAware',
-    date: '2024-03-10',
-    readTime: '4 min read',
-    slug: 'detour-made-book-better',
-  },
-  {
-    id: 3,
-    title: 'From State to Trait',
-    excerpt: 'Understanding how temporary states of awareness can become permanent leadership traits...',
-    category: 'Shadow Work',
-    date: '2024-03-05',
-    readTime: '8 min read',
-    slug: 'from-state-to-trait',
-  },
-];
+/** ~200 words per minute over the rendered text. */
+function readTime(html: string): string {
+  const words = html.replace(/<[^>]*>/g, ' ').trim().split(/\s+/).length;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+}
 
-export function LatestBlogPosts() {
+export function LatestBlogPosts({
+  copy,
+  posts,
+}: {
+  copy: HomepageCopy;
+  posts: BlogPost[];
+}) {
   return (
     <section className="section" style={{ backgroundColor: 'var(--color-brand-cream)' }}>
       <div className="container">
@@ -42,19 +26,18 @@ export function LatestBlogPosts() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12" style={{ gap: '1.5rem' }}>
           <div>
             <div className="section-divider mb-4" />
-            <span className="eyebrow">The Blog</span>
-            <h2 className="mt-4 mb-3">
-              Breaking Bad{' '}
-              <em style={{ fontStyle: 'italic', color: 'var(--color-brand-sienna)' }}>(habits)</em>
-            </h2>
+            <span className="eyebrow">{copy.blog_eyebrow}</span>
+            <h2
+              className="mt-4 mb-3"
+              dangerouslySetInnerHTML={{ __html: copy.blog_heading }}
+            />
             <p style={{ color: 'var(--color-brand-text-muted)', fontSize: 'var(--text-lead)', maxWidth: '48ch' }}>
-              Essays on why we get stuck, why change is hard, and how to practice becoming
-              more SkillfullyAware in daily life.
+              {copy.blog_body}
             </p>
           </div>
 
           <Link
-            href="/blog"
+            href={copy.blog_cta_url}
             className="inline-flex items-center gap-2 flex-shrink-0"
             style={{
               backgroundColor: 'var(--color-brand-navy)',
@@ -72,13 +55,13 @@ export function LatestBlogPosts() {
             onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-navy-light)')}
             onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'var(--color-brand-navy)')}
           >
-            Read the Latest Essays <ArrowRight className="w-4 h-4" />
+            {copy.blog_cta_label} <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
         {/* Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogPosts.map(post => (
+          {posts.map(post => (
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
@@ -125,7 +108,7 @@ export function LatestBlogPosts() {
                     borderRadius: '9999px',
                   }}
                 >
-                  {post.category}
+                  {post.categories[0] ?? 'Essay'}
                 </span>
               </div>
 
@@ -140,11 +123,13 @@ export function LatestBlogPosts() {
                 >
                   <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                     <Calendar className="w-3.5 h-3.5" />
-                    {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    {post.published_date
+                      ? new Date(post.published_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                      : ''}
                   </span>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                     <Clock className="w-3.5 h-3.5" />
-                    {post.readTime}
+                    {readTime(post.content)}
                   </span>
                 </div>
 

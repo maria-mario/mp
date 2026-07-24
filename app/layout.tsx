@@ -3,8 +3,8 @@ import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { getSiteMedia } from "@/lib/site-settings";
-import { getAllPosts } from "@/lib/blog";
+import { getSiteMedia, getSiteCopy } from "@/lib/site-settings";
+import { getCuratedCategories } from "@/lib/blog";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -21,34 +21,35 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Dr. Mark Pirtle | Executive Leadership Coaching & Retreats",
+  title: "Dr. Mark Pirtle | SkillfullyAware®",
   description:
-    "Transform your leadership with the SkillfullyAware® methodology. Custom forum retreats, executive coaching, and transformational experiences for EO/YPO leaders.",
+    "SkillfullyAware® helps people understand their patterns, work through them, and continue evolving in life, relationships, and leadership.",
   keywords:
-    "executive coaching, leadership development, EO retreats, YPO forums, shadow work, mindfulness for executives",
+    "painful patterns, habit change, executive coaching, leadership development, EO retreats, YPO forums, shadow work, mindfulness, SAAQ",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // Nav/footer chrome is driven by Directus: logo from site_settings, blog
-  // categories derived from the live posts rather than the bundled copy.
-  const [media, posts] = await Promise.all([getSiteMedia(), getAllPosts()]);
-
-  const counts: Record<string, number> = {};
-  posts.forEach((p) => p.categories.forEach((c) => { counts[c] = (counts[c] ?? 0) + 1; }));
-
-  const topCategories = Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 3)
-    .map(([name, count]) => ({ name, count }));
-
-  const allCategories = Object.keys(counts).sort();
+  // Nav and footer chrome is driven by Directus: logo and copy from
+  // site_settings, blog categories from the curated `blog_categories` taxonomy.
+  const [media, copy, categories] = await Promise.all([
+    getSiteMedia(),
+    getSiteCopy(),
+    getCuratedCategories(),
+  ]);
 
   return (
     <html lang="en" className={`${jakarta.variable} ${playfair.variable}`}>
       <body style={{ fontFamily: "var(--font-sans)", backgroundColor: "var(--color-brand-cream)" }}>
-        <Header logo={media.logo} categories={topCategories} />
+        <Header logo={media.logo} categories={categories} />
         <main>{children}</main>
-        <Footer blogCategories={allCategories} />
+        <Footer
+          blogCategories={categories.map((c) => c.name)}
+          brandCopy={copy.footerBrandCopy}
+          newsletterHeading={copy.newsletterHeading}
+          newsletterBody={copy.newsletterBody}
+          newsletterButtonLabel={copy.newsletterButtonLabel}
+          newsletterPrivacyLine={copy.newsletterPrivacyLine}
+        />
       </body>
     </html>
   );

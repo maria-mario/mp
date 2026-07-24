@@ -2,6 +2,8 @@
 
 export type BlockBackground = 'navy' | 'cream' | 'white' | 'sienna';
 
+export type QuickFact = { text: string };
+
 export type BlockHeroData = {
   id: number;
   anchor_id?: string;
@@ -13,6 +15,7 @@ export type BlockHeroData = {
   cta_secondary_label?: string;
   cta_secondary_url?: string;
   background?: 'navy' | 'cream' | 'white';
+  quick_facts?: QuickFact[];
 };
 
 export type BlockRichtextData = {
@@ -110,6 +113,17 @@ export type BlockTestimonialsData = { id: number; anchor_id?: string };
 export type BlockBlogFeedData    = { id: number; anchor_id?: string; heading?: string; limit?: number };
 export type BlockHeroPhotoData   = { id: number; anchor_id?: string };
 
+/** Every field is optional — anything left empty falls back to site_settings. */
+export type BlockNewsletterData = {
+  id: number;
+  anchor_id?: string;
+  heading?: string;
+  body?: string;
+  button_label?: string;
+  privacy_line?: string;
+  background?: 'sienna' | 'navy' | 'cream';
+};
+
 export type BlockCollectionName =
   | 'blocks_hero'
   | 'blocks_richtext'
@@ -121,7 +135,8 @@ export type BlockCollectionName =
   | 'blocks_faq'
   | 'blocks_testimonials'
   | 'blocks_blog_feed'
-  | 'blocks_hero_photo';
+  | 'blocks_hero_photo'
+  | 'blocks_newsletter';
 
 export type PageBlock =
   | { id: number; sort: number; collection: 'blocks_hero';         item: BlockHeroData }
@@ -134,7 +149,8 @@ export type PageBlock =
   | { id: number; sort: number; collection: 'blocks_faq';          item: BlockFaqData }
   | { id: number; sort: number; collection: 'blocks_testimonials'; item: BlockTestimonialsData }
   | { id: number; sort: number; collection: 'blocks_blog_feed';    item: BlockBlogFeedData }
-  | { id: number; sort: number; collection: 'blocks_hero_photo';   item: BlockHeroPhotoData };
+  | { id: number; sort: number; collection: 'blocks_hero_photo';   item: BlockHeroPhotoData }
+  | { id: number; sort: number; collection: 'blocks_newsletter';   item: BlockNewsletterData };
 
 export type PageSeo = {
   title?: string;
@@ -169,6 +185,7 @@ const BLOCK_FIELDS = [
   'blocks.item:blocks_testimonials.*',
   'blocks.item:blocks_blog_feed.*',
   'blocks.item:blocks_hero_photo.*',
+  'blocks.item:blocks_newsletter.*',
 ].join(',');
 
 export function buildMetadata(

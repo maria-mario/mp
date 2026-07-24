@@ -5,10 +5,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, Search } from 'lucide-react';
 
-/** Top blog categories, resolved from Directus by the server layout. */
-export type HeaderCategory = { name: string; count: number };
+/** Blog categories, curated in Directus and resolved by the server layout. */
+export type HeaderCategory = { name: string; description: string };
 
-function buildNavigation(topCategories: HeaderCategory[]) {
+function buildNavigation(blogCategories: HeaderCategory[]) {
   return [
     {
       name: 'About',
@@ -21,16 +21,26 @@ function buildNavigation(topCategories: HeaderCategory[]) {
     },
     { name: 'Forum Retreats', href: '/forum-retreats' },
     { name: 'SAAQ Coaching',  href: '/consultation'   },
-    { name: 'Power Tools',    href: '/power-tools/book' },
+    {
+      name: 'Power Tools',
+      href: '/power-tools',
+      dropdown: [
+        { name: 'All Power Tools',    href: '/power-tools',                      description: 'Classes, workbooks, meditations' },
+        { name: 'Online Classes',     href: '/power-tools#online-classes',       description: 'Live cohort classes' },
+        { name: 'Workbooks',          href: '/power-tools#workbooks',            description: 'Work through it on the page' },
+        { name: 'Meditation Programs', href: '/power-tools#meditation-programs', description: 'Guided practice, at your own pace' },
+        { name: 'Built This Way',     href: '/power-tools/book',                 description: 'The book' },
+      ],
+    },
     {
       name: 'Blog',
       href: '/blog',
       dropdown: [
-        { name: 'All Articles', href: '/blog', description: 'Thought leadership & insights' },
-        ...topCategories.map(({ name, count }) => ({
+        { name: 'All Essays', href: '/blog', description: 'Patterns, practice, leadership, and growth' },
+        ...blogCategories.map(({ name, description }) => ({
           name,
           href: `/blog?category=${encodeURIComponent(name)}`,
-          description: `${count} article${count !== 1 ? 's' : ''}`,
+          description,
         })),
       ],
     },
@@ -80,7 +90,7 @@ export function Header({
         transition: 'background-color 0.35s ease',
       }}>
         <div style={{
-          maxWidth: '96rem', margin: '0 auto',
+          margin: '0 auto',
           padding: '0 clamp(1.5rem, 7.5vw, 6.75rem)',
           height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
@@ -112,32 +122,18 @@ export function Header({
                 onMouseEnter={() => setOpenDropdown(item.name)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                {!item.dropdown ? (
-                  <Link href={item.href} style={{
-                    padding: '0.25rem 0', textDecoration: 'none',
-                    color: linkColor, fontSize: 'var(--text-small)', fontWeight: 600,
-                    fontFamily: 'var(--font-sans)', letterSpacing: '0.05em',
-                    transition: 'color 0.15s',
-                  }}
-                    onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
-                    onMouseLeave={e => (e.currentTarget.style.color = linkColor)}
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <button style={{
-                    display: 'flex', alignItems: 'center',
-                    background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem 0',
-                    color: linkColor, fontSize: 'var(--text-small)', fontWeight: 600,
-                    fontFamily: 'var(--font-sans)', letterSpacing: '0.05em',
-                    transition: 'color 0.15s',
-                  }}
-                    onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
-                    onMouseLeave={e => (e.currentTarget.style.color = linkColor)}
-                  >
-                    {item.name}
-                  </button>
-                )}
+                {/* Every top-level label is a real link; the dropdown is hover-only. */}
+                <Link href={item.href} style={{
+                  padding: '0.25rem 0', textDecoration: 'none',
+                  color: linkColor, fontSize: 'var(--text-small)', fontWeight: 600,
+                  fontFamily: 'var(--font-sans)', letterSpacing: '0.05em',
+                  transition: 'color 0.15s',
+                }}
+                  onMouseEnter={e => (e.currentTarget.style.color = linkHover)}
+                  onMouseLeave={e => (e.currentTarget.style.color = linkColor)}
+                >
+                  {item.name}
+                </Link>
 
                 {/* Dropdown panel */}
                 {item.dropdown && openDropdown === item.name && (
@@ -242,9 +238,12 @@ export function Header({
                     </Link>
                   ) : (
                     <>
-                      <div style={{ color: 'var(--color-brand-text-light)', fontSize: 'var(--text-xs)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '1rem 0.75rem 0.4rem' }}>
+                      {/* The section label is itself a link to the section's page. */}
+                      <Link href={item.href} onClick={() => setMobileOpen(false)}
+                        style={{ display: 'block', color: 'var(--color-brand-text-light)', fontSize: 'var(--text-xs)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '1rem 0.75rem 0.4rem', textDecoration: 'none' }}
+                      >
                         {item.name}
-                      </div>
+                      </Link>
                       {item.dropdown.map(d => (
                         <Link key={d.name} href={d.href} onClick={() => setMobileOpen(false)}
                           style={{ display: 'block', padding: '0.65rem 0.75rem', borderRadius: '0.5rem', textDecoration: 'none', transition: 'background 0.15s' }}

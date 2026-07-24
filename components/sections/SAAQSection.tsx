@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import type { HomepageCopy } from '@/lib/homepage';
 
-export function SAAQSection() {
+export function SAAQSection({ copy }: { copy: HomepageCopy }) {
   return (
     <section style={{
       backgroundColor: 'var(--color-brand-cream)',
@@ -22,7 +23,7 @@ export function SAAQSection() {
             color: 'var(--color-brand-sienna)',
             marginBottom: '1rem',
           }}>
-            Go Deeper
+            {copy.saaq_eyebrow}
           </p>
 
           <h2 style={{
@@ -33,7 +34,7 @@ export function SAAQSection() {
             marginBottom: '1.5rem',
             lineHeight: 1.1,
           }}>
-            Go deeper with the SAAQ.
+            {copy.saaq_heading}
           </h2>
 
           <p style={{
@@ -42,7 +43,7 @@ export function SAAQSection() {
             lineHeight: 1.75,
             marginBottom: '1.25rem',
           }}>
-            Some patterns are easy to see. Others are hidden in how we lead, relate, decide, protect ourselves, handle pressure, and make meaning.
+            {copy.saaq_body_1}
           </p>
 
           <p style={{
@@ -51,7 +52,7 @@ export function SAAQSection() {
             lineHeight: 1.75,
             marginBottom: '1.25rem',
           }}>
-            The <strong style={{ color: 'var(--color-brand-text)' }}>SkillfullyAware Awareness Quotient, or SAAQ,</strong> is a private developmental reflection that helps you see your strengths, blind spots, stress reactions, growth edges, and practical next steps.
+            <span dangerouslySetInnerHTML={{ __html: copy.saaq_body_2 }} />
           </p>
 
           <p style={{
@@ -60,11 +61,11 @@ export function SAAQSection() {
             lineHeight: 1.75,
             marginBottom: '2rem',
           }}>
-            For leaders, the SAAQ can become a powerful starting point for coaching, forum retreats, and deeper leadership development.
+            {copy.saaq_body_3}
           </p>
 
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link href="/consultation" style={{
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Link href={copy.saaq_cta_url} style={{
               display: 'inline-flex',
               alignItems: 'center',
               backgroundColor: 'var(--color-brand-sienna)',
@@ -75,8 +76,27 @@ export function SAAQSection() {
               fontSize: 'var(--text-small)',
               textDecoration: 'none',
             }}>
-              Explore the SAAQ →
+              {copy.saaq_cta_label} →
             </Link>
+
+            {copy.saaq_cta_secondary_label && copy.saaq_cta_secondary_url && (
+              <a
+                href={copy.saaq_cta_secondary_url}
+                target={copy.saaq_cta_secondary_url.startsWith('http') ? '_blank' : undefined}
+                rel={copy.saaq_cta_secondary_url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  fontSize: 'var(--text-small)',
+                  fontWeight: 600,
+                  color: 'var(--color-brand-text-muted)',
+                  textDecoration: 'none',
+                  padding: '0.875rem 0',
+                }}
+              >
+                {copy.saaq_cta_secondary_label} →
+              </a>
+            )}
           </div>
         </div>
 

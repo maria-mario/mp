@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import type { HomepageCopy } from '@/lib/homepage';
 
-export function BuiltThisWay() {
+export function BuiltThisWay({ copy }: { copy: HomepageCopy }) {
   return (
     <section style={{
       backgroundColor: '#ffffff',
@@ -56,7 +57,7 @@ export function BuiltThisWay() {
             color: 'var(--color-brand-sienna-light)',
             marginBottom: '1rem',
           }}>
-            Start Here
+            {copy.book_eyebrow}
           </p>
 
           <h2 style={{
@@ -67,7 +68,7 @@ export function BuiltThisWay() {
             marginBottom: '1.5rem',
             lineHeight: 1.15,
           }}>
-            Start with the book. Understand why the pattern repeats.
+            {copy.book_heading}
           </h2>
 
           <p style={{
@@ -76,7 +77,7 @@ export function BuiltThisWay() {
             lineHeight: 1.75,
             marginBottom: '1.25rem',
           }}>
-            There&apos;s nothing wrong with you. There is a reason the pattern repeats.
+            {copy.book_body_1}
           </p>
 
           <p style={{
@@ -85,7 +86,7 @@ export function BuiltThisWay() {
             lineHeight: 1.75,
             marginBottom: '1.25rem',
           }}>
-            People do not repeat painful patterns because they lack willpower or are unwilling to change. They repeat them because old adaptations, nervous system patterns, emotional memory, and practiced responses often move faster than conscious choice.
+            {copy.book_body_2}
           </p>
 
           <p style={{
@@ -94,11 +95,11 @@ export function BuiltThisWay() {
             lineHeight: 1.75,
             marginBottom: '2rem',
           }}>
-            <strong style={{ color: 'var(--color-brand-text)' }}>Built This Way</strong> helps you understand why you react before you can think, why insight alone is not enough, and how real change becomes possible through awareness, practice, integration, and compassion.
+            <span dangerouslySetInnerHTML={{ __html: copy.book_body_3 }} />
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-            <Link href="/power-tools/book#tiers" style={{
+            <Link href={copy.book_cta_primary_url} style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
@@ -110,10 +111,10 @@ export function BuiltThisWay() {
               fontSize: 'var(--text-small)',
               textDecoration: 'none',
             }}>
-              Get Book Updates &amp; Reader Bonuses <ArrowRight className="w-4 h-4" />
+              {copy.book_cta_primary_label} <ArrowRight className="w-4 h-4" />
             </Link>
 
-            <Link href="/power-tools/book" style={{
+            <Link href={copy.book_cta_secondary_url} style={{
               display: 'inline-flex',
               alignItems: 'center',
               fontSize: 'var(--text-small)',
@@ -122,7 +123,7 @@ export function BuiltThisWay() {
               textDecoration: 'none',
               padding: '0.875rem 0',
             }}>
-              Learn More About the Book →
+              {copy.book_cta_secondary_label} →
             </Link>
           </div>
         </div>

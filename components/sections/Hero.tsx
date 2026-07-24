@@ -1,8 +1,19 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import type { HomepageCopy } from '@/lib/homepage';
 
-export function Hero({ image = '/images/mark-hero-v3.webp' }: { image?: string }) {
+/** Alternating brand colours for the audience CTAs, in Figma order. */
+const CTA_COLORS = ['#c34d27', '#3d8cad'];
+const CTA_WIDTHS = ['17.5rem', '19.375rem'];
+
+export function Hero({
+  image = '/images/mark-hero-v3.webp',
+  copy,
+}: {
+  image?: string;
+  copy: HomepageCopy;
+}) {
   return (
     <section style={{ backgroundColor: 'var(--color-brand-cream)', paddingTop: '6.25rem', paddingBottom: '2rem' }}>
       <div className="container">
@@ -52,7 +63,7 @@ export function Hero({ image = '/images/mark-hero-v3.webp' }: { image?: string }
               maxWidth: '14ch',
               margin: 0,
             }}>
-              Why do painful patterns repeat in life and at work?
+              {copy.hero_headline}
             </h1>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '35rem' }}>
@@ -62,7 +73,7 @@ export function Hero({ image = '/images/mark-hero-v3.webp' }: { image?: string }
                 lineHeight: 1.5,
                 margin: 0,
               }}>
-                You can understand the issue and still struggle to change it.
+                {copy.hero_body_1}
               </p>
               <p style={{
                 fontSize: 'clamp(1rem, 1.4vw, 1.25rem)',
@@ -70,7 +81,7 @@ export function Hero({ image = '/images/mark-hero-v3.webp' }: { image?: string }
                 lineHeight: 1.5,
                 margin: 0,
               }}>
-                SkillfullyAware® helps you understand your patterns, work through them, and grow into a wiser, healthier, more effective human being.
+                {copy.hero_body_2}
               </p>
             </div>
 
@@ -81,66 +92,44 @@ export function Hero({ image = '/images/mark-hero-v3.webp' }: { image?: string }
               letterSpacing: '0.05em',
               margin: 0,
             }}>
-              Choose the path that fits why you&apos;re here today.
+              {copy.hero_orientation_line}
             </p>
 
             {/* Two audience CTAs */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem' }}>
-
-              <Link href="/power-tools/book" style={{
-                display: 'inline-flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#c34d27',
-                color: '#ffffff',
-                padding: '0.875rem 1.5rem',
-                borderRadius: '9999px',
-                textDecoration: 'none',
-                minWidth: '17.5rem',
-                height: '4.6875rem',
-                gap: '0.2rem',
-              }}>
-                <span style={{ fontWeight: 600, fontSize: '1rem', letterSpacing: '0.03em' }}>
-                  Understand My Patterns
-                </span>
-                <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.8)', fontWeight: 400 }}>
-                  Start with the Book
-                </span>
-              </Link>
-
-              <Link href="/forum-retreats" style={{
-                display: 'inline-flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#3d8cad',
-                color: '#ffffff',
-                padding: '0.875rem 1.5rem',
-                borderRadius: '9999px',
-                textDecoration: 'none',
-                minWidth: '19.375rem',
-                height: '4.6875rem',
-                gap: '0.2rem',
-              }}>
-                <span style={{ fontWeight: 600, fontSize: '1rem', letterSpacing: '0.03em' }}>
-                  Leadership, Forums &amp; Retreats
-                </span>
-                <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.8)', fontWeight: 400 }}>
-                  Explore Leadership Work
-                </span>
-              </Link>
-
+              {copy.hero_ctas.map((cta, i) => (
+                <Link key={cta.title} href={cta.url} style={{
+                  display: 'inline-flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: CTA_COLORS[i % CTA_COLORS.length],
+                  color: '#ffffff',
+                  padding: '0.875rem 1.5rem',
+                  borderRadius: '9999px',
+                  textDecoration: 'none',
+                  minWidth: CTA_WIDTHS[i % CTA_WIDTHS.length],
+                  height: '4.6875rem',
+                  gap: '0.2rem',
+                }}>
+                  <span style={{ fontWeight: 600, fontSize: '1rem', letterSpacing: '0.03em' }}>
+                    {cta.title}
+                  </span>
+                  <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.8)', fontWeight: 400 }}>
+                    {cta.subtitle}
+                  </span>
+                </Link>
+              ))}
             </div>
 
-            <Link href="/#start" style={{
+            <Link href={copy.hero_scroll_url} style={{
               fontSize: '1rem',
               color: '#3d8cad',
               textDecoration: 'none',
               fontWeight: 600,
               letterSpacing: '0.03em',
             }}>
-              Not sure where to begin? Start here →
+              {copy.hero_scroll_label}
             </Link>
 
           </div>
